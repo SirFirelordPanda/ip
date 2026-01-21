@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Misora {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String[] listOfStrings = new String[100];
+        int listLength = 0;
 
         String logo =   "   _____  .___  _________________ __________    _____\n" +
                         "  /     \\ |   |/   _____/\\_____  \\______    \\  /  _  \\\n" +
@@ -28,10 +30,18 @@ public class Misora {
 
             if (inputLine.equalsIgnoreCase("bye")) {
                 break;
+            } else if (inputLine.equalsIgnoreCase("list")) {
+                for (int i = 1; i < listLength + 1; i ++) {
+                    System.out.printf("%d. %s\n", i, listOfStrings[i - 1]);
+                }
             }
 
             System.out.println(breakerLine);
-            System.out.println(inputLine);
+            if (listLength < 99) {
+                listOfStrings[listLength] = inputLine;
+                listLength++;
+            }
+            System.out.println("added: " + inputLine);
         }
 
         scanner.close();
