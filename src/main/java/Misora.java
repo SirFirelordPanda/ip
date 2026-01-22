@@ -1,11 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import Exceptions.*;
 
 public class Misora {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] listOfTasks = new Task[100];
-        int listLength = 0;
+        List<Task> listOfTasks = new ArrayList<>();
 
         String logo =   "   _____  .___  _________________ __________    _____\n" +
                         "  /     \\ |   |/   _____/\\_____  \\______    \\  /  _  \\\n" +
@@ -33,8 +34,8 @@ public class Misora {
                 break;
             } else if (inputLine.equalsIgnoreCase("list")) {
                 System.out.println(breakerLine);
-                for (int i = 1; i < listLength + 1; i ++) {
-                    System.out.printf("%d.%s\n", i, listOfTasks[i - 1].toString());
+                for (int i = 1, listLength = listOfTasks.size(); i < listLength + 1; i ++) {
+                    System.out.printf("%d.%s\n", i, listOfTasks.get(i - 1).toString());
                 }
 
             } else if (inputLine.toLowerCase().startsWith("mark ")) {
@@ -42,16 +43,14 @@ public class Misora {
                 try {
                     String numberPart = inputLine.substring(5).trim();
                     int numberMarked = Integer.parseInt(numberPart);
-                    listOfTasks[numberMarked - 1].setTaskDone(true);
+                    listOfTasks.get(numberMarked - 1).setTaskDone(true);
                     System.out.println(breakerLine);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.printf("  %s\n", listOfTasks[numberMarked - 1].toString());
+                    System.out.printf("  %s\n", listOfTasks.get(numberMarked - 1).toString());
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid number given");
-                } catch (NullPointerException e) {
-                    System.out.println("Number given is too big");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Number given is too small");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Number is not within list size");
                 }
 
             } else if (inputLine.toLowerCase().startsWith("unmark ")) {
@@ -59,16 +58,14 @@ public class Misora {
                 try {
                     String numberPart = inputLine.substring(7).trim();
                     int numberUnmarked = Integer.parseInt(numberPart);
-                    listOfTasks[numberUnmarked - 1].setTaskDone(false);
+                    listOfTasks.get(numberUnmarked - 1).setTaskDone(false);
                     System.out.println(breakerLine);
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.printf("  %s\n", listOfTasks[numberUnmarked - 1].toString());
+                    System.out.printf("  %s\n", listOfTasks.get(numberUnmarked - 1).toString());
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid number given");
-                } catch (NullPointerException e) {
-                    System.out.println("Number given is too big");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Number given is too small");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Number is not within list size");
                 }
 
             } else if (inputLine.toLowerCase().startsWith("todo ")) {
@@ -78,18 +75,13 @@ public class Misora {
                     if (taskMsg.isEmpty()) {
                         throw new MissingTaskMsgException();
                     }
-                    if (listLength < 100) {
-                        ToDo todo = new ToDo(taskMsg);
-                        listOfTasks[listLength] = todo;
-                        listLength++;
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(todo.toString());
-                        System.out.printf("Now you have %d tasks in the list.\n", listLength);
-                    } else {
-                        throw new TooManyTasksException();
-                    }
-                } catch (TooManyTasksException e) {
-                    System.out.println("WHOOPSIE!! You have too many tasks in the task list");
+
+                    ToDo todo = new ToDo(taskMsg);
+                    listOfTasks.add(todo);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todo);
+                    System.out.printf("Now you have %d tasks in the list.\n",listOfTasks.size());
+
                 } catch (MissingTaskMsgException e) {
                     System.out.println("WHOOPSIE!! Please enter the description of the task in this format 'todo -taskMsg-'");
                 }
@@ -98,7 +90,7 @@ public class Misora {
 
                 try {
                     System.out.println(breakerLine);
-                    String byWhen = "";
+                    String byWhen;
                     String taskMsg;
                     int byIndex = inputLine.indexOf("/by");
                     if (byIndex != -1) {
@@ -112,18 +104,13 @@ public class Misora {
                     } else {
                         throw new MissingArgument1Exception();
                     }
-                    if (listLength < 100) {
-                        Deadline deadline = new Deadline(taskMsg, byWhen);
-                        listOfTasks[listLength] = deadline;
-                        listLength++;
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(deadline.toString());
-                        System.out.printf("Now you have %d tasks in the list.\n", listLength);
-                    } else {
-                        throw new TooManyTasksException();
-                    }
-                } catch (TooManyTasksException e) {
-                    System.out.println("WHOOPSIE!! You have too many tasks in the task list");
+
+                    Deadline deadline = new Deadline(taskMsg, byWhen);
+                    listOfTasks.add(deadline);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline);
+                    System.out.printf("Now you have %d tasks in the list.\n",listOfTasks.size());
+
                 } catch (MissingTaskMsgException e) {
                     System.out.println("WHOOPSIE!! Please enter the description of the task in this format\n" +
                             "'deadline -taskMsg- /by -byWhen-'");
@@ -134,9 +121,9 @@ public class Misora {
             } else if (inputLine.toLowerCase().startsWith("event ")) {
                 try {
                     System.out.println(breakerLine);
-                    String fromWhen = "";
-                    String toWhen = "";
-                    String taskMsg = "";
+                    String fromWhen;
+                    String toWhen;
+                    String taskMsg;
                     int fromIndex = inputLine.indexOf("/from");
                     int toIndex = inputLine.indexOf("/to");
                     if (fromIndex != -1 && toIndex != -1) {
@@ -155,18 +142,13 @@ public class Misora {
                     } else {
                         throw new MissingArgument2Exception();
                     }
-                    if (listLength < 99) {
-                        Event event = new Event(taskMsg, fromWhen, toWhen);
-                        listOfTasks[listLength] = event;
-                        listLength++;
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(event.toString());
-                        System.out.printf("Now you have %d tasks in the list.\n", listLength);
-                    } else {
-                        throw new TooManyTasksException();
-                    }
-                } catch (TooManyTasksException e) {
-                    System.out.println("WHOOPSIE!! You have too many tasks in the task list");
+
+                    Event event = new Event(taskMsg, fromWhen, toWhen);
+                    listOfTasks.add(event);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event);
+                    System.out.printf("Now you have %d tasks in the list.\n",listOfTasks.size());
+
                 } catch (MissingTaskMsgException e) {
                     System.out.println("WHOOPSIE!! Please enter the description of the event in this format\n" +
                             "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
@@ -176,6 +158,20 @@ public class Misora {
                 } catch (MissingArgument2Exception e) {
                     System.out.println("WHOOPSIE!! Please enter the end time of the event in this format\n" +
                             "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
+                }
+            } else if (inputLine.toLowerCase().startsWith("delete ")){
+                try {
+                    String numberPart = inputLine.substring(7).trim();
+                    int numberDeleted = Integer.parseInt(numberPart);
+                    Task removedTask = listOfTasks.remove(numberDeleted - 1);
+                    System.out.println(breakerLine);
+                    System.out.println("Noted. I have removed this task:");
+                    System.out.printf("  %s\n", removedTask.toString());
+                    System.out.printf("Now you have %d tasks in the list.\n",listOfTasks.size());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number given");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Number is not within list size");
                 }
             } else {
                 System.out.println(breakerLine);

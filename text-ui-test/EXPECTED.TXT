@@ -42,6 +42,10 @@ ____________________________________________________________
 OK, I've marked this task as not done yet:
   [T][ ] finish CS2103T tutorial
 ____________________________________________________________
+Number is not within list size
+____________________________________________________________
+Number is not within list size
+____________________________________________________________
 ____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.
 WHOOPSIE!! Maybe you can try again in the future when this is updated
@@ -64,8 +68,8 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-WHOOPSIE!! Please enter the start time of the event in this format
-'event -taskMsg- /from -fromWhen- /to -toWhen-'
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
 ____________________________________________________________
 ____________________________________________________________
 WHOOPSIE!! Please enter the start time of the event in this format
@@ -115,6 +119,20 @@ ____________________________________________________________
 2.[T][ ] finish CS2103T tutorial
 3.[D][ ] submit PA (by: 2026-02-01)
 4.[E][ ] project meeting (from: Monday to: Wednesday)
+____________________________________________________________
+____________________________________________________________
+Noted. I have removed this task:
+  [D][ ] submit PA (by: 2026-02-01)
+Now you have 3 tasks in the list.
+____________________________________________________________
+Number is not within list size
+____________________________________________________________
+Number is not within list size
+____________________________________________________________
+____________________________________________________________
+1.[T][ ] borrow library books
+2.[T][ ] finish CS2103T tutorial
+3.[E][ ] project meeting (from: Monday to: Wednesday)
 ____________________________________________________________
 ____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.

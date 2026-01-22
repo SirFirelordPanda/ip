@@ -6,12 +6,14 @@ list
 mark 2
 list
 unmark 2
+mark -1
+mark 100
 deadline
 deadline /by 2026-02-01
 deadline submit PA
 deadline submit PA /by
 deadline submit PA /by 2026-02-01
-event 
+event
 event project meeting
 event /from Monday /to Wednesday
 event project meeting /to Wednesday
@@ -22,6 +24,10 @@ event project meeting /from Monday /to Wednesday
 mark 4
 list
 unmark 4
+list
+delete 3
+delete 4
+delete -2
 list
 meow
 woof
