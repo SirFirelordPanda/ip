@@ -9,6 +9,14 @@ Nyahallo! Im MISORA.
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
+____________________________________________________________
+____________________________________________________________
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
 [T][ ] borrow library books
 Now you have 1 tasks in the list.
@@ -35,9 +43,53 @@ OK, I've marked this task as not done yet:
   [T][ ] finish CS2103T tutorial
 ____________________________________________________________
 ____________________________________________________________
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the description of the task in this format
+'deadline -taskMsg- /by -byWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the deadline of the task in this format
+'deadline -taskMsg- /by -byWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the deadline of the task in this format
+'deadline -taskMsg- /by -byWhen-'
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
 [D][ ] submit PA (by: 2026-02-01)
 Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the start time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the start time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the description of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the start time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the start time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the end time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
+____________________________________________________________
+____________________________________________________________
+WHOOPSIE!! Please enter the end time of the event in this format
+'event -taskMsg- /from -fromWhen- /to -toWhen-'
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -63,6 +115,14 @@ ____________________________________________________________
 2.[T][ ] finish CS2103T tutorial
 3.[D][ ] submit PA (by: 2026-02-01)
 4.[E][ ] project meeting (from: Monday to: Wednesday)
+____________________________________________________________
+____________________________________________________________
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
+____________________________________________________________
+____________________________________________________________
+Uh oh stinky, I was not programmed to handle wtv you just typed in.
+WHOOPSIE!! Maybe you can try again in the future when this is updated
 ____________________________________________________________
 ____________________________________________________________
 Bye bye. Hope to see you again soon!
