@@ -1,0 +1,13 @@
+todo borrow library books
+todo finish CS2103T tutorial
+list
+mark 2
+list
+unmark 2
+deadline submit PA /by 2026-02-01
+event project meeting /from Monday /to Wednesday
+mark 4
+list
+unmark 4
+list
+bye

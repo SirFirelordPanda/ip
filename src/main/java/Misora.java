@@ -77,7 +77,7 @@ public class Misora {
                     ToDo todo = new ToDo(inputLine.substring(5).trim());
                     listOfTasks[listLength] = todo;
                     listLength++;
-                    System.out.println("Got it. I've added this task: ");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(todo.toString());
                     System.out.printf("Now you have %d tasks in the list.\n", listLength);
                 }
@@ -98,7 +98,7 @@ public class Misora {
                     Deadline deadline = new Deadline(taskMsg, byWhen);
                     listOfTasks[listLength] = deadline;
                     listLength++;
-                    System.out.println("Got it. I've added this task: ");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(deadline.toString());
                     System.out.printf("Now you have %d tasks in the list.\n", listLength);
                 }
@@ -120,7 +120,7 @@ public class Misora {
                     Event event = new Event(taskMsg, fromWhen, toWhen);
                     listOfTasks[listLength] = event;
                     listLength++;
-                    System.out.println("Got it. I've added this task: ");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(event.toString());
                     System.out.printf("Now you have %d tasks in the list.\n", listLength);
                 }
