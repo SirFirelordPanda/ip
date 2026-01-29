@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public abstract class Task {
 
     private final String taskMsg;
@@ -32,5 +35,10 @@ public abstract class Task {
     public String toSavedString() {
 
         return String.format("%c | %s", isTaskDoneMark(), taskMsg);
+    }
+
+    public Task isTaskOnDate(LocalDate date) {
+
+        return null;
     }
 }

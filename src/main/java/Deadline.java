@@ -1,26 +1,53 @@
 import Exceptions.MissingArgument1Exception;
 import Exceptions.MissingTaskMsgException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.io.FileWriter;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Deadline extends Task{
 
-    public String byWhen;
+    public Object byWhen;
 
-    public Deadline(String taskMsg, String byWhen){
+    public Deadline(String taskMsg, String byWhenRaw){
         super(taskMsg);
-        this.byWhen = byWhen;
+        this.byWhen = parseDateTime(byWhenRaw);
     }
 
-    public Deadline(String taskMsg, String byWhen, boolean isTaskDone) {
+    public Deadline(String taskMsg, String byWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
-        this.byWhen = byWhen;
+        this.byWhen = parseDateTime(byWhenRaw);
+    }
+
+    private Object parseDateTime(String input) {
+        try {
+            return LocalDateTime.parse(input);
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(input);
+            } catch (DateTimeParseException e2) {
+                return input;
+            }
+        }
+    }
+
+    private String formatForDisplay(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
+        }
+        if (date instanceof LocalDate d) {
+            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+        return date.toString();
     }
 
     @Override
     public String toString() {
-        String deadline = String.format(" (by: %s)", byWhen);
+
+        String deadline = String.format(" (by: %s)", this.formatForDisplay(byWhen));
         return "[D]" + super.toString() + deadline;
     }
 
@@ -28,6 +55,22 @@ public class Deadline extends Task{
     public String toSavedString() {
 
         return String.format("D | %s | %s", super.toSavedString(), this.byWhen);
+    }
+
+    @Override
+    public Task isTaskOnDate(LocalDate date) {
+        if (byWhen instanceof LocalDate) {
+            if (date.equals(byWhen)) {
+                return this;
+            }
+
+        } else if (byWhen instanceof LocalDateTime dateTime) {
+            if (date.equals(dateTime.toLocalDate())) {
+                return this;
+            }
+
+        }
+        return null;
     }
 
     public static void deadline(List<Task> listOfTasks, String inputLine, FileWriter taskWriter) {

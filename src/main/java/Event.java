@@ -3,34 +3,89 @@ import Exceptions.MissingArgument2Exception;
 import Exceptions.MissingTaskMsgException;
 
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Event extends Task{
 
-    String fromWhen;
-    String toWhen;
+    Object fromWhen;
+    Object toWhen;
 
-    public Event(String taskMsg, String fromWhen, String toWhen) {
+    public Event(String taskMsg, String fromWhenRaw, String toWhenRaw) {
         super(taskMsg);
-        this.fromWhen = fromWhen;
-        this.toWhen = toWhen;
+        this.fromWhen = parseDateTime(fromWhenRaw);
+        this.toWhen = parseDateTime(toWhenRaw);
     }
 
-    public Event(String taskMsg, String fromWhen, String toWhen, boolean isTaskDone) {
+    public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
-        this.fromWhen = fromWhen;
-        this.toWhen = toWhen;
+        this.fromWhen = parseDateTime(fromWhenRaw);
+        this.toWhen = parseDateTime(toWhenRaw);
+    }
+
+    private Object parseDateTime(String input) {
+        try {
+            return LocalDateTime.parse(input);
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(input);
+            } catch (DateTimeParseException e2) {
+                return input;
+            }
+        }
+    }
+
+    private String formatForDisplay(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
+        }
+        if (date instanceof LocalDate d) {
+            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+        return date.toString();
     }
 
     @Override
     public String toString() {
-        String eventTime = String.format(" (from: %s to: %s)", fromWhen, toWhen);
+        String eventTime = String.format(" (from: %s to: %s)", this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
         return "[E]" + super.toString() + eventTime;
     }
 
     @Override
     public String toSavedString() {
         return String.format("E | %s | %s | %s", super.toSavedString(), this.fromWhen, this.toWhen);
+    }
+
+    @Override
+    public Task isTaskOnDate(LocalDate date) {
+        if (fromWhen instanceof LocalDate d) {
+            if (date.equals(d)) {
+                return this;
+            }
+        }
+
+        if (toWhen instanceof LocalDate d) {
+            if (date.equals(d)) {
+                return this;
+            }
+        }
+
+        if (fromWhen instanceof LocalDateTime dt) {
+            if (date.equals(dt.toLocalDate())) {
+                return this;
+            }
+        }
+
+        if (toWhen instanceof LocalDateTime dt) {
+            if (date.equals(dt.toLocalDate())) {
+                return this;
+            }
+        }
+
+        return null;
     }
 
     public static void event(List<Task> listOfTasks, String inputLine, FileWriter taskWriter) {

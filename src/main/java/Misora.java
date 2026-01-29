@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -77,6 +79,7 @@ public class Misora {
 
             System.out.println(BREAKERLINE);
             String inputLine = scanner.nextLine();
+            System.out.println(BREAKERLINE);
 
             if (inputLine.equalsIgnoreCase("bye")) {
 
@@ -85,6 +88,10 @@ public class Misora {
             } else if (inputLine.equalsIgnoreCase("list")) {
 
                 list(listOfTasks);
+
+            } else if (inputLine.equalsIgnoreCase("list clear")) {
+
+                listClear(listOfTasks);
 
             } else if (inputLine.toLowerCase().startsWith("mark ")) {
 
@@ -98,17 +105,14 @@ public class Misora {
 
             } else if (inputLine.toLowerCase().startsWith("todo ")) {
 
-                System.out.println(BREAKERLINE);
                 ToDo.todo(listOfTasks, inputLine, taskWriter);
 
             } else if (inputLine.toLowerCase().startsWith("deadline ")) {
 
-                System.out.println(BREAKERLINE);
                 Deadline.deadline(listOfTasks, inputLine, taskWriter);
 
             } else if (inputLine.toLowerCase().startsWith("event ")) {
 
-                System.out.println(BREAKERLINE);
                 Event.event(listOfTasks, inputLine, taskWriter);
 
             } else if (inputLine.toLowerCase().startsWith("delete ")){
@@ -116,8 +120,12 @@ public class Misora {
                 delete(listOfTasks, inputLine);
                 updateFileFromList(listOfTasks);
 
+            } else if (inputLine.toLowerCase().startsWith("tasks on ")){
+
+                getTasksOnDate(listOfTasks, inputLine);
+
             } else {
-                System.out.println(BREAKERLINE);
+
                 System.out.println("Uh oh stinky, I was not programmed to handle wtv you just typed in.\n" +
                         "WHOOPSIE!! Maybe you can try again in the future when this is updated");
             }
@@ -130,7 +138,6 @@ public class Misora {
 
     public static void list(List<Task> listOfTasks) {
 
-        System.out.println(BREAKERLINE);
         for (int i = 0; i < listOfTasks.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, listOfTasks.get(i));
         }
@@ -143,7 +150,6 @@ public class Misora {
             String numberPart = inputLine.substring(5).trim();
             int numberMarked = Integer.parseInt(numberPart);
             listOfTasks.get(numberMarked - 1).setTaskDone(true);
-            System.out.println(BREAKERLINE);
             System.out.println("Nice! I've marked this task as done:");
             System.out.printf("  %s\n", listOfTasks.get(numberMarked - 1).toString());
         } catch (NumberFormatException e) {
@@ -151,15 +157,14 @@ public class Misora {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number is not within list size");
         }
-
     }
 
     public static void unmark(List<Task> listOfTasks, String inputLine) {
+
         try {
             String numberPart = inputLine.substring(7).trim();
             int numberUnmarked = Integer.parseInt(numberPart);
             listOfTasks.get(numberUnmarked - 1).setTaskDone(false);
-            System.out.println(BREAKERLINE);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.printf("  %s\n", listOfTasks.get(numberUnmarked - 1).toString());
         } catch (NumberFormatException e) {
@@ -170,11 +175,11 @@ public class Misora {
     }
 
     public static void delete(List<Task> listOfTasks, String inputLine) {
+
         try {
             String numberPart = inputLine.substring(7).trim();
             int numberDeleted = Integer.parseInt(numberPart);
             Task removedTask = listOfTasks.remove(numberDeleted - 1);
-            System.out.println(BREAKERLINE);
             System.out.println("Noted. I have removed this task:");
             System.out.printf("  %s\n", removedTask.toString());
             System.out.printf("Now you have %d tasks in the list.\n", listOfTasks.size());
@@ -186,6 +191,7 @@ public class Misora {
     }
 
     public static void loadListFromFile(List<Task> listOfTasks, Scanner taskScanner) {
+
         try {
             while (taskScanner.hasNext()) {
                 String task = taskScanner.nextLine();
@@ -211,6 +217,7 @@ public class Misora {
     }
 
     public static void updateFileFromList(List<Task> listOfTasks) {
+
         try {
             FileWriter writer = new FileWriter(TASKFILE); // overwrite
             for (Task task : listOfTasks) {
@@ -218,6 +225,33 @@ public class Misora {
             }
             writer.close();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void listClear(List<Task> listOfTasks) {
+
+        listOfTasks.clear();
+        try {
+            new FileWriter(TASKFILE).close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("List has been cleared");
+    }
+
+    public static void getTasksOnDate(List<Task> listOfTasks, String inputLine) {
+        try {
+            String dateRaw = inputLine.substring(9).trim();
+            LocalDate date = LocalDate.parse(dateRaw);
+            System.out.println(date);
+            for (Task task : listOfTasks) {
+                Task taskOnDateReturn = task.isTaskOnDate(date);
+                if (taskOnDateReturn != null) {
+                    System.out.println(taskOnDateReturn.toString());
+                }
+            }
+        } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
