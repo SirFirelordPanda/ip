@@ -8,6 +8,12 @@ public abstract class Task {
         this.taskMsg = taskMsg;
     }
 
+    public Task(String taskMsg, boolean isTaskDone) {
+
+        this.taskMsg = taskMsg;
+        this.isTaskDone = isTaskDone;
+    }
+
     public char isTaskDoneMark() {
 
         return isTaskDone? 'X' : ' ';
