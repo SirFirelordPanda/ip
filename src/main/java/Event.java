@@ -14,4 +14,9 @@ public class Event extends Task{
         String eventTime = String.format(" (from: %s to: %s)", fromWhen, toWhen);
         return "[E]" + super.toString() + eventTime;
     }
+
+    @Override
+    public String toSavedString() {
+        return String.format("D | %s | %s | %s", super.toSavedString(), this.fromWhen, this.toWhen);
+    }
 }
