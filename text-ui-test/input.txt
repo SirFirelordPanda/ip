@@ -1,3 +1,5 @@
+list
+list clear
 todo
 todo
 todo borrow library books
@@ -21,6 +23,9 @@ event project meeting /from /to Wednesday
 event project meeting /from Monday
 event project meeting /from Monday /to
 event project meeting /from Monday /to Wednesday
+event eat ice soup /from 2026-02-01 /to 2026-05-02
+event eat bingsu /from 2026-05-02 /to 2026-02-01T20:21:21
+tasks on 2026-02-01
 mark 4
 list
 unmark 4

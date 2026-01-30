@@ -9,6 +9,19 @@ Nyahallo! Im MISORA.
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+1. [T][ ] borrow library books
+
+2. [T][ ] finish CS2103T tutorial
+
+3. [E][ ] project meeting (from: Monday to: Wednesday)
+
+4. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+
+____________________________________________________________
+____________________________________________________________
+List has been cleared
+____________________________________________________________
+____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.
 WHOOPSIE!! Maybe you can try again in the future when this is updated
 ____________________________________________________________
@@ -27,22 +40,28 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] borrow library books
-2.[T][ ] finish CS2103T tutorial
+1. [T][ ] borrow library books
+
+2. [T][ ] finish CS2103T tutorial
+
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
   [T][X] finish CS2103T tutorial
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] borrow library books
-2.[T][X] finish CS2103T tutorial
+1. [T][ ] borrow library books
+
+2. [T][X] finish CS2103T tutorial
+
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
   [T][ ] finish CS2103T tutorial
 ____________________________________________________________
+____________________________________________________________
 Number is not within list size
+____________________________________________________________
 ____________________________________________________________
 Number is not within list size
 ____________________________________________________________
@@ -64,7 +83,7 @@ WHOOPSIE!! Please enter the deadline of the task in this format
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] submit PA (by: 2026-02-01)
+[D][ ] submit PA (by: Feb 01 2026)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -80,7 +99,7 @@ WHOOPSIE!! Please enter the description of the event in this format
 'event -taskMsg- /from -fromWhen- /to -toWhen-'
 ____________________________________________________________
 ____________________________________________________________
-WHOOPSIE!! Please enter the start time of the event in this format
+WHOOPSIE!! Please enter the end time of the event in this format
 'event -taskMsg- /from -fromWhen- /to -toWhen-'
 ____________________________________________________________
 ____________________________________________________________
@@ -101,38 +120,78 @@ Got it. I've added this task:
 Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+Got it. I've added this task:
+[E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+Now you have 6 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+[D][ ] submit PA (by: Feb 01 2026)
+[E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
+[E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+____________________________________________________________
+____________________________________________________________
 Nice! I've marked this task as done:
   [E][X] project meeting (from: Monday to: Wednesday)
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] borrow library books
-2.[T][ ] finish CS2103T tutorial
-3.[D][ ] submit PA (by: 2026-02-01)
-4.[E][X] project meeting (from: Monday to: Wednesday)
+1. [T][ ] borrow library books
+
+2. [T][ ] finish CS2103T tutorial
+
+3. [D][ ] submit PA (by: Feb 01 2026)
+
+4. [E][X] project meeting (from: Monday to: Wednesday)
+
+5. [E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
+
+6. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
   [E][ ] project meeting (from: Monday to: Wednesday)
 ____________________________________________________________
 ____________________________________________________________
-1.[T][ ] borrow library books
-2.[T][ ] finish CS2103T tutorial
-3.[D][ ] submit PA (by: 2026-02-01)
-4.[E][ ] project meeting (from: Monday to: Wednesday)
+1. [T][ ] borrow library books
+
+2. [T][ ] finish CS2103T tutorial
+
+3. [D][ ] submit PA (by: Feb 01 2026)
+
+4. [E][ ] project meeting (from: Monday to: Wednesday)
+
+5. [E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
+
+6. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+
 ____________________________________________________________
 ____________________________________________________________
 Noted. I have removed this task:
-  [D][ ] submit PA (by: 2026-02-01)
-Now you have 3 tasks in the list.
+  [D][ ] submit PA (by: Feb 01 2026)
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Noted. I have removed this task:
+  [E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
+Now you have 4 tasks in the list.
+____________________________________________________________
 ____________________________________________________________
 Number is not within list size
 ____________________________________________________________
-Number is not within list size
 ____________________________________________________________
-____________________________________________________________
-1.[T][ ] borrow library books
-2.[T][ ] finish CS2103T tutorial
-3.[E][ ] project meeting (from: Monday to: Wednesday)
+1. [T][ ] borrow library books
+
+2. [T][ ] finish CS2103T tutorial
+
+3. [E][ ] project meeting (from: Monday to: Wednesday)
+
+4. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
+
 ____________________________________________________________
 ____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.
@@ -141,6 +200,7 @@ ____________________________________________________________
 ____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.
 WHOOPSIE!! Maybe you can try again in the future when this is updated
+____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Bye bye. Hope to see you again soon!

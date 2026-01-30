@@ -1,5 +1,11 @@
+package Tasks;
+
+import Exceptions.MisoraException;
+import Exceptions.MissingArgument1Exception;
+import Exceptions.MissingArgument2Exception;
+import Exceptions.MissingTaskMsgException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public abstract class Task {
 
@@ -40,5 +46,11 @@ public abstract class Task {
     public Task isTaskOnDate(LocalDate date) {
 
         return null;
+    }
+
+    public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
+        if (taskMsg.isEmpty()) {
+            throw new MissingTaskMsgException();
+        }
     }
 }

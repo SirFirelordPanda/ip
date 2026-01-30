@@ -1,0 +1,4 @@
+T |   | borrow library books
+T |   | finish CS2103T tutorial
+E |   | project meeting | Monday | Wednesday
+E |   | eat bingsu | 2026-05-02 | 2026-02-01T20:21:21
