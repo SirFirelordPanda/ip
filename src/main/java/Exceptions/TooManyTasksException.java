@@ -1,4 +1,4 @@
 package Exceptions;
 
-public class TooManyTasksException extends Exception{
+public class TooManyTasksException extends MisoraException{
 }

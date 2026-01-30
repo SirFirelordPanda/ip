@@ -1,3 +1,5 @@
+package Tasks;
+
 import Exceptions.MissingArgument1Exception;
 import Exceptions.MissingArgument2Exception;
 import Exceptions.MissingTaskMsgException;
@@ -88,49 +90,20 @@ public class Event extends Task{
         return null;
     }
 
-    public static void event(List<Task> listOfTasks, String inputLine, FileWriter taskWriter) {
+    @Override
+    public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {
-            String fromWhen;
-            String toWhen;
-            String taskMsg;
-            int fromIndex = inputLine.indexOf("/from");
-            int toIndex = inputLine.indexOf("/to");
-            if (fromIndex != -1 && toIndex != -1) {
-                fromWhen = inputLine.substring(fromIndex + 5, toIndex).trim();
-                toWhen = inputLine.substring(toIndex + 3).trim();
-                taskMsg = inputLine.substring(6, fromIndex).trim();
-                if (taskMsg.isEmpty()) {
-                    throw new MissingTaskMsgException();
-                } else if (fromWhen.isEmpty()) {
-                    throw new MissingArgument1Exception();
-                } else if (toWhen.isEmpty()) {
-                    throw new MissingArgument2Exception();
-                }
-            } else if (fromIndex == -1) {
-                throw new MissingArgument1Exception();
-            } else {
-                throw new MissingArgument2Exception();
-            }
-
-            Event event = new Event(taskMsg, fromWhen, toWhen);
-            listOfTasks.add(event);
-            taskWriter.write(event.toSavedString() + "\n");
-            taskWriter.flush();
-            System.out.println("Got it. I've added this task:");
-            System.out.println(event);
-            System.out.printf("Now you have %d tasks in the list.\n", listOfTasks.size());
-
+            super.isValidFormat();
         } catch (MissingTaskMsgException e) {
-            System.out.println("WHOOPSIE!! Please enter the description of the event in this format\n" +
+            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the event in this format\n" +
                     "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
-        } catch (MissingArgument1Exception e) {
-            System.out.println("WHOOPSIE!! Please enter the start time of the event in this format\n" +
+        }
+        if (fromWhen.toString().equalsIgnoreCase("")) {
+            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the start time of the event in this format\n" +
                     "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
-        } catch (MissingArgument2Exception e) {
-            System.out.println("WHOOPSIE!! Please enter the end time of the event in this format\n" +
+        } else if (toWhen.toString().equalsIgnoreCase("")) {
+            throw new MissingArgument2Exception("WHOOPSIE!! Please enter the end time of the event in this format\n" +
                     "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
-        } catch (java.io.IOException e) {
-            System.out.println("Unable to write new todo to file");
         }
     }
 }

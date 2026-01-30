@@ -1,4 +1,7 @@
+package Tasks;
+
 import Exceptions.MissingArgument1Exception;
+import Exceptions.MissingArgument2Exception;
 import Exceptions.MissingTaskMsgException;
 
 import java.time.LocalDate;
@@ -12,7 +15,7 @@ public class Deadline extends Task{
 
     public Object byWhen;
 
-    public Deadline(String taskMsg, String byWhenRaw){
+    public Deadline(String taskMsg, String byWhenRaw) {
         super(taskMsg);
         this.byWhen = parseDateTime(byWhenRaw);
     }
@@ -73,39 +76,17 @@ public class Deadline extends Task{
         return null;
     }
 
-    public static void deadline(List<Task> listOfTasks, String inputLine, FileWriter taskWriter) {
+    @Override
+    public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {
-            String byWhen;
-            String taskMsg;
-            int byIndex = inputLine.indexOf("/by");
-            if (byIndex != -1) {
-                byWhen = inputLine.substring(byIndex + 3).trim();
-                taskMsg = inputLine.substring(9, byIndex).trim();
-                if (taskMsg.isEmpty()) {
-                    throw new MissingTaskMsgException();
-                } else if (byWhen.isEmpty()) {
-                    throw new MissingArgument1Exception();
-                }
-            } else {
-                throw new MissingArgument1Exception();
-            }
-
-            Deadline deadline = new Deadline(taskMsg, byWhen);
-            listOfTasks.add(deadline);
-            taskWriter.write(deadline.toSavedString() + "\n");
-            taskWriter.flush();
-            System.out.println("Got it. I've added this task:");
-            System.out.println(deadline);
-            System.out.printf("Now you have %d tasks in the list.\n",listOfTasks.size());
-
+            super.isValidFormat();
         } catch (MissingTaskMsgException e) {
-            System.out.println("WHOOPSIE!! Please enter the description of the task in this format\n" +
+            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the task in this format\n" +
                     "'deadline -taskMsg- /by -byWhen-'");
-        } catch (MissingArgument1Exception e) {
-            System.out.println("WHOOPSIE!! Please enter the deadline of the task in this format\n" +
+        }
+        if (byWhen.toString().equalsIgnoreCase("")) {
+            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the deadline of the task in this format\n" +
                     "'deadline -taskMsg- /by -byWhen-'");
-        }  catch (java.io.IOException e) {
-            System.out.println("Unable to write new todo to file");
         }
     }
 }
