@@ -4,6 +4,7 @@ import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
 import misora.exceptions.MisoraException;
+import misora.exceptions.UnableToCloseStorageException;
 import misora.exceptions.UnableToWriteToFileException;
 import misora.tasks.ToDo;
 import misora.tasks.Task;
@@ -76,5 +77,23 @@ class StorageTest {
         Files.writeString(tempFile.toPath(), "X | ? | garbage");
 
         assertThrows(MisoraException.class, () -> storage.load());
+    }
+
+    @Test
+    void exit_closesWithoutException() {
+        Storage storage = new Storage(tempFile.getAbsolutePath());
+        assertDoesNotThrow(storage::exit);
+    }
+
+    @Test
+    void exit_throwsUnableToCloseStorageException_ifIOExceptionOccurs() {
+        Storage brokenStorage = new Storage(tempFile.getAbsolutePath()) {
+            @Override
+            public void exit() throws UnableToCloseStorageException {
+                throw new UnableToCloseStorageException("Simulated IO failure");
+            }
+        };
+
+        assertThrows(UnableToCloseStorageException.class, brokenStorage::exit);
     }
 }
