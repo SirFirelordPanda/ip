@@ -1,9 +1,8 @@
-package Tasks;
+package misora.tasks;
 
-import Exceptions.MisoraException;
-import Exceptions.MissingArgument1Exception;
-import Exceptions.MissingArgument2Exception;
-import Exceptions.MissingTaskMsgException;
+import misora.exceptions.MissingArgument1Exception;
+import misora.exceptions.MissingArgument2Exception;
+import misora.exceptions.MissingTaskMsgException;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package Exceptions;
+package misora.exceptions;
 
 public class UnhandledCommandException extends MisoraException{
     public UnhandledCommandException() {

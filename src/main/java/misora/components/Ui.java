@@ -1,7 +1,6 @@
-package Components;
+package misora.components;
 
-import Exceptions.MisoraException;
-import Tasks.Task;
+import misora.tasks.Task;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -60,7 +59,7 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("Misora initialisation failed. Task save file is corrupted");
+        System.out.println("misora.Misora initialisation failed. Task save file is corrupted");
     }
 
     public void showMarkTask(Task task) {

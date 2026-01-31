@@ -1,4 +1,4 @@
-package Exceptions;
+package misora.exceptions;
 
 public class CorruptedSavedTaskFileException extends MisoraException{
 }

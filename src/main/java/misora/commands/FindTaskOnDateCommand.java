@@ -1,9 +1,8 @@
-package Commands;
+package misora.commands;
 
-import Components.Storage;
-import Components.TaskList;
-import Components.Ui;
-import Tasks.Task;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

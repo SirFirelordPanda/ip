@@ -1,14 +1,14 @@
-package Commands;
+package misora.commands;
 
-import Components.Storage;
-import Components.TaskList;
-import Components.Ui;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
 
-import Exceptions.*;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import misora.exceptions.*;
+import misora.tasks.Deadline;
+import misora.tasks.Event;
+import misora.tasks.Task;
+import misora.tasks.ToDo;
 
 public class AddCommand extends Command{
 

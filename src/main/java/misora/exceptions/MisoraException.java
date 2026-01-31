@@ -1,4 +1,4 @@
-package Exceptions;
+package misora.exceptions;
 
 public class MisoraException extends Exception{
     public MisoraException(String errorMsg) {

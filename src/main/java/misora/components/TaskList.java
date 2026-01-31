@@ -1,6 +1,6 @@
-package Components;
+package misora.components;
 
-import Tasks.Task;
+import misora.tasks.Task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class TaskList{
 
         for (int i = 0; i < listOfTasks.size(); i++) {
 
-            ui.showTasklist(String.format("%d. %s\n", i + 1, listOfTasks.get(i)));
+            ui.showTasklist(String.format("%d. %s", i + 1, listOfTasks.get(i)));
         }
     }
 

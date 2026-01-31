@@ -1,11 +1,8 @@
-package Commands;
+package misora.commands;
 
-import Components.Storage;
-import Components.TaskList;
-import Components.Ui;
-
-import java.io.FileWriter;
-import java.io.IOException;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
 
 public class ListClearCommand extends Command{
 
