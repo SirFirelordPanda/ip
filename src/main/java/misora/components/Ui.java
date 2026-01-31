@@ -87,4 +87,8 @@ public class Ui {
     public void showDate(LocalDate date) {
         System.out.println(date);
     }
+
+    public void exit() {
+        userScanner.close();
+    }
 }

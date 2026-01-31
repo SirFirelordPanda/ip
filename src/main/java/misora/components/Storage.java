@@ -2,6 +2,7 @@ package misora.components;
 
 import misora.exceptions.CorruptedSavedTaskFileException;
 import misora.exceptions.MisoraException;
+import misora.exceptions.UnableToCloseStorageException;
 import misora.exceptions.UnableToWriteToFileException;
 import misora.tasks.*;
 import java.io.File;
@@ -101,6 +102,15 @@ public class Storage {
             taskWriter.flush();
         } catch (java.io.IOException e) {
             throw new UnableToWriteToFileException("Unable to write new task to file");
+        }
+    }
+
+    public void exit() throws UnableToCloseStorageException {
+        try {
+            taskScanner.close();
+            taskWriter.close();
+        } catch (IOException e) {
+            throw new UnableToCloseStorageException("Unable to close storage properly");
         }
     }
 

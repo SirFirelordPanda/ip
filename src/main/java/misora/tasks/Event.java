@@ -11,8 +11,8 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
-    Object fromWhen;
-    Object toWhen;
+    private Object fromWhen;
+    private Object toWhen;
 
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw) {
         super(taskMsg);
@@ -48,6 +48,13 @@ public class Event extends Task{
         return date.toString();
     }
 
+    private String formatForSave(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        }
+        return date.toString();
+    }
+
     @Override
     public String toString() {
         String eventTime = String.format(" (from: %s to: %s)", this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
@@ -56,7 +63,7 @@ public class Event extends Task{
 
     @Override
     public String toSavedString() {
-        return String.format("E | %s | %s | %s", super.toSavedString(), this.fromWhen, this.toWhen);
+        return String.format("E | %s | %s | %s", super.toSavedString(), this.formatForSave(fromWhen), this.formatForSave(toWhen));
     }
 
     @Override

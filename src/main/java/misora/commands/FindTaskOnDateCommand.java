@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 
 public class FindTaskOnDateCommand extends Command{
 
-    LocalDate date;
+    private LocalDate date;
 
     public FindTaskOnDateCommand(LocalDate date) {
         this.date = date;
@@ -21,7 +21,7 @@ public class FindTaskOnDateCommand extends Command{
             taskList.showTasksOnDate(date);
         } catch (DateTimeParseException e) {
 
-            System.out.println(e.getMessage());
+            ui.showError(e.getMessage());
         }
     }
 }
