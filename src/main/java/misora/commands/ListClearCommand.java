@@ -11,6 +11,4 @@ public class ListClearCommand extends Command{
         storage.clearSavedFile();
         ui.showListClear();
     }
-
-
 }

@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
 
-    public Object byWhen;
+    private Object byWhen;
 
     public Deadline(String taskMsg, String byWhenRaw) {
         super(taskMsg);
@@ -45,6 +45,13 @@ public class Deadline extends Task{
         return date.toString();
     }
 
+    private String formatForSave(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        }
+        return date.toString();
+    }
+
     @Override
     public String toString() {
 
@@ -55,7 +62,7 @@ public class Deadline extends Task{
     @Override
     public String toSavedString() {
 
-        return String.format("D | %s | %s", super.toSavedString(), this.byWhen);
+        return String.format("D | %s | %s", super.toSavedString(), this.formatForSave(byWhen));
     }
 
     @Override

@@ -30,6 +30,7 @@ public class DeleteCommand extends Command {
 
             ui.showError("Number is not within list size");
         } catch (IOException e) {
+
             ui.showError("Unable to update the saved file from the task list");
         }
     }

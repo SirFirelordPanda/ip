@@ -57,7 +57,7 @@ public class TaskList{
     }
 
     public boolean isEmpty() {
-        return this.isEmpty();
+        return this.listOfTasks.isEmpty();
     }
 
     public void add(Task t) {
