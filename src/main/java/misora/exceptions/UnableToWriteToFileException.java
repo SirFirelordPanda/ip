@@ -1,4 +1,4 @@
-package Exceptions;
+package misora.exceptions;
 
 public class UnableToWriteToFileException extends MisoraException{
     public UnableToWriteToFileException(){}

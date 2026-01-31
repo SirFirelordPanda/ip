@@ -1,11 +1,8 @@
-package Tasks;
+package misora.tasks;
 
-import Exceptions.MissingArgument1Exception;
-import Exceptions.MissingArgument2Exception;
-import Exceptions.MissingTaskMsgException;
-
-import java.io.FileWriter;
-import java.util.List;
+import misora.exceptions.MissingArgument1Exception;
+import misora.exceptions.MissingArgument2Exception;
+import misora.exceptions.MissingTaskMsgException;
 
 public class ToDo extends Task{
 

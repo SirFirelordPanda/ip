@@ -1,4 +1,4 @@
-package Exceptions;
+package misora.exceptions;
 
 public class MissingArgument1Exception extends MisoraArgumentException{
     public MissingArgument1Exception(){}

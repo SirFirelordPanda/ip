@@ -10,13 +10,9 @@ What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][ ] finish CS2103T tutorial
-
 3. [E][ ] project meeting (from: Monday to: Wednesday)
-
 4. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
-
 ____________________________________________________________
 ____________________________________________________________
 List has been cleared
@@ -41,9 +37,7 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][ ] finish CS2103T tutorial
-
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -51,9 +45,7 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][X] finish CS2103T tutorial
-
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -99,7 +91,7 @@ WHOOPSIE!! Please enter the description of the event in this format
 'event -taskMsg- /from -fromWhen- /to -toWhen-'
 ____________________________________________________________
 ____________________________________________________________
-WHOOPSIE!! Please enter the end time of the event in this format
+WHOOPSIE!! Please enter the start time of the event in this format
 'event -taskMsg- /from -fromWhen- /to -toWhen-'
 ____________________________________________________________
 ____________________________________________________________
@@ -140,17 +132,11 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][ ] finish CS2103T tutorial
-
 3. [D][ ] submit PA (by: Feb 01 2026)
-
 4. [E][X] project meeting (from: Monday to: Wednesday)
-
 5. [E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
-
 6. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
-
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -158,17 +144,11 @@ OK, I've marked this task as not done yet:
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][ ] finish CS2103T tutorial
-
 3. [D][ ] submit PA (by: Feb 01 2026)
-
 4. [E][ ] project meeting (from: Monday to: Wednesday)
-
 5. [E][ ] eat ice soup (from: Feb 01 2026 to: May 02 2026)
-
 6. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
-
 ____________________________________________________________
 ____________________________________________________________
 Noted. I have removed this task:
@@ -185,13 +165,9 @@ Number is not within list size
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] borrow library books
-
 2. [T][ ] finish CS2103T tutorial
-
 3. [E][ ] project meeting (from: Monday to: Wednesday)
-
 4. [E][ ] eat bingsu (from: May 02 2026 to: Feb 01 2026 20:21:21)
-
 ____________________________________________________________
 ____________________________________________________________
 Uh oh stinky, I was not programmed to handle wtv you just typed in.

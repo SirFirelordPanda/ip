@@ -1,9 +1,9 @@
-package Commands;
+package misora.commands;
 
-import Components.Storage;
-import Components.TaskList;
-import Components.Ui;
-import Tasks.Task;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
+import misora.tasks.Task;
 
 public class MarkCommand extends Command{
 

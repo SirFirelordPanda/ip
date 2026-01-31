@@ -1,12 +1,8 @@
-package Components;
+package misora.components;
 
-import Commands.*;
-import Exceptions.MisoraException;
-import Exceptions.MissingTaskMsgException;
-import Exceptions.UnhandledCommandException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
+import misora.commands.*;
+import misora.exceptions.MisoraException;
+import misora.exceptions.UnhandledCommandException;
 
 import java.time.LocalDate;
 
@@ -68,7 +64,7 @@ public class Parser {
                 fromWhen = fullCommand.substring(fromIndex + 5).trim();
                 taskMsg = fullCommand.substring(6, fromIndex).trim();
             } else if (toIndex != -1) {
-                fromWhen = fullCommand.substring(toIndex + 5).trim();
+                toWhen = fullCommand.substring(toIndex + 5).trim();
                 taskMsg = fullCommand.substring(6, toIndex).trim();
             } else {
                 taskMsg = fullCommand.substring(9).trim();

@@ -1,15 +1,13 @@
-package Tasks;
+package misora.tasks;
 
-import Exceptions.MissingArgument1Exception;
-import Exceptions.MissingArgument2Exception;
-import Exceptions.MissingTaskMsgException;
+import misora.exceptions.MissingArgument1Exception;
+import misora.exceptions.MissingArgument2Exception;
+import misora.exceptions.MissingTaskMsgException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.io.FileWriter;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 public class Deadline extends Task{
 

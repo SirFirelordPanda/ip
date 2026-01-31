@@ -1,8 +1,8 @@
-package Commands;
+package misora.commands;
 
-import Components.Storage;
-import Components.TaskList;
-import Components.Ui;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
 
 public class ExitCommand extends Command{
 

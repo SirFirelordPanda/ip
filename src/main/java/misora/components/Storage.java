@@ -1,13 +1,9 @@
-package Components;
+package misora.components;
 
-import Exceptions.CorruptedSavedTaskFileException;
-import Exceptions.MisoraException;
-import Exceptions.UnableToWriteToFileException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-
+import misora.exceptions.CorruptedSavedTaskFileException;
+import misora.exceptions.MisoraException;
+import misora.exceptions.UnableToWriteToFileException;
+import misora.tasks.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,7 +1,8 @@
-import Commands.Command;
-import Components.*;
-import Exceptions.MisoraException;
-import Tasks.*;
+package misora;
+
+import misora.commands.Command;
+import misora.components.*;
+import misora.exceptions.MisoraException;
 
 public class Misora {
 
