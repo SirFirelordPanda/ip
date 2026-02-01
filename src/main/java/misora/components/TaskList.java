@@ -52,6 +52,18 @@ public class TaskList{
         }
     }
 
+    public void showTasksContainingString(String searchString) {
+
+        for (Task task : listOfTasks) {
+
+            Task taskContainString = task.doesTaskContainString(searchString);
+            if (taskContainString != null) {
+
+                System.out.println(taskContainString.toString());
+            }
+        }
+    }
+
     public int size() {
         return this.listOfTasks.size();
     }

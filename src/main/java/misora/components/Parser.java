@@ -5,6 +5,7 @@ import misora.exceptions.MisoraException;
 import misora.exceptions.UnhandledCommandException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -78,12 +79,20 @@ public class Parser {
 
         } else if (fullCommand.toLowerCase().startsWith("tasks on ")){
 
-            String dateRaw = fullCommand.substring(9).trim();
-            LocalDate date = LocalDate.parse(dateRaw);
-            return new FindTaskOnDateCommand(date);
+            try {
+                String dateRaw = fullCommand.substring(9).trim();
+                LocalDate date = LocalDate.parse(dateRaw);
+                return new FindTaskOnDateCommand(date);
+            } catch (DateTimeParseException e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else if (fullCommand.toLowerCase().startsWith("find ")){
+
+            String searchString = fullCommand.substring(5).trim();
+            return new FindCommand(searchString);
 
         }
         throw new UnhandledCommandException();
     }
-
 }

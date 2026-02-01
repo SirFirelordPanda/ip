@@ -82,6 +82,19 @@ public class Deadline extends Task{
     }
 
     @Override
+    public Task doesTaskContainString(String searchString) {
+        Task itDoes = super.doesTaskContainString(searchString);
+        if (itDoes != null) {
+            return this;
+        } else if (byWhen.toString().contains(searchString)
+                || formatForDisplay(byWhen).contains(searchString)
+                || formatForSave(byWhen).contains(searchString)) {
+            return this;
+        }
+        return null;
+    }
+
+    @Override
     public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {
             super.isValidFormat();

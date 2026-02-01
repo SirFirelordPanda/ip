@@ -1,6 +1,7 @@
 package seedu.misora.taskstests;
 
 import misora.exceptions.MissingTaskMsgException;
+import misora.tasks.Deadline;
 import misora.tasks.Task;
 import org.junit.jupiter.api.Test;
 
@@ -111,5 +112,25 @@ class TaskTest {
                 MissingTaskMsgException.class,
                 task::isValidFormat
         );
+    }
+
+    //doesTaskContainString tests
+
+    @Test
+    void doesTaskContainString_descriptionMatch_returnsTask() {
+        Task task = new TestTask("read book");
+
+        Task result = task.doesTaskContainString("read");
+
+        assertSame(task, result);
+    }
+
+    @Test
+    void doesTaskContainString_descriptionDoesNotMatch_returnsTask() {
+        Task task = new TestTask("read book");
+
+        Task result = task.doesTaskContainString("submit");
+
+        assertSame(null, result);
     }
 }

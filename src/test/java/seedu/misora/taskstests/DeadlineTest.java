@@ -119,6 +119,80 @@ class DeadlineTest {
         assertNull(result);
     }
 
+    //doesTaskContainString tests
+
+    @Test
+    void doesTaskContainString_descriptionMatch_returnsTask() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01"
+        );
+
+        Task result = deadline.doesTaskContainString("submit");
+
+        assertSame(deadline, result);
+    }
+
+    @Test
+    void doesTaskContainString_localDateStringMatch_returnsTask() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01"
+        );
+
+        Task result = deadline.doesTaskContainString("2026-02-01");
+
+        assertSame(deadline, result);
+    }
+
+    @Test
+    void doesTaskContainString_localDateTimeStringMatch_returnsTask() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01T23:59:59"
+        );
+
+        Task result = deadline.doesTaskContainString("23:59");
+
+        assertSame(deadline, result);
+    }
+
+    @Test
+    void doesTaskContainString_formattedDisplayMatch_returnsTask() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01"
+        );
+
+        Task result = deadline.doesTaskContainString("Feb");
+
+        assertSame(deadline, result);
+    }
+
+    @Test
+    void doesTaskContainString_formattedSaveMatch_returnsTask() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01"
+        );
+
+        Task result = deadline.doesTaskContainString("2026");
+
+        assertSame(deadline, result);
+    }
+
+    @Test
+    void doesTaskContainString_noMatch_returnsNull() {
+        Deadline deadline = new Deadline(
+                "submit report",
+                "2026-02-01"
+        );
+
+        Task result = deadline.doesTaskContainString("meeting");
+
+        assertNull(result);
+    }
+
     //isValidFormat tests
 
     @Test

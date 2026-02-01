@@ -61,6 +61,11 @@ class ParserTest {
     }
 
     @Test
+    void parse_find_returnsFindCommand() throws MisoraException {
+        assertInstanceOf(FindCommand.class, Parser.parse("find read book"));
+    }
+
+    @Test
     void parse_invalidCommand_throwsUnhandledCommandException() {
         assertThrows(UnhandledCommandException.class, () -> Parser.parse("meow"));
     }
