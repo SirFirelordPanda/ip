@@ -54,14 +54,12 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-
         String deadline = String.format(" (by: %s)", this.formatForDisplay(byWhen));
         return "[D]" + super.toString() + deadline;
     }
 
     @Override
     public String toSavedString() {
-
         return String.format("D | %s | %s", super.toSavedString(), this.formatForSave(byWhen));
     }
 
@@ -71,12 +69,10 @@ public class Deadline extends Task{
             if (date.equals(byWhen)) {
                 return this;
             }
-
         } else if (byWhen instanceof LocalDateTime dateTime) {
             if (date.equals(dateTime.toLocalDate())) {
                 return this;
             }
-
         }
         return null;
     }

@@ -7,24 +7,20 @@ import misora.exceptions.MissingTaskMsgException;
 public class ToDo extends Task{
 
     public ToDo(String taskMsg) {
-
         super(taskMsg);
     }
 
     public ToDo(String taskMsg, boolean isTaskDone) {
-
         super(taskMsg, isTaskDone);
     }
 
     @Override
     public String toString() {
-
         return "[T]" + super.toString();
     }
 
     @Override
     public String toSavedString() {
-
         return String.format("T | %s", super.toSavedString());
     }
 
