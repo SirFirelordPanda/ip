@@ -34,7 +34,6 @@ public abstract class Task {
      * @param taskMsg The description of the task
      */
     public Task(String taskMsg) {
-
         this.taskMsg = taskMsg;
     }
 
@@ -45,7 +44,6 @@ public abstract class Task {
      * @param isTaskDone {@code true} if the task is completed, {@code false} otherwise
      */
     public Task(String taskMsg, boolean isTaskDone) {
-
         this.taskMsg = taskMsg;
         this.isTaskDone = isTaskDone;
     }
@@ -56,7 +54,6 @@ public abstract class Task {
      * @return 'X' if the task is done, otherwise a space ' '
      */
     public char isTaskDoneMark() {
-
         return isTaskDone? 'X' : ' ';
     }
 
@@ -66,7 +63,6 @@ public abstract class Task {
      * @param taskDone {@code true} to mark the task as done, {@code false} otherwise
      */
     public void setTaskDone(boolean taskDone) {
-
         isTaskDone = taskDone;
     }
 
@@ -78,7 +74,6 @@ public abstract class Task {
      * @return The formatted string representing this task
      */
     public String toString() {
-
         return String.format("[%c] %s", isTaskDoneMark(), taskMsg);
     }
 
@@ -90,7 +85,6 @@ public abstract class Task {
      * @return The formatted string for storage
      */
     public String toSavedString() {
-
         return String.format("%c | %s", isTaskDoneMark(), taskMsg);
     }
 
@@ -105,7 +99,6 @@ public abstract class Task {
      * @return This task if it occurs on the given date, otherwise {@code null}
      */
     public Task isTaskOnDate(LocalDate date) {
-
         return null;
     }
 

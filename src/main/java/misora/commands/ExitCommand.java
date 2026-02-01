@@ -27,11 +27,9 @@ public class ExitCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-
             ui.exit();
             storage.exit();
         } catch (MisoraException e) {
-
             ui.showError(e.getMessage());
         }
     }

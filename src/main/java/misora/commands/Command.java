@@ -22,7 +22,6 @@ public abstract class Command {
      * @param storage The {@link Storage} responsible for persisting data
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-
     }
 
     /**
@@ -33,7 +32,6 @@ public abstract class Command {
      * @return {@code true} if this command exits the application, {@code false} otherwise
      */
     public boolean isExit() {
-
         return false;
     }
 }

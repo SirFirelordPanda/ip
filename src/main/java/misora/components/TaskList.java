@@ -48,7 +48,6 @@ public class TaskList{
     public void listTasks(Ui ui) {
 
         for (int i = 0; i < listOfTasks.size(); i++) {
-
             ui.showTasklist(String.format("%d. %s", i + 1, listOfTasks.get(i)));
         }
     }
@@ -67,7 +66,6 @@ public class TaskList{
      * Removes all tasks from the task list.
      */
     public void clearTaskList() {
-
         this.listOfTasks.clear();
     }
 
@@ -78,7 +76,6 @@ public class TaskList{
      * @return The removed {@link Task}
      */
     public Task remove(int i) {
-
         return this.listOfTasks.remove(i);
     }
 
@@ -90,10 +87,9 @@ public class TaskList{
     public void showTasksOnDate(LocalDate date) {
 
         for (Task task : listOfTasks) {
-
             Task taskOnDateReturn = task.isTaskOnDate(date);
-            if (taskOnDateReturn != null) {
 
+            if (taskOnDateReturn != null) {
                 System.out.println(taskOnDateReturn.toString());
             }
         }

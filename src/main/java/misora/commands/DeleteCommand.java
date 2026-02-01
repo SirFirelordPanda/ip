@@ -42,21 +42,16 @@ public class DeleteCommand extends Command {
      * @param storage The {@link Storage} used to persist the updated task list
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-
         try {
-
             int numberDeleted = Integer.parseInt(NUMBERPART);
             Task removedTask = taskList.remove(numberDeleted - 1);
             ui.showDeleteTask(removedTask, taskList);
             storage.updateSavedFileFromTaskList(taskList);
         } catch (NumberFormatException e) {
-
             ui.showError("Invalid number given");
         } catch (IndexOutOfBoundsException e) {
-
             ui.showError("Number is not within list size");
         } catch (IOException e) {
-
             ui.showError("Unable to update the saved file from the task list");
         }
     }

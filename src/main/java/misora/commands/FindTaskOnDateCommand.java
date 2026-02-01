@@ -42,10 +42,8 @@ public class FindTaskOnDateCommand extends Command{
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-
             taskList.showTasksOnDate(date);
         } catch (DateTimeParseException e) {
-
             ui.showError(e.getMessage());
         }
     }

@@ -21,7 +21,6 @@ public class ToDo extends Task{
      * @param taskMsg The description of the ToDo task
      */
     public ToDo(String taskMsg) {
-
         super(taskMsg);
     }
 
@@ -32,7 +31,6 @@ public class ToDo extends Task{
      * @param isTaskDone {@code true} if the task is completed, {@code false} otherwise
      */
     public ToDo(String taskMsg, boolean isTaskDone) {
-
         super(taskMsg, isTaskDone);
     }
 
@@ -43,7 +41,6 @@ public class ToDo extends Task{
      */
     @Override
     public String toString() {
-
         return "[T]" + super.toString();
     }
 
@@ -54,7 +51,6 @@ public class ToDo extends Task{
      */
     @Override
     public String toSavedString() {
-
         return String.format("T | %s", super.toSavedString());
     }
 

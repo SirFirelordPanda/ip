@@ -40,20 +40,15 @@ public class MarkCommand extends Command{
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-
         try {
-
             int numberToMark = Integer.parseInt(NUMBERPART);
             Task taskToMark = taskList.get(numberToMark - 1);
             taskToMark.setTaskDone(true);
             ui.showMarkTask(taskToMark);
         } catch (NumberFormatException e) {
-
             ui.showError("Invalid number given");
         } catch (IndexOutOfBoundsException e) {
-
             ui.showError("Number is not within list size");
         }
     }
-
 }
