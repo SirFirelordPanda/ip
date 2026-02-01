@@ -9,23 +9,64 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task in the Misora application with a start and end time.
+ * <p>
+ * An {@code Event} has a description (inherited from {@link Task}), a start time
+ * ({@code fromWhen}), and an end time ({@code toWhen}). The times can be stored
+ * as {@link LocalDateTime}, {@link LocalDate}, or as raw strings if parsing fails.
+ * <p>
+ * This class overrides {@link Task#toString()}, {@link Task#toSavedString()},
+ * {@link Task#isTaskOnDate(LocalDate)}, and {@link Task#isValidFormat()} to provide
+ * event-specific behavior.
+ */
 public class Event extends Task{
 
+    /**
+     * The start time of the event.
+     */
     private Object fromWhen;
+
+    /**
+     * The end time of the event.
+     */
     private Object toWhen;
 
+    /**
+     * Creates a new {@code Event} task with a description, start time, and end time.
+     *
+     * @param taskMsg The description of the event
+     * @param fromWhenRaw The start time of the event (can be parsed as {@link LocalDateTime} or {@link LocalDate})
+     * @param toWhenRaw The end time of the event (can be parsed as {@link LocalDateTime} or {@link LocalDate})
+     */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw) {
         super(taskMsg);
         this.fromWhen = parseDateTime(fromWhenRaw);
         this.toWhen = parseDateTime(toWhenRaw);
     }
 
+    /**
+     * Creates a new {@code Event} task with a description, start time, end time,
+     * and completion status.
+     *
+     * @param taskMsg The description of the event
+     * @param fromWhenRaw The start time of the event
+     * @param toWhenRaw The end time of the event
+     * @param isTaskDone {@code true} if the task is completed, {@code false} otherwise
+     */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
         this.fromWhen = parseDateTime(fromWhenRaw);
         this.toWhen = parseDateTime(toWhenRaw);
     }
 
+    /**
+     * Attempts to parse a raw string into a {@link LocalDateTime} or {@link LocalDate}.
+     * If parsing fails, the raw string is returned.
+     *
+     * @param input The raw date/time input
+     * @return A {@link LocalDateTime}, {@link LocalDate}, or raw string if parsing fails
+     */
     private Object parseDateTime(String input) {
         try {
             return LocalDateTime.parse(input);
@@ -38,6 +79,12 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Formats a date/time object for display to the user.
+     *
+     * @param date The object to format
+     * @return A human-readable string representation
+     */
     private String formatForDisplay(Object date) {
         if (date instanceof LocalDateTime dt) {
             return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
@@ -48,6 +95,12 @@ public class Event extends Task{
         return date.toString();
     }
 
+    /**
+     * Formats a date/time object for saving to a file.
+     *
+     * @param date The object to format
+     * @return A string suitable for storage
+     */
     private String formatForSave(Object date) {
         if (date instanceof LocalDateTime dt) {
             return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
@@ -55,17 +108,33 @@ public class Event extends Task{
         return date.toString();
     }
 
+    /**
+     * Returns a string representation of the event task for display.
+     *
+     * @return The formatted string representing this event
+     */
     @Override
     public String toString() {
         String eventTime = String.format(" (from: %s to: %s)", this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
         return "[E]" + super.toString() + eventTime;
     }
 
+    /**
+     * Returns a string representation of the event suitable for saving to a file.
+     *
+     * @return The formatted string for storage
+     */
     @Override
     public String toSavedString() {
         return String.format("E | %s | %s | %s", super.toSavedString(), this.formatForSave(fromWhen), this.formatForSave(toWhen));
     }
 
+    /**
+     * Checks if the event occurs on the specified {@link LocalDate}.
+     *
+     * @param date The date to check
+     * @return This {@link Task} if the event occurs on the given date, otherwise {@code null}
+     */
     @Override
     public Task isTaskOnDate(LocalDate date) {
         if (fromWhen instanceof LocalDate d) {
@@ -95,6 +164,15 @@ public class Event extends Task{
         return null;
     }
 
+    /**
+     * Validates the format of the event task.
+     * <p>
+     * Throws exceptions if the task description, start time, or end time is missing.
+     *
+     * @throws MissingTaskMsgException if the task description is empty
+     * @throws MissingArgument1Exception if the start time is missing
+     * @throws MissingArgument2Exception if the end time is missing
+     */
     @Override
     public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {

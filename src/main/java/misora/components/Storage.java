@@ -12,12 +12,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a storage block that handles reading from and writing to
+ * the persistent task storage file in the Misora application.
+ * <p>
+ * The {@code Storage} class is responsible for:
+ * <ul>
+ *   <li>Loading tasks from a saved file into a {@link TaskList}</li>
+ *   <li>Saving tasks to the file when they are added, updated, or deleted</li>
+ *   <li>Clearing the file or closing resources when the application exits</li>
+ * </ul>
+ */
 public class Storage {
 
+    /**
+     * The {@link File} used for storing all task data.
+     * <p>
+     * This file is the persistent storage backend for tasks in the application.
+     */
     private final File TASKFILE;
+
+    /**
+     * The {@link FileWriter} used to write tasks to {@link #TASKFILE}.
+     */
     private FileWriter taskWriter;
+
+    /**
+     * The {@link Scanner} used to read tasks from {@link #TASKFILE}.
+     */
     private Scanner taskScanner;
 
+    /**
+     * Creates a {@code Storage} object for a specified file path.
+     * <p>
+     * If the file or its parent directories do not exist, they are created.
+     * Initializes a {@link Scanner} for reading and a {@link FileWriter} for appending tasks.
+     *
+     * @param filePath The file path to store the task data
+     */
     public Storage (String filePath) {
         TASKFILE = new File(filePath);
         if (!TASKFILE.exists()) {
@@ -50,6 +82,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file into a list.
+     * <p>
+     * Each line of the file is parsed into a {@link Task} object, which
+     * can be a {@link ToDo}, {@link Deadline}, or {@link Event}. If the file
+     * contains corrupted or unrecognized data, a {@link CorruptedSavedTaskFileException} is thrown.
+     *
+     * @return A {@link List} of {@link Task} objects loaded from the file
+     * @throws CorruptedSavedTaskFileException If the file contains invalid or corrupted task data
+     */
     public List<Task> load() throws CorruptedSavedTaskFileException{
         List<Task> listOfTasks = new ArrayList<>();
 
@@ -80,6 +122,11 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Clears all data from the storage file.
+     * <p>
+     * This effectively removes all saved tasks.
+     */
     public void clearSavedFile() {
         try {
             new FileWriter(TASKFILE).close();
@@ -88,6 +135,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the storage file with the current tasks in the given {@link TaskList}.
+     * <p>
+     * This overwrites the file to match the current state of the task list.
+     *
+     * @param taskList The {@link TaskList} containing tasks to save
+     * @throws IOException If an error occurs while writing to the file
+     */
     public void updateSavedFileFromTaskList(TaskList taskList) throws IOException{
         FileWriter writer = new FileWriter(TASKFILE); // overwrite
         for (int i = 0; i < taskList.size(); i++) {
@@ -96,6 +151,13 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Appends a single {@link Task} to the storage file.
+     *
+     * @param task The {@link Task} to add
+     * @param ui The {@link Ui} (not used in this method but required by the signature)
+     * @throws UnableToWriteToFileException If an I/O error occurs while writing
+     */
     public void addTaskToFile(Task task, Ui ui) throws UnableToWriteToFileException {
         try {
             taskWriter.write(task.toSavedString() + "\n");
@@ -105,6 +167,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Closes the {@link Scanner} and {@link FileWriter} associated with this storage.
+     *
+     * @throws UnableToCloseStorageException If an I/O error occurs while closing resources
+     */
     public void exit() throws UnableToCloseStorageException {
         try {
             taskScanner.close();

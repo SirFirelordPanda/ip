@@ -2,22 +2,49 @@ package misora.components;
 
 import misora.tasks.Task;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of {@link Task} objects in the Misora application.
+ * <p>
+ * The {@code TaskList} class provides methods for adding, removing, retrieving,
+ * and displaying tasks. It acts as the in-memory storage for tasks while
+ * the application is running.
+ */
 public class TaskList{
 
+    /**
+     * The internal list that stores all {@link Task} objects managed by this {@code TaskList}.
+     * <p>
+     * This list serves as the in-memory collection for all tasks currently tracked by the application.
+     */
     private List<Task> listOfTasks;
 
+    /**
+     * Creates an empty {@code TaskList}.
+     */
     public TaskList() {
         this.listOfTasks = new ArrayList<>();
     }
 
+    /**
+     * Creates a {@code TaskList} with a pre-existing list of tasks.
+     *
+     * @param listOfTasks A list of {@link Task} objects to initialize the task list
+     */
     public TaskList(List<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
 
+    /**
+     * Displays all tasks in the list using the provided {@link Ui}.
+     *
+     * @param ui The {@link Ui} responsible for displaying tasks
+     */
     public void listTasks(Ui ui) {
 
         for (int i = 0; i < listOfTasks.size(); i++) {
@@ -26,20 +53,40 @@ public class TaskList{
         }
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param i The index of the task to retrieve
+     * @return The {@link Task} at index {@code i}
+     */
     public Task get(int i) {
         return this.listOfTasks.get(i);
     }
 
+    /**
+     * Removes all tasks from the task list.
+     */
     public void clearTaskList() {
 
         this.listOfTasks.clear();
     }
 
+    /**
+     * Removes and returns the task at the specified index.
+     *
+     * @param i The index of the task to remove
+     * @return The removed {@link Task}
+     */
     public Task remove(int i) {
 
         return this.listOfTasks.remove(i);
     }
 
+    /**
+     * Displays all tasks that occur on the specified {@link LocalDate}.
+     *
+     * @param date The date to filter tasks by
+     */
     public void showTasksOnDate(LocalDate date) {
 
         for (Task task : listOfTasks) {
@@ -52,14 +99,29 @@ public class TaskList{
         }
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The size of the task list
+     */
     public int size() {
         return this.listOfTasks.size();
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return {@code true} if the task list contains no tasks, {@code false} otherwise
+     */
     public boolean isEmpty() {
         return this.listOfTasks.isEmpty();
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param t The {@link Task} to add
+     */
     public void add(Task t) {
         this.listOfTasks.add(t);
     }
