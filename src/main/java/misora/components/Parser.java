@@ -9,6 +9,7 @@ import misora.commands.FindTaskOnDateCommand;
 import misora.commands.ListClearCommand;
 import misora.commands.MarkCommand;
 import misora.commands.UnmarkCommand;
+import misora.commands.FindCommand;
 import misora.exceptions.MisoraException;
 import misora.exceptions.UnhandledCommandException;
 
@@ -30,7 +31,7 @@ public class Parser {
      * Parses a raw user input string and returns the corresponding {@link Command}.
      * <p>
      * The method identifies the type of command based on keywords such as "bye", "list",
-     * "todo", "deadline", "event", "mark", "unmark", "delete", and "tasks on".
+     * "todo", "deadline", "event", "mark", "unmark", "delete", "tasks on" and "find".
      * It extracts any necessary arguments (e.g., task description, dates, or task numbers)
      * and constructs the appropriate {@link Command} subclass.
      *

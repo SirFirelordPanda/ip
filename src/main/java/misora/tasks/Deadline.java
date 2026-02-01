@@ -138,13 +138,17 @@ public class Deadline extends Task{
     }
 
     /**
-     * Validates the format of the deadline task.
+     * Checks whether this task contains the given search string.
      * <p>
-     * Throws exceptions if the description or deadline is missing.
+     * A task is considered a match if the search string appears in:
+     * <ul>
+     *     <li>the task description (inherited behaviour)</li>
+     *     <li>the {@code byWhen} date/time in its raw, display, or save format </li>
+     * </ul>
      *
-     * @throws MissingTaskMsgException if the task description is empty
-     * @throws MissingArgument1Exception if the deadline argument is missing
-     * @throws MissingArgument2Exception Not used in this class, but part of signature
+     * @param searchString The string to search for within this task.
+     * @return This task if the search string matches any relevant field;
+     *         {@code null} otherwise.
      */
     @Override
     public Task doesTaskContainString(String searchString) {
@@ -159,6 +163,15 @@ public class Deadline extends Task{
         return null;
     }
 
+    /**
+     * Validates the format of the deadline task.
+     * <p>
+     * Throws exceptions if the description or deadline is missing.
+     *
+     * @throws MissingTaskMsgException if the task description is empty
+     * @throws MissingArgument1Exception if the deadline argument is missing
+     * @throws MissingArgument2Exception Not used in this class, but part of signature
+     */
     @Override
     public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {

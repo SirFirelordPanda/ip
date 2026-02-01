@@ -165,13 +165,18 @@ public class Event extends Task{
     }
 
     /**
-     * Validates the format of the event task.
+     * Checks whether this task contains the given search string.
      * <p>
-     * Throws exceptions if the task description, start time, or end time is missing.
+     * A task is considered a match if the search string appears in:
+     * <ul>
+     *     <li>the task description (inherited behaviour),</li>
+     *     <li>the {@code toWhen} date/time in its raw, display, or save format, or</li>
+     *     <li>the {@code fromWhen} date/time in its raw, display, or save format.</li>
+     * </ul>
      *
-     * @throws MissingTaskMsgException if the task description is empty
-     * @throws MissingArgument1Exception if the start time is missing
-     * @throws MissingArgument2Exception if the end time is missing
+     * @param searchString The string to search for within this task.
+     * @return This task if the search string matches any relevant field;
+     *         {@code null} otherwise.
      */
     @Override
     public Task doesTaskContainString(String searchString) {
@@ -190,6 +195,15 @@ public class Event extends Task{
         return null;
     }
 
+    /**
+     * Validates the format of the event task.
+     * <p>
+     * Throws exceptions if the task description, start time, or end time is missing.
+     *
+     * @throws MissingTaskMsgException if the task description is empty
+     * @throws MissingArgument1Exception if the start time is missing
+     * @throws MissingArgument2Exception if the end time is missing
+     */
     @Override
     public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {

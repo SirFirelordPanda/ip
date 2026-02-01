@@ -102,6 +102,16 @@ public abstract class Task {
         return null;
     }
 
+    /**
+     * Checks whether this task contains the given search string.
+     * <p>
+     * A task is considered a match if the search string appears in
+     * the task description (inherited behaviour)
+     *
+     * @param searchString The string to search for within this task.
+     * @return This task if the search string matches any relevant field;
+     *         {@code null} otherwise.
+     */
     public Task doesTaskContainString(String searchString) {
         if(this.taskMsg.contains(searchString)){
             return this;
