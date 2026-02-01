@@ -5,8 +5,25 @@ import misora.components.TaskList;
 import misora.components.Ui;
 import misora.exceptions.MisoraException;
 
+/**
+ * Represents an {@code ExitCommand} in the Misora application.
+ * <p>
+ * An {@code ExitCommand} terminates the application by performing any
+ * necessary cleanup through the {@link Ui} and {@link Storage} components.
+ * This command signals to the application that execution should stop.
+ */
 public class ExitCommand extends Command{
 
+    /**
+     * Executes the exit command by closing the user interface and storage.
+     * <p>
+     * If an error occurs during shutdown, an appropriate error message
+     * is displayed to the user via the {@link Ui}.
+     *
+     * @param taskList The {@link TaskList} (not used by this command)
+     * @param ui The {@link Ui} responsible for handling application exit
+     * @param storage The {@link Storage} responsible for final cleanup
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
@@ -19,6 +36,11 @@ public class ExitCommand extends Command{
         }
     }
 
+    /**
+     * Indicates that this command causes the application to terminate.
+     *
+     * @return {@code true}, as this command exits the application
+     */
     @Override
     public boolean isExit() {
         return true;
