@@ -41,10 +41,6 @@ public class FindTaskOnDateCommand extends Command{
      * @param storage The {@link Storage} (not used by this command)
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        try {
             taskList.showTasksOnDate(date);
-        } catch (DateTimeParseException e) {
-            ui.showError(e.getMessage());
-        }
     }
 }

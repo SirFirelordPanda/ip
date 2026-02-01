@@ -127,6 +127,112 @@ class EventTest {
         assertNull(result);
     }
 
+    //doesTaskContainString tests
+
+    @Test
+    void doesTaskContainString_descriptionMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01T10:00",
+                "2026-02-01T12:00"
+        );
+
+        Task result = event.doesTaskContainString("meeting");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_fromWhenStringMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01T10:00",
+                "2026-02-01T12:00"
+        );
+
+        Task result = event.doesTaskContainString("10:00");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_toWhenStringMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01T10:00",
+                "2026-02-01T12:00"
+        );
+
+        Task result = event.doesTaskContainString("12:00");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_fromWhenFormattedDisplayMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01",
+                "2026-02-02"
+        );
+
+        Task result = event.doesTaskContainString("Feb 01");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_toWhenFormattedDisplayMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01",
+                "2026-02-02"
+        );
+
+        Task result = event.doesTaskContainString("Feb 02");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_fromWhenFormattedSaveMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01",
+                "2026-02-02"
+        );
+
+        Task result = event.doesTaskContainString("2026-02-01");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_toWhenFormattedSaveMatch_returnsTask() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01",
+                "2026-02-02"
+        );
+
+        Task result = event.doesTaskContainString("2026-02-02");
+
+        assertSame(event, result);
+    }
+
+    @Test
+    void doesTaskContainString_noMatch_returnsNull() {
+        Event event = new Event(
+                "team meeting",
+                "2026-02-01",
+                "2026-02-02"
+        );
+
+        Task result = event.doesTaskContainString("deadline");
+
+        assertNull(result);
+    }
+
     //isValidFormat tests
 
     @Test

@@ -102,6 +102,13 @@ public abstract class Task {
         return null;
     }
 
+    public Task doesTaskContainString(String searchString) {
+        if(this.taskMsg.contains(searchString)){
+            return this;
+        }
+        return null;
+    }
+
     /**
      * Validates the format of this task.
      * <p>

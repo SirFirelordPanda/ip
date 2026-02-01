@@ -174,6 +174,23 @@ public class Event extends Task{
      * @throws MissingArgument2Exception if the end time is missing
      */
     @Override
+    public Task doesTaskContainString(String searchString) {
+        Task itDoes = super.doesTaskContainString(searchString);
+        if (itDoes != null) {
+            return this;
+        } else if (toWhen.toString().contains(searchString)
+                || formatForDisplay(toWhen).contains(searchString)
+                || formatForSave(toWhen).contains(searchString)) {
+            return this;
+        }  else if (fromWhen.toString().contains(searchString)
+                || formatForDisplay(fromWhen).contains(searchString)
+                || formatForSave(fromWhen).contains(searchString)) {
+            return this;
+        }
+        return null;
+    }
+
+    @Override
     public void isValidFormat() throws MissingTaskMsgException, MissingArgument1Exception, MissingArgument2Exception {
         try {
             super.isValidFormat();

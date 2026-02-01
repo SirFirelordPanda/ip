@@ -52,12 +52,6 @@ public class TaskList{
         }
     }
 
-    /**
-     * Returns the task at the specified index.
-     *
-     * @param i The index of the task to retrieve
-     * @return The {@link Task} at index {@code i}
-     */
     public Task get(int i) {
         return this.listOfTasks.get(i);
     }
@@ -91,6 +85,18 @@ public class TaskList{
 
             if (taskOnDateReturn != null) {
                 System.out.println(taskOnDateReturn.toString());
+            }
+        }
+    }
+
+    public void showTasksContainingString(String searchString) {
+
+        for (Task task : listOfTasks) {
+
+            Task taskContainString = task.doesTaskContainString(searchString);
+            if (taskContainString != null) {
+
+                System.out.println(taskContainString.toString());
             }
         }
     }
