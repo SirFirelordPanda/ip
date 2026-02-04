@@ -12,7 +12,7 @@ import misora.exceptions.MisoraException;
  * necessary cleanup through the {@link Ui} and {@link Storage} components.
  * This command signals to the application that execution should stop.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Executes the exit command by closing the user interface and storage.

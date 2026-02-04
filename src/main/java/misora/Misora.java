@@ -1,7 +1,10 @@
 package misora;
 
 import misora.commands.Command;
-import misora.components.*;
+import misora.components.Parser;
+import misora.components.Storage;
+import misora.components.TaskList;
+import misora.components.Ui;
 import misora.exceptions.MisoraException;
 
 /**

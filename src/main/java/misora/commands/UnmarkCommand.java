@@ -11,7 +11,7 @@ import misora.tasks.Task;
  * An {@code UnmarkCommand} marks a specified task in the {@link TaskList}
  * as not completed based on a user-provided task number.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
 
     /**
      * The string representation of the task number to be unmarked.

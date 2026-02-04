@@ -1,20 +1,20 @@
 package misora.components;
 
-import misora.commands.Command;
-import misora.commands.AddCommand;
-import misora.commands.DeleteCommand;
-import misora.commands.ListCommand;
-import misora.commands.ExitCommand;
-import misora.commands.FindTaskOnDateCommand;
-import misora.commands.ListClearCommand;
-import misora.commands.MarkCommand;
-import misora.commands.UnmarkCommand;
-import misora.commands.FindCommand;
-import misora.exceptions.MisoraException;
-import misora.exceptions.UnhandledCommandException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import misora.commands.AddCommand;
+import misora.commands.Command;
+import misora.commands.DeleteCommand;
+import misora.commands.ExitCommand;
+import misora.commands.FindCommand;
+import misora.commands.FindTaskOnDateCommand;
+import misora.commands.ListClearCommand;
+import misora.commands.ListCommand;
+import misora.commands.MarkCommand;
+import misora.commands.UnmarkCommand;
+import misora.exceptions.MisoraException;
+import misora.exceptions.UnhandledCommandException;
 
 /**
  * Represents a parser that parses user input into executable {@link Command} objects
@@ -105,12 +105,12 @@ public class Parser {
             }
             return new AddCommand(taskMsg, fromWhen, toWhen);
 
-        } else if (fullCommand.toLowerCase().startsWith("delete ")){
+        } else if (fullCommand.toLowerCase().startsWith("delete ")) {
 
             String numberPart = fullCommand.substring(7).trim();
             return new DeleteCommand(numberPart);
 
-        } else if (fullCommand.toLowerCase().startsWith("tasks on ")){
+        } else if (fullCommand.toLowerCase().startsWith("tasks on ")) {
 
             try {
                 String dateRaw = fullCommand.substring(9).trim();
@@ -120,7 +120,7 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
 
-        } else if (fullCommand.toLowerCase().startsWith("find ")){
+        } else if (fullCommand.toLowerCase().startsWith("find ")) {
 
             String searchString = fullCommand.substring(5).trim();
             return new FindCommand(searchString);

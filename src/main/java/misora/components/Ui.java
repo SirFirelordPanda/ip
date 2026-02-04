@@ -1,10 +1,10 @@
 package misora.components;
 
-import misora.tasks.Task;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+
+import misora.tasks.Task;
 
 /**
  * Represents a ui that handles all user interactions in the Misora application.
@@ -32,7 +32,7 @@ public class Ui {
     /**
      * The {@link Scanner} used to read user input to be passed to the {@link Parser}.
      */
-    Scanner userScanner;
+    private final Scanner userScanner;
 
     /**
      * Constructs a new {@code Ui} object and initializes a {@link Scanner}
@@ -148,7 +148,7 @@ public class Ui {
     public void showAddTask(Task task, TaskList taskList) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n",taskList.size());
+        System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
     }
 
     /**

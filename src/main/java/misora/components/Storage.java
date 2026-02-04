@@ -1,5 +1,12 @@
 package misora.components;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import misora.exceptions.CorruptedSavedTaskFileException;
 import misora.exceptions.MisoraException;
 import misora.exceptions.UnableToCloseStorageException;
@@ -8,13 +15,6 @@ import misora.tasks.Deadline;
 import misora.tasks.Event;
 import misora.tasks.Task;
 import misora.tasks.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents a storage block that handles reading from and writing to
@@ -34,15 +34,15 @@ public class Storage {
      * <p>
      * This file is the persistent storage backend for tasks in the application.
      */
-    private final File TASKFILE;
+    private final File taskFile;
 
     /**
-     * The {@link FileWriter} used to write tasks to {@link #TASKFILE}.
+     * The {@link FileWriter} used to write tasks to {@link #taskFile}.
      */
     private FileWriter taskWriter;
 
     /**
-     * The {@link Scanner} used to read tasks from {@link #TASKFILE}.
+     * The {@link Scanner} used to read tasks from {@link #taskFile}.
      */
     private Scanner taskScanner;
 
@@ -54,20 +54,20 @@ public class Storage {
      *
      * @param filePath The file path to store the task data
      */
-    public Storage (String filePath) {
-        TASKFILE = new File(filePath);
-        if (!TASKFILE.exists()) {
+    public Storage(String filePath) {
+        taskFile = new File(filePath);
+        if (!taskFile.exists()) {
             try {
                 System.out.println("File does not exist\nCreating file");
-                File parent = TASKFILE.getParentFile();
+                File parent = taskFile.getParentFile();
                 if (parent != null) {
                     if (parent.mkdirs()) {
-                        System.out.println("Folder created: " + TASKFILE.getParentFile());
+                        System.out.println("Folder created: " + taskFile.getParentFile());
                     }
                 }
 
-                if (TASKFILE.createNewFile()) {
-                    System.out.println("File created: " + TASKFILE.getPath());
+                if (taskFile.createNewFile()) {
+                    System.out.println("File created: " + taskFile.getPath());
                 }
             } catch (IOException e) {
                 System.out.println("File was unable to be created");
@@ -75,8 +75,8 @@ public class Storage {
         }
 
         try {
-            taskScanner = new Scanner(TASKFILE);
-            taskWriter = new FileWriter(TASKFILE, true);
+            taskScanner = new Scanner(taskFile);
+            taskWriter = new FileWriter(taskFile, true);
         } catch (java.io.FileNotFoundException e) {
             System.out.println(e.getMessage());
             System.out.println("data/misora.txt could not be found\nScanner could not be initiated");
@@ -96,7 +96,7 @@ public class Storage {
      * @return A {@link List} of {@link Task} objects loaded from the file
      * @throws CorruptedSavedTaskFileException If the file contains invalid or corrupted task data
      */
-    public List<Task> load() throws CorruptedSavedTaskFileException{
+    public List<Task> load() throws CorruptedSavedTaskFileException {
         List<Task> listOfTasks = new ArrayList<>();
 
         if (taskScanner != null) {
@@ -105,17 +105,17 @@ public class Storage {
                 String[] parts = task.split("\\s*\\|\\s*");
                 try {
                     switch (parts[0]) {
-                        case "T":
-                            listOfTasks.add(new ToDo(parts[2], parts[1].equalsIgnoreCase("X")));
-                            break;
-                        case "D":
-                            listOfTasks.add(new Deadline(parts[2], parts[3], parts[1].equalsIgnoreCase("X")));
-                            break;
-                        case "E":
-                            listOfTasks.add(new Event(parts[2], parts[3], parts[4], parts[1].equalsIgnoreCase("X")));
-                            break;
-                        default:
-                            throw new CorruptedSavedTaskFileException();
+                    case "T":
+                        listOfTasks.add(new ToDo(parts[2], parts[1].equalsIgnoreCase("X")));
+                        break;
+                    case "D":
+                        listOfTasks.add(new Deadline(parts[2], parts[3], parts[1].equalsIgnoreCase("X")));
+                        break;
+                    case "E":
+                        listOfTasks.add(new Event(parts[2], parts[3], parts[4], parts[1].equalsIgnoreCase("X")));
+                        break;
+                    default:
+                        throw new CorruptedSavedTaskFileException();
                     }
                 } catch (MisoraException e) {
                     throw new CorruptedSavedTaskFileException();
@@ -133,7 +133,7 @@ public class Storage {
      */
     public void clearSavedFile() {
         try {
-            new FileWriter(TASKFILE).close();
+            new FileWriter(taskFile).close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -147,8 +147,8 @@ public class Storage {
      * @param taskList The {@link TaskList} containing tasks to save
      * @throws IOException If an error occurs while writing to the file
      */
-    public void updateSavedFileFromTaskList(TaskList taskList) throws IOException{
-        FileWriter writer = new FileWriter(TASKFILE); // overwrite
+    public void updateSavedFileFromTaskList(TaskList taskList) throws IOException {
+        FileWriter writer = new FileWriter(taskFile); // overwrite
         for (int i = 0; i < taskList.size(); i++) {
             writer.write(taskList.get(i).toSavedString() + "\n");
         }
