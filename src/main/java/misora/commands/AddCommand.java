@@ -21,7 +21,7 @@ public class AddCommand extends Command{
     /**
      * The task to be added.
      */
-    private Task task;
+    private final Task task;
 
     /**
      * Creates an {@code AddCommand} that adds a {@link ToDo} task.

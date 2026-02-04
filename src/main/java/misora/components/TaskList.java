@@ -2,8 +2,6 @@ package misora.components;
 
 import misora.tasks.Task;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class TaskList{
      * <p>
      * This list serves as the in-memory collection for all tasks currently tracked by the application.
      */
-    private List<Task> listOfTasks;
+    private final List<Task> listOfTasks;
 
     /**
      * Creates an empty {@code TaskList}.
@@ -74,31 +72,46 @@ public class TaskList{
     }
 
     /**
-     * Displays all tasks that occur on the specified {@link LocalDate}.
+     * Returns all tasks that occur on the specified {@link LocalDate}.
      *
      * @param date The date to filter tasks by
+     * @return List<Task> The list of tasks containing the date
      */
-    public void showTasksOnDate(LocalDate date) {
+    public List<Task> getTasksOnDate(LocalDate date) {
+
+        List<Task> tasksOnDate = new ArrayList<>();
 
         for (Task task : listOfTasks) {
             Task taskOnDateReturn = task.isTaskOnDate(date);
 
             if (taskOnDateReturn != null) {
-                System.out.println(taskOnDateReturn.toString());
+                tasksOnDate.add(taskOnDateReturn);
             }
         }
+
+        return tasksOnDate;
     }
 
-    public void showTasksContainingString(String searchString) {
+    /**
+     * Returns all tasks that contain the specified {@link String}.
+     *
+     * @param searchString The string to filter tasks by
+     * @return List<Task> The list of tasks containing the date
+     */
+    public List<Task> getTasksContainingString(String searchString) {
+
+        List<Task> tasksContainingString = new ArrayList<>();
 
         for (Task task : listOfTasks) {
 
             Task taskContainString = task.doesTaskContainString(searchString);
             if (taskContainString != null) {
 
-                System.out.println(taskContainString.toString());
+                tasksContainingString.add(taskContainString);
             }
         }
+
+        return tasksContainingString;
     }
 
     /**

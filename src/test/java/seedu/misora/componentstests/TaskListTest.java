@@ -90,22 +90,29 @@ class TaskListTest {
     //Date Filtering tests
 
     @Test
-    void showTasksOnDate_printsTasksOnCorrectDate() {
+    void getTasksOnDate_returnsOnlyTasksOnCorrectDate() {
         Deadline d1 = new Deadline("submit report", "2026-02-01");
         Deadline d2 = new Deadline("submit project", "2026-03-01");
+
         taskList.add(d1);
         taskList.add(d2);
 
         LocalDate targetDate = LocalDate.of(2026, 2, 1);
 
-        java.io.ByteArrayOutputStream outContent = new java.io.ByteArrayOutputStream();
-        System.setOut(new java.io.PrintStream(outContent));
+        List<Task> result = taskList.getTasksOnDate(targetDate);
 
-        taskList.showTasksOnDate(targetDate);
+        assertEquals(1, result.size());
+        assertEquals(d1, result.get(0));
+    }
 
-        String output = outContent.toString().trim();
-        assertTrue(output.contains("submit report"));
-        assertFalse(output.contains("submit project"));
+    @Test
+    void getTasksOnDate_noMatchingTasks_returnsEmptyList() {
+        taskList.add(new Deadline("submit project", "2026-03-01"));
+
+        List<Task> result = taskList.getTasksOnDate(
+                LocalDate.of(2026, 2, 1));
+
+        assertTrue(result.isEmpty());
     }
 }
 

@@ -16,7 +16,7 @@ public class UnmarkCommand extends Command{
     /**
      * The string representation of the task number to be unmarked.
      */
-    private final String NUMBERPART;
+    private final String numberPart;
 
     /**
      * Creates an {@code UnmarkCommand} with the specified task number.
@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command{
      * @param numberPart The task number provided by the user
      */
     public UnmarkCommand(String numberPart) {
-        this.NUMBERPART = numberPart;
+        this.numberPart = numberPart;
     }
 
     /**
@@ -41,7 +41,7 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int numberToUnmark = Integer.parseInt(NUMBERPART);
+            int numberToUnmark = Integer.parseInt(numberPart);
             Task taskToUnmark = taskList.get(numberToUnmark - 1);
             taskToUnmark.setTaskDone(false);
             ui.showUnmarkTask(taskToUnmark);

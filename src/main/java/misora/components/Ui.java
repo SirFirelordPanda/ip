@@ -3,6 +3,7 @@ package misora.components;
 import misora.tasks.Task;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -148,6 +149,48 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.printf("Now you have %d tasks in the list.\n",taskList.size());
+    }
+
+    /**
+     * Displays all tasks that occur on the specified date.
+     * <p>
+     * If the provided list of tasks is empty, a message indicating that no tasks
+     * were found for the given date is shown instead.
+     *
+     * @param tasks The list of {@link Task} objects that occur on the specified date
+     * @param date The {@link LocalDate} used to filter and display tasks
+     */
+    public void showTasksOnDate(List<Task> tasks, LocalDate date) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found that contain the date: ");
+            this.showDate(date);
+        } else {
+            for (Task t : tasks) {
+                System.out.print("Tasks on the date: ");
+                this.showDate(date);
+                System.out.println(t.toString());
+            }
+        }
+    }
+
+    /**
+     * Displays all tasks that contain the specified search string.
+     * <p>
+     * If the provided list of tasks is empty, a message indicating that no matching
+     * tasks were found is displayed.
+     *
+     * @param tasks The list of {@link Task} objects that contain the search string
+     * @param string The search string used to match tasks
+     */
+    public void showTasksContainingString(List<Task> tasks, String string) {
+        if (tasks.isEmpty()) {
+            System.out.printf("No tasks found that contain the string: %s\n", string);
+        } else {
+            for (Task t : tasks) {
+                System.out.printf("Tasks containing string: %s\n", string);
+                System.out.println(t.toString());
+            }
+        }
     }
 
     /**

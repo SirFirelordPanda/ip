@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,6 +19,7 @@ class UiTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private final InputStream originalIn = System.in;
 
     @BeforeEach
     void setUpStreams() {
@@ -27,6 +29,7 @@ class UiTest {
     @AfterEach
     void restoreStreams() {
         System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 
     //Console output tests
@@ -131,4 +134,59 @@ class UiTest {
         String command = ui.readCommand();
         assertEquals("todo read book", command);
     }
+
+    //showTasksOnDate tests
+
+    @Test
+    void showTasksOnDate_noTasks_printsNoTasksMessage() {
+        Ui ui = new Ui();
+        LocalDate date = LocalDate.of(2026, 2, 1);
+
+        ui.showTasksOnDate(List.of(), date);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("No tasks found"));
+        assertTrue(output.contains("2026-02-01"));
+    }
+
+    @Test
+    void showTasksOnDate_withTasks_printsTasksAndDate() {
+        Ui ui = new Ui();
+        LocalDate date = LocalDate.of(2026, 2, 1);
+        Task task = new ToDo("read book");
+
+        ui.showTasksOnDate(List.of(task), date);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Tasks on the date"));
+        assertTrue(output.contains("2026-02-01"));
+        assertTrue(output.contains("read book"));
+    }
+
+    //showTasksContainingString tests
+
+    @Test
+    void showTasksContainingString_noTasks_printsNoTasksMessage() {
+        Ui ui = new Ui();
+
+        ui.showTasksContainingString(List.of(), "report");
+
+        String output = outContent.toString();
+        assertTrue(output.contains("No tasks found"));
+        assertTrue(output.contains("report"));
+    }
+
+    @Test
+    void showTasksContainingString_withTasks_printsTasksAndString() {
+        Ui ui = new Ui();
+        Task task = new ToDo("write report");
+
+        ui.showTasksContainingString(List.of(task), "report");
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Tasks containing string"));
+        assertTrue(output.contains("report"));
+        assertTrue(output.contains("write report"));
+    }
+
 }

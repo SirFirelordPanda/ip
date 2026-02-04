@@ -4,7 +4,10 @@ import misora.commands.FindCommand;
 import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
+import misora.tasks.Task;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,18 +16,24 @@ class FindCommandTest {
 
     private static class StubTaskList extends TaskList {
         String receivedSearchString = null;
-
-        public StubTaskList() {
-            super();
-        }
+        List<Task> tasksToReturn = List.of();
 
         @Override
-        public void showTasksContainingString(String searchString) {
+        public List<Task> getTasksContainingString(String searchString) {
             receivedSearchString = searchString;
+            return tasksToReturn;
         }
     }
 
     private static class StubUi extends Ui {
+        List<Task> receivedTasks = null;
+        String receivedSearchString = null;
+
+        @Override
+        public void showTasksContainingString(List<Task> tasks, String searchString) {
+            receivedTasks = tasks;
+            receivedSearchString = searchString;
+        }
     }
 
     private static class StubStorage extends Storage {
@@ -34,7 +43,7 @@ class FindCommandTest {
     }
 
     @Test
-    void execute_validSearchString_callsShowTasksContainingString() {
+    void execute_validSearchString_callsTaskListAndUi() {
         FindCommand cmd = new FindCommand("report");
 
         StubTaskList taskList = new StubTaskList();
@@ -43,7 +52,9 @@ class FindCommandTest {
 
         cmd.execute(taskList, ui, storage);
 
-        assertEquals("report", taskList.receivedSearchString,
-                "TaskList.showTasksContainingString() should be called with search string");
+        assertEquals("report", taskList.receivedSearchString);
+        assertEquals(taskList.tasksToReturn, ui.receivedTasks);
+        assertEquals("report", ui.receivedSearchString);
     }
 }
+

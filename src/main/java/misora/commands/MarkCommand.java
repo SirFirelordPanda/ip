@@ -16,7 +16,7 @@ public class MarkCommand extends Command{
     /**
      * The string representation of the task number to be marked as completed.
      */
-    private final String NUMBERPART;
+    private final String numberPart;
 
     /**
      * Creates a {@code MarkCommand} with the specified task number.
@@ -24,7 +24,7 @@ public class MarkCommand extends Command{
      * @param numberPart The task number provided by the user
      */
     public MarkCommand(String numberPart) {
-        this.NUMBERPART = numberPart;
+        this.numberPart = numberPart;
     }
 
     /**
@@ -41,7 +41,7 @@ public class MarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int numberToMark = Integer.parseInt(NUMBERPART);
+            int numberToMark = Integer.parseInt(numberPart);
             Task taskToMark = taskList.get(numberToMark - 1);
             taskToMark.setTaskDone(true);
             ui.showMarkTask(taskToMark);

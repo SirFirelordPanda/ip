@@ -18,7 +18,7 @@ public class FindTaskOnDateCommand extends Command{
     /**
      * The date used to filter tasks.
      */
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Creates a {@code FindTaskOnDateCommand} with the specified date.
@@ -41,6 +41,6 @@ public class FindTaskOnDateCommand extends Command{
      * @param storage The {@link Storage} (not used by this command)
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-            taskList.showTasksOnDate(date);
+            ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
     }
 }

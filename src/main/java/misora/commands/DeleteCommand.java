@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     /**
      * The string representation of the task number to be deleted.
      */
-    private final String NUMBERPART;
+    private final String numberPart;
 
     /**
      * Creates a {@code DeleteCommand} with the specified task number.
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      * @param numberPart The task number provided by the user
      */
     public DeleteCommand(String numberPart) {
-        this.NUMBERPART = numberPart;
+        this.numberPart = numberPart;
     }
 
     /**
@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            int numberDeleted = Integer.parseInt(NUMBERPART);
+            int numberDeleted = Integer.parseInt(numberPart);
             Task removedTask = taskList.remove(numberDeleted - 1);
             ui.showDeleteTask(removedTask, taskList);
             storage.updateSavedFileFromTaskList(taskList);
