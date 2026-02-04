@@ -1,7 +1,10 @@
 package misora.exceptions;
 
-public class UnableToWriteToFileException extends MisoraException{
-    public UnableToWriteToFileException(){}
+/**
+ * Represents an exception thrown when the {@code Storage} class is unable to write to the file properly
+ */
+public class UnableToWriteToFileException extends MisoraException {
+    public UnableToWriteToFileException() {}
 
     public UnableToWriteToFileException(String errorMsg) {
         super(errorMsg);

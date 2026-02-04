@@ -1,13 +1,13 @@
 package misora.tasks;
 
-import misora.exceptions.MissingArgument1Exception;
-import misora.exceptions.MissingArgument2Exception;
-import misora.exceptions.MissingTaskMsgException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import misora.exceptions.MissingArgument1Exception;
+import misora.exceptions.MissingArgument2Exception;
+import misora.exceptions.MissingTaskMsgException;
 
 /**
  * Represents an event task in the Misora application with a start and end time.
@@ -20,17 +20,17 @@ import java.time.format.DateTimeParseException;
  * {@link Task#isTaskOnDate(LocalDate)}, and {@link Task#isValidFormat()} to provide
  * event-specific behavior.
  */
-public class Event extends Task{
+public class Event extends Task {
 
     /**
      * The start time of the event.
      */
-    private Object fromWhen;
+    private final Object fromWhen;
 
     /**
      * The end time of the event.
      */
-    private Object toWhen;
+    private final Object toWhen;
 
     /**
      * Creates a new {@code Event} task with a description, start time, and end time.
@@ -115,7 +115,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        String eventTime = String.format(" (from: %s to: %s)", this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
+        String eventTime = String.format(" (from: %s to: %s)",
+                this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
         return "[E]" + super.toString() + eventTime;
     }
 
@@ -126,7 +127,8 @@ public class Event extends Task{
      */
     @Override
     public String toSavedString() {
-        return String.format("E | %s | %s | %s", super.toSavedString(), this.formatForSave(fromWhen), this.formatForSave(toWhen));
+        return String.format("E | %s | %s | %s", super.toSavedString(),
+                this.formatForSave(fromWhen), this.formatForSave(toWhen));
     }
 
     /**
@@ -187,7 +189,7 @@ public class Event extends Task{
                 || formatForDisplay(toWhen).contains(searchString)
                 || formatForSave(toWhen).contains(searchString)) {
             return this;
-        }  else if (fromWhen.toString().contains(searchString)
+        } else if (fromWhen.toString().contains(searchString)
                 || formatForDisplay(fromWhen).contains(searchString)
                 || formatForSave(fromWhen).contains(searchString)) {
             return this;
@@ -209,15 +211,15 @@ public class Event extends Task{
         try {
             super.isValidFormat();
         } catch (MissingTaskMsgException e) {
-            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the event in this format\n" +
-                    "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
+            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the event in this format\n"
+                    + "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
         }
         if (fromWhen.toString().equalsIgnoreCase("")) {
-            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the start time of the event in this format\n" +
-                    "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
+            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the start time of the event in this format\n"
+                    + "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
         } else if (toWhen.toString().equalsIgnoreCase("")) {
-            throw new MissingArgument2Exception("WHOOPSIE!! Please enter the end time of the event in this format\n" +
-                    "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
+            throw new MissingArgument2Exception("WHOOPSIE!! Please enter the end time of the event in this format\n"
+                    + "'event -taskMsg- /from -fromWhen- /to -toWhen-'");
         }
     }
 }

@@ -13,7 +13,7 @@ import misora.exceptions.MissingTaskMsgException;
  * This class overrides {@link Task#toString()}, {@link Task#toSavedString()},
  * and {@link Task#isValidFormat()} to provide ToDo-specific behavior.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Creates a new {@code ToDo} task with the given description.
@@ -68,7 +68,8 @@ public class ToDo extends Task{
         try {
             super.isValidFormat();
         } catch (MissingTaskMsgException e) {
-            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the task in this format 'todo -taskMsg-'");
+            throw new MissingTaskMsgException(
+                    "WHOOPSIE!! Please enter the description of the task in this format 'todo -taskMsg-'");
         }
     }
 }

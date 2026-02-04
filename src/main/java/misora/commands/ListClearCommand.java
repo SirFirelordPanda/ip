@@ -11,7 +11,7 @@ import misora.components.Ui;
  * clears the saved data in {@link Storage}, and notifies the user via
  * the {@link Ui}.
  */
-public class ListClearCommand extends Command{
+public class ListClearCommand extends Command {
 
     /**
      * Executes the clear command by removing all tasks from the task list,

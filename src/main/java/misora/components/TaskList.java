@@ -1,10 +1,10 @@
 package misora.components;
 
-import misora.tasks.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import misora.tasks.Task;
 
 /**
  * Represents a list of {@link Task} objects in the Misora application.
@@ -13,7 +13,7 @@ import java.util.List;
  * and displaying tasks. It acts as the in-memory storage for tasks while
  * the application is running.
  */
-public class TaskList{
+public class TaskList {
 
     /**
      * The internal list that stores all {@link Task} objects managed by this {@code TaskList}.
@@ -75,7 +75,7 @@ public class TaskList{
      * Returns all tasks that occur on the specified {@link LocalDate}.
      *
      * @param date The date to filter tasks by
-     * @return List<Task> The list of tasks containing the date
+     * @return A list of {@link Task} objects containing the search string
      */
     public List<Task> getTasksOnDate(LocalDate date) {
 
@@ -96,7 +96,7 @@ public class TaskList{
      * Returns all tasks that contain the specified {@link String}.
      *
      * @param searchString The string to filter tasks by
-     * @return List<Task> The list of tasks containing the date
+     * @return A list of {@link Task} objects containing the search string
      */
     public List<Task> getTasksContainingString(String searchString) {
 

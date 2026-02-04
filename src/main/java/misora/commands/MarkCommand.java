@@ -11,7 +11,7 @@ import misora.tasks.Task;
  * A {@code MarkCommand} marks a specified task in the {@link TaskList}
  * as completed based on a user-provided task number.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     /**
      * The string representation of the task number to be marked as completed.

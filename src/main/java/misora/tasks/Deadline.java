@@ -1,13 +1,13 @@
 package misora.tasks;
 
-import misora.exceptions.MissingArgument1Exception;
-import misora.exceptions.MissingArgument2Exception;
-import misora.exceptions.MissingTaskMsgException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import misora.exceptions.MissingArgument1Exception;
+import misora.exceptions.MissingArgument2Exception;
+import misora.exceptions.MissingTaskMsgException;
 
 /**
  * Represents a task with a specific deadline in the Misora application.
@@ -20,9 +20,9 @@ import java.time.format.DateTimeParseException;
  * {@link Task#isTaskOnDate(LocalDate)}, and {@link Task#isValidFormat()} to
  * provide deadline-specific behavior.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
-    private Object byWhen;
+    private final Object byWhen;
 
     /**
      * Creates a new {@code Deadline} task with a description and a raw deadline string.
@@ -177,12 +177,12 @@ public class Deadline extends Task{
         try {
             super.isValidFormat();
         } catch (MissingTaskMsgException e) {
-            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the task in this format\n" +
-                    "'deadline -taskMsg- /by -byWhen-'");
+            throw new MissingTaskMsgException("WHOOPSIE!! Please enter the description of the task in this format\n"
+                    + "'deadline -taskMsg- /by -byWhen-'");
         }
         if (byWhen.toString().equalsIgnoreCase("")) {
-            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the deadline of the task in this format\n" +
-                    "'deadline -taskMsg- /by -byWhen-'");
+            throw new MissingArgument1Exception("WHOOPSIE!! Please enter the deadline of the task in this format\n"
+                    + "'deadline -taskMsg- /by -byWhen-'");
         }
     }
 }

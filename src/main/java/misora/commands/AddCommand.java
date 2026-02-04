@@ -3,7 +3,6 @@ package misora.commands;
 import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
-
 import misora.exceptions.MisoraException;
 import misora.tasks.Deadline;
 import misora.tasks.Event;
@@ -16,7 +15,7 @@ import misora.tasks.ToDo;
  * parameters and adds it to the {@link TaskList}. The task is also persisted
  * to {@link Storage} and displayed to the user via the {@link Ui}.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     /**
      * The task to be added.
@@ -28,7 +27,7 @@ public class AddCommand extends Command{
      *
      * @param taskMsg The description of the task
      */
-    public AddCommand(String taskMsg){
+    public AddCommand(String taskMsg) {
         this.task = new ToDo(taskMsg);
     }
 

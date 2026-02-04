@@ -1,10 +1,10 @@
 package misora.tasks;
 
+import java.time.LocalDate;
+
 import misora.exceptions.MissingArgument1Exception;
 import misora.exceptions.MissingArgument2Exception;
 import misora.exceptions.MissingTaskMsgException;
-
-import java.time.LocalDate;
 
 /**
  * Represents a generic task in the Misora application.
@@ -54,7 +54,7 @@ public abstract class Task {
      * @return 'X' if the task is done, otherwise a space ' '
      */
     public char isTaskDoneMark() {
-        return isTaskDone? 'X' : ' ';
+        return isTaskDone ? 'X' : ' ';
     }
 
     /**
@@ -113,7 +113,7 @@ public abstract class Task {
      *         {@code null} otherwise.
      */
     public Task doesTaskContainString(String searchString) {
-        if(this.taskMsg.contains(searchString)){
+        if (this.taskMsg.contains(searchString)) {
             return this;
         }
         return null;

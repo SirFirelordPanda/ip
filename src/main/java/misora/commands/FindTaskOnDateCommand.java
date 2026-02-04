@@ -1,11 +1,10 @@
 package misora.commands;
 
+import java.time.LocalDate;
+
 import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a {@code FindTaskOnDateCommand} in the Misora application.
@@ -13,7 +12,7 @@ import java.time.format.DateTimeParseException;
  * A {@code FindTaskOnDateCommand} displays all tasks in the {@link TaskList}
  * that occur on a specified {@link LocalDate}.
  */
-public class FindTaskOnDateCommand extends Command{
+public class FindTaskOnDateCommand extends Command {
 
     /**
      * The date used to filter tasks.
@@ -41,6 +40,6 @@ public class FindTaskOnDateCommand extends Command{
      * @param storage The {@link Storage} (not used by this command)
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-            ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
+        ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
     }
 }

@@ -10,7 +10,7 @@ import misora.components.Ui;
  * A {@code FindCommand} searches for tasks that contain a given keyword
  * and displays the matching tasks to the user.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     /**
      * The keyword used to search for matching tasks.
@@ -35,6 +35,6 @@ public class FindCommand extends Command{
      * @param storage The {@link Storage} (not used by this command)
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-            ui.showTasksContainingString(taskList.getTasksContainingString(searchString), searchString);
+        ui.showTasksContainingString(taskList.getTasksContainingString(searchString), searchString);
     }
 }

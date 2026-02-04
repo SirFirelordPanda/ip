@@ -13,7 +13,7 @@ import misora.components.Ui;
  * and presenting the result via the {@link Ui}
  * by passing in the {@link Ui} to the taskList.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Executes the list command by displaying all tasks in the task list.
