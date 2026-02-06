@@ -39,7 +39,7 @@ public class FindTaskOnDateCommand extends Command {
      * @param ui The {@link Ui} used to display error messages
      * @param storage The {@link Storage} (not used by this command)
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
     }
 }

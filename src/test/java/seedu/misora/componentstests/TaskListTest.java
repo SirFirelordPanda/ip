@@ -1,7 +1,6 @@
 package seedu.misora.componentstests;
 
 import misora.components.TaskList;
-import misora.components.Ui;
 import misora.tasks.Deadline;
 import misora.tasks.ToDo;
 import misora.tasks.Task;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +21,7 @@ class TaskListTest {
         taskList = new TaskList();
     }
 
-    //Basic List Operations tests
+    // Basic list operations tests
 
     @Test
     void add_and_get_returnsCorrectTask() {
@@ -63,31 +61,23 @@ class TaskListTest {
         assertFalse(taskList.isEmpty());
     }
 
-    //UI Interaction tests
-
-    private static class StubUi extends Ui {
-        List<String> displayed = new ArrayList<>();
-
-        @Override
-        public void showTasklist(String message) {
-            displayed.add(message);
-        }
-    }
+    // List retrieval tests (replaces old UI-dependent test)
 
     @Test
-    void listTasks_callsUiShowTasklist() {
-        taskList.add(new ToDo("task1"));
-        taskList.add(new ToDo("task2"));
+    void listTasks_returnsAllTasks() {
+        Task t1 = new ToDo("task1");
+        Task t2 = new ToDo("task2");
 
-        StubUi ui = new StubUi();
-        taskList.listTasks(ui);
+        taskList.add(t1);
+        taskList.add(t2);
 
-        assertEquals(2, ui.displayed.size());
-        assertTrue(ui.displayed.get(0).contains("task1"));
-        assertTrue(ui.displayed.get(1).contains("task2"));
+        List<Task> tasks = taskList.listTasks();
+        assertEquals(2, tasks.size());
+        assertTrue(tasks.contains(t1));
+        assertTrue(tasks.contains(t2));
     }
 
-    //Date Filtering tests
+    // Date filtering tests
 
     @Test
     void getTasksOnDate_returnsOnlyTasksOnCorrectDate() {
@@ -98,7 +88,6 @@ class TaskListTest {
         taskList.add(d2);
 
         LocalDate targetDate = LocalDate.of(2026, 2, 1);
-
         List<Task> result = taskList.getTasksOnDate(targetDate);
 
         assertEquals(1, result.size());
@@ -109,10 +98,33 @@ class TaskListTest {
     void getTasksOnDate_noMatchingTasks_returnsEmptyList() {
         taskList.add(new Deadline("submit project", "2026-03-01"));
 
-        List<Task> result = taskList.getTasksOnDate(
-                LocalDate.of(2026, 2, 1));
+        List<Task> result = taskList.getTasksOnDate(LocalDate.of(2026, 2, 1));
 
         assertTrue(result.isEmpty());
     }
-}
 
+    // String search filtering tests
+
+    @Test
+    void getTasksContainingString_returnsMatchingTasks() {
+        Task t1 = new ToDo("write report");
+        Task t2 = new ToDo("read book");
+
+        taskList.add(t1);
+        taskList.add(t2);
+
+        List<Task> result = taskList.getTasksContainingString("report");
+        assertEquals(1, result.size());
+        assertEquals(t1, result.get(0));
+    }
+
+    @Test
+    void getTasksContainingString_noMatchingTasks_returnsEmptyList() {
+        Task t1 = new ToDo("write report");
+
+        taskList.add(t1);
+
+        List<Task> result = taskList.getTasksContainingString("book");
+        assertTrue(result.isEmpty());
+    }
+}

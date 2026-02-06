@@ -25,12 +25,12 @@ public class ExitCommand extends Command {
      * @param storage The {@link Storage} responsible for final cleanup
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
-            ui.exit();
             storage.exit();
+            return ui.showExit();
         } catch (MisoraException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 

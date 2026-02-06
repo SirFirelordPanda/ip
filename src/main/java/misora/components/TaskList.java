@@ -39,17 +39,21 @@ public class TaskList {
     }
 
     /**
-     * Displays all tasks in the list using the provided {@link Ui}.
+     * Returns all tasks
      *
-     * @param ui The {@link Ui} responsible for displaying tasks
+     * @return A list of {@link Task} objects containing the search string
      */
-    public void listTasks(Ui ui) {
+    public List<Task> listTasks() {
 
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            ui.showTasklist(String.format("%d. %s", i + 1, listOfTasks.get(i)));
-        }
+        return new ArrayList<>(listOfTasks);
     }
 
+    /**
+     * Returns the task at position i
+     *
+     * @param i The index of the task to be returned
+     * @return A list of {@link Task} objects containing the search string
+     */
     public Task get(int i) {
         return this.listOfTasks.get(i);
     }

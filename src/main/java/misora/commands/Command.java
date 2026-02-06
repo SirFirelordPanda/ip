@@ -3,13 +3,14 @@ package misora.commands;
 import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
+import misora.exceptions.MisoraException;
 
 /**
  * Represents an executable user command in the Misora application.
  * <p>
  * Each concrete {@code Command} encapsulates a specific action that can be
  * performed on the application's task list, user interface, and storage.
- * Subclasses should override {@link #execute(TaskList, Ui, Storage)} to define
+ * Subclasses should override {@link #execute(TaskList, Ui,Storage)} to define
  * the command's behavior.
  */
 public abstract class Command {
@@ -18,10 +19,12 @@ public abstract class Command {
      * Executes the command using the provided application components.
      *
      * @param taskList The {@link TaskList} containing the current list of tasks
-     * @param ui The {@link Ui} responsible for user interaction
-     * @param storage The {@link Storage} responsible for persisting data
+     * @param ui  The {@link Ui} responsible for collating strings to be displayed
+     * @param storage  The {@link Storage} responsible for persisting data
+     * @return The {@link String} to be displayed by the GUI
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws MisoraException {
+        return "";
     }
 
     /**

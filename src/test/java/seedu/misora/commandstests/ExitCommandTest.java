@@ -11,12 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ExitCommandTest {
 
     private static class StubUi extends Ui {
-        boolean exitCalled = false;
-
-        @Override
-        public void exit() {
-            exitCalled = true;
-        }
     }
 
     private static class StubStorage extends Storage {
@@ -51,8 +45,6 @@ class ExitCommandTest {
 
         cmd.execute(taskList, ui, storage);
 
-        // verify exit methods were called
-        assertTrue(ui.exitCalled, "Ui.exit() should be called");
         assertTrue(storage.exitCalled, "Storage.exit() should be called");
     }
 }

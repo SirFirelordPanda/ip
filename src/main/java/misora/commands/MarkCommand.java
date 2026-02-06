@@ -39,16 +39,16 @@ public class MarkCommand extends Command {
      * @param storage The {@link Storage} (not used by this command)
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             int numberToMark = Integer.parseInt(numberPart);
             Task taskToMark = taskList.get(numberToMark - 1);
             taskToMark.setTaskDone(true);
-            ui.showMarkTask(taskToMark);
+            return ui.showMarkTask(taskToMark);
         } catch (NumberFormatException e) {
-            ui.showError("Invalid number given");
+            return ui.showError("Invalid number given");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Number is not within list size");
+            return ui.showError("Number is not within list size");
         }
     }
 }

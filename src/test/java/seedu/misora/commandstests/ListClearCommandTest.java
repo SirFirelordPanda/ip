@@ -38,8 +38,9 @@ class ListClearCommandTest {
         boolean showListClearCalled = false;
 
         @Override
-        public void showListClear() {
+        public String showListClear() {
             showListClearCalled = true;
+            return "";
         }
     }
 

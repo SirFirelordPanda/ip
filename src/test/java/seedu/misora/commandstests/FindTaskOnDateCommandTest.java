@@ -33,9 +33,10 @@ class FindTaskOnDateCommandTest {
         LocalDate receivedDate = null;
 
         @Override
-        public void showTasksOnDate(List<Task> tasks, LocalDate date) {
+        public String showTasksOnDate(List<Task> tasks, LocalDate date) {
             receivedTasks = tasks;
             receivedDate = date;
+            return "";
         }
     }
 

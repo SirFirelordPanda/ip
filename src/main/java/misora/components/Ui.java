@@ -2,210 +2,181 @@ package misora.components;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
-
 import misora.tasks.Task;
 
 /**
- * Represents a ui that handles all user interactions in the Misora application.
+ * Ui handles the textual interface of the MISORA application.
  * <p>
- * The {@code Ui} class is responsible for displaying messages to the user,
- * reading input from the user, and formatting output related to tasks
- * and application state.
+ * It is responsible for generating user-facing messages for various actions,
+ * such as welcoming the user, showing task lists, errors, and confirmations
+ * for adding, deleting, or updating tasks.
+ * </p>
  */
 public class Ui {
 
-    private static final String LOGO = """
-               _____  .___  _________________ __________    _____
-              /     \\ |   |/   _____/\\_____  \\______    \\  /  _  \\
-             /  \\ /  \\|   |\\_____  \\  /   |   \\|       _/ /  /_\\  \\
-            /    Y    \\   |/        \\/    |    \\    |   \\/    |    \\
-            \\____|__  /___/_______  /\\_______  /____|_  /\\____|__  /
-                    \\/            \\/         \\/       \\/         \\/""";
+    private static final String GREETING =
+            "Nyahallo! I'm MISORA.\nWhat can I do for you?\n";
 
-    private static final String BREAKERLINE = "____________________________________________________________";
-
-    private static final String GREETING = "Nyahallo! Im MISORA.\nWhat can I do for you?";
-
-    private static final String EXIT = "Bye bye. Hope to see you again soon!\n";
+    private static final String EXIT =
+            "Bye bye. Hope to see you again soon!\n";
 
     /**
-     * The {@link Scanner} used to read user input to be passed to the {@link Parser}.
-     */
-    private final Scanner userScanner;
-
-    /**
-     * Constructs a new {@code Ui} object and initializes a {@link Scanner}
-     * for reading user input.
-     */
-    public Ui() {
-        this.userScanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads a line of user input from the console.
+     * Returns the welcome message when the application starts.
      *
-     * @return The raw input string entered by the user
+     * @return the welcome message string
      */
-    public String readCommand() {
-        return this.userScanner.nextLine();
+    public String showWelcome() {
+        return GREETING ;
     }
 
     /**
-     * Displays the welcome message and logo when the application starts.
-     */
-    public void showWelcome() {
-        System.out.println(LOGO);
-        this.showLine();
-        System.out.println(GREETING);
-        this.showLine();
-    }
-
-    /**
-     * Displays a horizontal breaker line to separate sections in the console.
-     */
-    public void showLine() {
-        System.out.println(BREAKERLINE);
-    }
-
-    /**
-     * Displays the exit message when the application terminates.
-     */
-    public void showExit() {
-        System.out.println(EXIT);
-    }
-
-    /**
-     * Displays an error message to the user.
+     * Returns the exit message when the application terminates.
      *
-     * @param errorMessage The message to display
+     * @return the exit message string
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showExit() {
+        return EXIT;
     }
 
     /**
-     * Displays a single task in the task list format.
+     * Returns a formatted error message to display to the user.
      *
-     * @param task The task to display
+     * @param errorMessage the error message to show
+     * @return the formatted error message
      */
-    public void showTasklist(String task) {
-        System.out.println(task);
+    public String showError(String errorMessage) {
+        return errorMessage + "\n";
     }
 
     /**
-     * Displays a message indicating that the task list has been cleared.
-     */
-    public void showListClear() {
-        System.out.println("List has been cleared");
-    }
-
-    /**
-     * Displays a message indicating that the task save file is corrupted.
-     */
-    public void showLoadingError() {
-        System.out.println("misora.Misora initialisation failed. Task save file is corrupted");
-    }
-
-    /**
-     * Displays a message indicating that a task has been marked as done.
+     * Returns a formatted list of tasks.
      *
-     * @param task The {@link Task} that was marked
+     * @param tasks the list of tasks to display
+     * @return a string containing the numbered list of tasks, or a message if empty
      */
-    public void showMarkTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("  %s\n", task.toString());
-    }
+    public String showList(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
 
-    /**
-     * Displays a message indicating that a task has been unmarked (not done).
-     *
-     * @param task The {@link Task} that was unmarked
-     */
-    public void showUnmarkTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.printf("  %s\n", task.toString());
-    }
-
-    /**
-     * Displays a message indicating that a task has been deleted.
-     *
-     * @param task The {@link Task} that was deleted
-     * @param taskList The {@link TaskList} from which the task was removed
-     */
-    public void showDeleteTask(Task task, TaskList taskList) {
-        System.out.println("Noted. I have removed this task:");
-        System.out.printf("  %s\n", task.toString());
-        System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
-    }
-
-    /**
-     * Displays a message indicating that a task has been added.
-     *
-     * @param task The {@link Task} that was added
-     * @param taskList The {@link TaskList} to which the task was added
-     */
-    public void showAddTask(Task task, TaskList taskList) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
-    }
-
-    /**
-     * Displays all tasks that occur on the specified date.
-     * <p>
-     * If the provided list of tasks is empty, a message indicating that no tasks
-     * were found for the given date is shown instead.
-     *
-     * @param tasks The list of {@link Task} objects that occur on the specified date
-     * @param date The {@link LocalDate} used to filter and display tasks
-     */
-    public void showTasksOnDate(List<Task> tasks, LocalDate date) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found that contain the date: ");
-            this.showDate(date);
+            sb.append("No tasks found\n");
         } else {
-            for (Task t : tasks) {
-                System.out.print("Tasks on the date: ");
-                this.showDate(date);
-                System.out.println(t.toString());
+            sb.append("Tasks:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                sb.append(String.format("%d. ", i + 1)).append(tasks.get(i)).append("\n");
             }
         }
+
+        return sb.toString();
     }
 
     /**
-     * Displays all tasks that contain the specified search string.
-     * <p>
-     * If the provided list of tasks is empty, a message indicating that no matching
-     * tasks were found is displayed.
+     * Returns a message indicating that the task list has been cleared.
      *
-     * @param tasks The list of {@link Task} objects that contain the search string
-     * @param string The search string used to match tasks
+     * @return the clear list message
      */
-    public void showTasksContainingString(List<Task> tasks, String string) {
+    public String showListClear() {
+        return "List has been cleared\n";
+    }
+
+    /**
+     * Returns a message indicating that the application failed to load
+     * the task save file.
+     *
+     * @return the loading error message
+     */
+    public String showLoadingError() {
+        return "Misora initialisation failed. Task save file is corrupted\n";
+    }
+
+    /**
+     * Returns a message indicating that a task has been marked as done.
+     *
+     * @param task the task that was marked
+     * @return the formatted message confirming the task is done
+     */
+    public String showMarkTask(Task task) {
+        return "Nice! I've marked this task as done:\n"
+                + "  " + task + "\n";
+    }
+
+    /**
+     * Returns a message indicating that a task has been unmarked (not done).
+     *
+     * @param task the task that was unmarked
+     * @return the formatted message confirming the task is not done
+     */
+    public String showUnmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n"
+                + "  " + task + "\n";
+    }
+
+    /**
+     * Returns a message indicating that a task has been deleted from the list.
+     *
+     * @param task the task that was deleted
+     * @param tasks the remaining task list
+     * @return the formatted message confirming the deletion and task count
+     */
+    public String showDeleteTask(Task task, TaskList tasks) {
+        return "Noted. I have removed this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.\n";
+    }
+
+    /**
+     * Returns a message indicating that a task has been added to the list.
+     *
+     * @param task the task that was added
+     * @param tasks the updated task list
+     * @return the formatted message confirming the addition and task count
+     */
+    public String showAddTask(Task task, TaskList tasks) {
+        return "Got it. I've added this task:\n"
+                + "  " + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.\n";
+    }
+
+    /**
+     * Returns a formatted list of tasks scheduled for a specific date.
+     *
+     * @param tasks the list of tasks on the date
+     * @param date the date for which tasks are displayed
+     * @return a string listing tasks on the date, or a message if none exist
+     */
+    public String showTasksOnDate(List<Task> tasks, LocalDate date) {
+        StringBuilder sb = new StringBuilder();
+
         if (tasks.isEmpty()) {
-            System.out.printf("No tasks found that contain the string: %s\n", string);
+            sb.append("No tasks found on ").append(date).append("\n");
         } else {
+            sb.append("Tasks on ").append(date).append(":\n");
             for (Task t : tasks) {
-                System.out.printf("Tasks containing string: %s\n", string);
-                System.out.println(t.toString());
+                sb.append("  ").append(t).append("\n");
             }
         }
+
+        return sb.toString();
     }
 
     /**
-     * Displays a {@link LocalDate} to the user.
+     * Returns a formatted list of tasks that contain a specific search string.
      *
-     * @param date The date to display
+     * @param tasks the list of tasks containing the string
+     * @param string the string to search for
+     * @return a string listing tasks that contain the search string, or a message if none exist
      */
-    public void showDate(LocalDate date) {
-        System.out.println(date);
-    }
+    public String showTasksContainingString(List<Task> tasks, String string) {
+        StringBuilder sb = new StringBuilder();
 
-    /**
-     * Closes the {@link Scanner} used for reading user input.
-     */
-    public void exit() {
-        userScanner.close();
+        if (tasks.isEmpty()) {
+            sb.append("No tasks found containing: ").append(string).append("\n");
+        } else {
+            sb.append("Tasks containing \"").append(string).append("\":\n");
+            for (Task t : tasks) {
+                sb.append("  ").append(t).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 }

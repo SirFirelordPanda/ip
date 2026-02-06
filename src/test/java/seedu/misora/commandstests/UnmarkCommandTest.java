@@ -47,14 +47,16 @@ class UnmarkCommandTest {
         String errorMessage = "";
 
         @Override
-        public void showUnmarkTask(Task task) {
+        public String showUnmarkTask(Task task) {
             showUnmarkCalled = true;
+            return task.toString();
         }
 
         @Override
-        public void showError(String message) {
+        public String showError(String message) {
             showErrorCalled = true;
             errorMessage = message;
+            return message;
         }
     }
 
