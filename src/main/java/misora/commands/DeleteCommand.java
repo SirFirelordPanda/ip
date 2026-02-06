@@ -41,18 +41,18 @@ public class DeleteCommand extends Command {
      * @param ui The {@link Ui} used to display feedback to the user
      * @param storage The {@link Storage} used to persist the updated task list
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             int numberDeleted = Integer.parseInt(numberPart);
             Task removedTask = taskList.remove(numberDeleted - 1);
-            ui.showDeleteTask(removedTask, taskList);
             storage.updateSavedFileFromTaskList(taskList);
+            return ui.showDeleteTask(removedTask, taskList);
         } catch (NumberFormatException e) {
-            ui.showError("Invalid number given");
+            return ui.showError("Invalid number given");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Number is not within list size");
+            return ui.showError("Number is not within list size");
         } catch (IOException e) {
-            ui.showError("Unable to update the saved file from the task list");
+            return ui.showError("Unable to update the saved file from the task list");
         }
     }
 }

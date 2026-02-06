@@ -1,192 +1,162 @@
 package seedu.misora.componentstests;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import misora.components.Ui;
 import misora.components.TaskList;
 import misora.tasks.ToDo;
 import misora.tasks.Task;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UiTest {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-    private final InputStream originalIn = System.in;
-
-    @BeforeEach
-    void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @AfterEach
-    void restoreStreams() {
-        System.setOut(originalOut);
-        System.setIn(originalIn);
-    }
-
-    //Console output tests
-
     @Test
-    void showError_printsMessage() {
+    void showWelcome_returnsGreeting() {
         Ui ui = new Ui();
-        ui.showError("Test error");
-        String output = outContent.toString();
-        assertTrue(output.contains("Test error"));
+        String result = ui.showWelcome();
+        assertTrue(result.contains("Nyahallo!"));
+        assertTrue(result.contains("MISORA"));
     }
 
     @Test
-    void showTasklist_printsTask() {
+    void showExit_returnsExitMessage() {
         Ui ui = new Ui();
-        ui.showTasklist("Task 1");
-        String output = outContent.toString();
-        assertTrue(output.contains("Task 1"));
+        String result = ui.showExit();
+        assertTrue(result.contains("Bye bye"));
+        assertTrue(result.contains("see you again"));
     }
 
     @Test
-    void showListClear_printsMessage() {
+    void showError_returnsErrorMessage() {
         Ui ui = new Ui();
-        ui.showListClear();
-        String output = outContent.toString();
-        assertTrue(output.contains("List has been cleared"));
+        String result = ui.showError("Test error");
+        assertTrue(result.contains("Test error"));
     }
 
     @Test
-    void showLoadingError_printsMessage() {
+    void showList_returnsFormattedTaskList() {
         Ui ui = new Ui();
-        ui.showLoadingError();
-        String output = outContent.toString();
-        assertTrue(output.contains("misora.Misora initialisation failed"));
+        Task task1 = new ToDo("task 1");
+        Task task2 = new ToDo("task 2");
+        TaskList taskList = new TaskList();
+        taskList.add(task1);
+        taskList.add(task2);
+
+        String result = ui.showList(taskList.listTasks());
+        assertTrue(result.contains("1. [T][ ] task 1"));
+        assertTrue(result.contains("2. [T][ ] task 2"));
     }
 
     @Test
-    void showMarkTask_printsMessage() {
+    void showList_emptyList_returnsNoTasksMessage() {
+        Ui ui = new Ui();
+        String result = ui.showList(List.of());
+        assertTrue(result.contains("No tasks found"));
+    }
+
+    @Test
+    void showListClear_returnsMessage() {
+        Ui ui = new Ui();
+        String result = ui.showListClear();
+        assertTrue(result.contains("List has been cleared"));
+    }
+
+    @Test
+    void showLoadingError_returnsMessage() {
+        Ui ui = new Ui();
+        String result = ui.showLoadingError();
+        assertTrue(result.contains("Misora initialisation failed"));
+    }
+
+    @Test
+    void showMarkTask_returnsMessage() {
         Ui ui = new Ui();
         Task task = new ToDo("read book");
         task.setTaskDone(true);
-        ui.showMarkTask(task);
-        String output = outContent.toString();
-        assertTrue(output.contains("marked this task as done"));
-        assertTrue(output.contains("read book"));
+
+        String result = ui.showMarkTask(task);
+        assertTrue(result.contains("marked this task as done"));
+        assertTrue(result.contains("read book"));
     }
 
     @Test
-    void showUnmarkTask_printsMessage() {
+    void showUnmarkTask_returnsMessage() {
         Ui ui = new Ui();
         Task task = new ToDo("read book");
-        ui.showUnmarkTask(task);
-        String output = outContent.toString();
-        assertTrue(output.contains("marked this task as not done yet"));
-        assertTrue(output.contains("read book"));
+
+        String result = ui.showUnmarkTask(task);
+        assertTrue(result.contains("marked this task as not done yet"));
+        assertTrue(result.contains("read book"));
     }
 
     @Test
-    void showDeleteTask_printsMessage() {
-        Ui ui = new Ui();
-        Task task = new ToDo("read book");
-        TaskList taskList = new TaskList();
-        taskList.add(task);
-        ui.showDeleteTask(task, taskList);
-        String output = outContent.toString();
-        assertTrue(output.contains("Noted. I have removed this task"));
-        assertTrue(output.contains("read book"));
-        assertTrue(output.contains("Now you have 1 tasks"));
-    }
-
-    @Test
-    void showAddTask_printsMessage() {
+    void showDeleteTask_returnsMessage() {
         Ui ui = new Ui();
         Task task = new ToDo("read book");
         TaskList taskList = new TaskList();
         taskList.add(task);
-        ui.showAddTask(task, taskList);
-        String output = outContent.toString();
-        assertTrue(output.contains("Got it. I've added this task"));
-        assertTrue(output.contains("read book"));
-        assertTrue(output.contains("Now you have 1 tasks"));
+
+        String result = ui.showDeleteTask(task, taskList);
+        assertTrue(result.contains("Noted. I have removed this task"));
+        assertTrue(result.contains("read book"));
+        assertTrue(result.contains("Now you have 1 tasks"));
     }
 
     @Test
-    void showDate_printsDate() {
+    void showAddTask_returnsMessage() {
         Ui ui = new Ui();
-        LocalDate date = LocalDate.of(2026, 2, 1);
-        ui.showDate(date);
-        String output = outContent.toString();
-        assertTrue(output.contains("2026-02-01"));
+        Task task = new ToDo("read book");
+        TaskList taskList = new TaskList();
+        taskList.add(task);
+
+        String result = ui.showAddTask(task, taskList);
+        assertTrue(result.contains("Got it. I've added this task"));
+        assertTrue(result.contains("read book"));
+        assertTrue(result.contains("Now you have 1 tasks"));
     }
 
-    //readCommand tests
-
     @Test
-    void readCommand_readsInput() {
-        String input = "todo read book\n";
-        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inContent);
-
-        Ui ui = new Ui();
-        String command = ui.readCommand();
-        assertEquals("todo read book", command);
-    }
-
-    //showTasksOnDate tests
-
-    @Test
-    void showTasksOnDate_noTasks_printsNoTasksMessage() {
+    void showTasksOnDate_noTasks_returnsNoTasksMessage() {
         Ui ui = new Ui();
         LocalDate date = LocalDate.of(2026, 2, 1);
 
-        ui.showTasksOnDate(List.of(), date);
-
-        String output = outContent.toString();
-        assertTrue(output.contains("No tasks found"));
-        assertTrue(output.contains("2026-02-01"));
+        String result = ui.showTasksOnDate(List.of(), date);
+        assertTrue(result.contains("No tasks found"));
+        assertTrue(result.contains("2026-02-01"));
     }
 
     @Test
-    void showTasksOnDate_withTasks_printsTasksAndDate() {
+    void showTasksOnDate_withTasks_returnsTasksAndDate() {
         Ui ui = new Ui();
         LocalDate date = LocalDate.of(2026, 2, 1);
         Task task = new ToDo("read book");
 
-        ui.showTasksOnDate(List.of(task), date);
-
-        String output = outContent.toString();
-        assertTrue(output.contains("Tasks on the date"));
-        assertTrue(output.contains("2026-02-01"));
-        assertTrue(output.contains("read book"));
+        String result = ui.showTasksOnDate(List.of(task), date);
+        assertTrue(result.contains("Tasks on"));
+        assertTrue(result.contains("2026-02-01"));
+        assertTrue(result.contains("read book"));
     }
 
-    //showTasksContainingString tests
-
     @Test
-    void showTasksContainingString_noTasks_printsNoTasksMessage() {
+    void showTasksContainingString_noTasks_returnsNoTasksMessage() {
         Ui ui = new Ui();
 
-        ui.showTasksContainingString(List.of(), "report");
-
-        String output = outContent.toString();
-        assertTrue(output.contains("No tasks found"));
-        assertTrue(output.contains("report"));
+        String result = ui.showTasksContainingString(List.of(), "report");
+        assertTrue(result.contains("No tasks found"));
+        assertTrue(result.contains("report"));
     }
 
     @Test
-    void showTasksContainingString_withTasks_printsTasksAndString() {
+    void showTasksContainingString_withTasks_returnsTasksAndString() {
         Ui ui = new Ui();
         Task task = new ToDo("write report");
 
-        ui.showTasksContainingString(List.of(task), "report");
-
-        String output = outContent.toString();
-        assertTrue(output.contains("Tasks containing string"));
-        assertTrue(output.contains("report"));
-        assertTrue(output.contains("write report"));
+        String result = ui.showTasksContainingString(List.of(task), "report");
+        assertTrue(result.contains("Tasks containing"));
+        assertTrue(result.contains("report"));
+        assertTrue(result.contains("write report"));
     }
-
 }

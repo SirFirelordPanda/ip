@@ -46,14 +46,16 @@ class MarkCommandTest {
         String errorMessage = "";
 
         @Override
-        public void showMarkTask(Task task) {
+        public String showMarkTask(Task task) {
             showMarkCalled = true;
+            return task.toString();
         }
 
         @Override
-        public void showError(String message) {
+        public String showError(String message) {
             showErrorCalled = true;
             errorMessage = message;
+            return message;
         }
     }
 

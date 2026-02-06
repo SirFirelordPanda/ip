@@ -64,14 +64,14 @@ public class AddCommand extends Command {
      * @param storage The {@link Storage} used to persist the task
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             task.isValidFormat();
             taskList.add(task);
             storage.addTaskToFile(task, ui);
-            ui.showAddTask(task, taskList);
+            return ui.showAddTask(task, taskList);
         } catch (MisoraException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 }

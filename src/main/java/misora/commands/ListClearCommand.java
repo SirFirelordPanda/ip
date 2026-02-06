@@ -21,9 +21,9 @@ public class ListClearCommand extends Command {
      * @param ui The {@link Ui} used to display feedback to the user
      * @param storage The {@link Storage} used to clear persisted data
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.clearTaskList();
         storage.clearSavedFile();
-        ui.showListClear();
+        return ui.showListClear();
     }
 }

@@ -34,7 +34,7 @@ public class FindCommand extends Command {
      * @param ui The {@link Ui} used to display matching tasks
      * @param storage The {@link Storage} (not used by this command)
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showTasksContainingString(taskList.getTasksContainingString(searchString), searchString);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showTasksContainingString(taskList.getTasksContainingString(searchString), searchString);
     }
 }

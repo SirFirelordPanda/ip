@@ -39,16 +39,16 @@ public class UnmarkCommand extends Command {
      * @param storage The {@link Storage} (not used by this command)
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             int numberToUnmark = Integer.parseInt(numberPart);
             Task taskToUnmark = taskList.get(numberToUnmark - 1);
             taskToUnmark.setTaskDone(false);
-            ui.showUnmarkTask(taskToUnmark);
+            return ui.showUnmarkTask(taskToUnmark);
         } catch (NumberFormatException e) {
-            ui.showError("Invalid number given");
+            return ui.showError("Invalid number given");
         } catch (IndexOutOfBoundsException e) {
-            ui.showError("Number is not within list size");
+            return ui.showError("Number is not within list size");
         }
     }
 }

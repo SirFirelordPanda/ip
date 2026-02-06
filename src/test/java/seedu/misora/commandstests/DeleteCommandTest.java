@@ -35,14 +35,16 @@ class DeleteCommandTest {
         String errorMessage = "";
 
         @Override
-        public void showDeleteTask(Task task, TaskList taskList) {
+        public String showDeleteTask(Task task, TaskList taskList) {
             showDeleteCalled = true;
+            return "";
         }
 
         @Override
-        public void showError(String message) {
+        public String showError(String message) {
             showErrorCalled = true;
             errorMessage = message;
+            return "";
         }
     }
 
@@ -134,7 +136,7 @@ class DeleteCommandTest {
         command.execute(taskList, ui, storage);
 
         assertTrue(taskList.removeCalled);
-        assertTrue(ui.showDeleteCalled);
+        assertFalse(ui.showDeleteCalled);
         assertTrue(ui.showErrorCalled);
         assertEquals(
                 "Unable to update the saved file from the task list",

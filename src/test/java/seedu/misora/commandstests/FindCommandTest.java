@@ -30,9 +30,10 @@ class FindCommandTest {
         String receivedSearchString = null;
 
         @Override
-        public void showTasksContainingString(List<Task> tasks, String searchString) {
+        public String showTasksContainingString(List<Task> tasks, String searchString) {
             receivedTasks = tasks;
             receivedSearchString = searchString;
+            return "";
         }
     }
 

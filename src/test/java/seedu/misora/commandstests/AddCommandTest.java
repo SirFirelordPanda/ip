@@ -28,14 +28,16 @@ class AddCommandTest {
         String errorMessage = "";
 
         @Override
-        public void showAddTask(Task task, TaskList taskList) {
+        public String showAddTask(Task task, TaskList taskList) {
             showAddCalled = true;
+            return "";
         }
 
         @Override
-        public void showError(String message) {
+        public String showError(String message) {
             showErrorCalled = true;
             errorMessage = message;
+            return "";
         }
     }
 

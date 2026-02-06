@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 repositories {
@@ -28,8 +29,13 @@ test {
     }
 }
 
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls' ]
+}
+
 application {
-    mainClass.set("misora.Misora")
+    mainClass.set("misora.ui.Main")
 }
 
 shadowJar {
