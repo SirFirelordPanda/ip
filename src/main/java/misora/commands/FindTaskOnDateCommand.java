@@ -25,6 +25,7 @@ public class FindTaskOnDateCommand extends Command {
      * @param date The {@link LocalDate} to search tasks for
      */
     public FindTaskOnDateCommand(LocalDate date) {
+        assert date != null : "date reference should not be null";
         this.date = date;
     }
 
@@ -39,7 +40,14 @@ public class FindTaskOnDateCommand extends Command {
      * @param ui The {@link Ui} used to display error messages
      * @param storage The {@link Storage} (not used by this command)
      */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.showTasksOnDate(taskList.getTasksOnDate(date), date);
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+
+        return ui.showTasksOnDate(
+                taskList.getTasksOnDate(date),
+                date
+        );
     }
 }
