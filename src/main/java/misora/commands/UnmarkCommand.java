@@ -24,6 +24,7 @@ public class UnmarkCommand extends Command {
      * @param numberPart The task number provided by the user
      */
     public UnmarkCommand(String numberPart) {
+        assert numberPart != null : "numberPart reference should not be null";
         this.numberPart = numberPart;
     }
 
@@ -40,9 +41,16 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+
         try {
             int numberToUnmark = Integer.parseInt(numberPart);
             Task taskToUnmark = taskList.get(numberToUnmark - 1);
+
+            assert taskToUnmark != null : "taskToUnmark should not be null";
+
             taskToUnmark.setTaskDone(false);
             return ui.showUnmarkTask(taskToUnmark);
         } catch (NumberFormatException e) {

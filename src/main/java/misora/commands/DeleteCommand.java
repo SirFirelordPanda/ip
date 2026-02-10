@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
      * @param numberPart The task number provided by the user
      */
     public DeleteCommand(String numberPart) {
+        assert numberPart != null : "numberPart reference should not be null";
         this.numberPart = numberPart;
     }
 
@@ -41,10 +42,18 @@ public class DeleteCommand extends Command {
      * @param ui The {@link Ui} used to display feedback to the user
      * @param storage The {@link Storage} used to persist the updated task list
      */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+
         try {
             int numberDeleted = Integer.parseInt(numberPart);
             Task removedTask = taskList.remove(numberDeleted - 1);
+
+            assert removedTask != null : "Removed task should not be null";
+
             storage.updateSavedFileFromTaskList(taskList);
             return ui.showDeleteTask(removedTask, taskList);
         } catch (NumberFormatException e) {

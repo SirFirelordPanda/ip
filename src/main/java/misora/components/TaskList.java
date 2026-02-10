@@ -35,6 +35,7 @@ public class TaskList {
      * @param listOfTasks A list of {@link Task} objects to initialize the task list
      */
     public TaskList(List<Task> listOfTasks) {
+        assert listOfTasks != null : "Initial task list must not be null";
         this.listOfTasks = listOfTasks;
     }
 
@@ -82,6 +83,7 @@ public class TaskList {
      * @return A list of {@link Task} objects containing the search string
      */
     public List<Task> getTasksOnDate(LocalDate date) {
+        assert date != null : "Date must not be null";
 
         List<Task> tasksOnDate = new ArrayList<>();
 
@@ -103,6 +105,7 @@ public class TaskList {
      * @return A list of {@link Task} objects containing the search string
      */
     public List<Task> getTasksContainingString(String searchString) {
+        assert searchString != null : "Search string must not be null";
 
         List<Task> tasksContainingString = new ArrayList<>();
 
@@ -142,6 +145,7 @@ public class TaskList {
      * @param t The {@link Task} to add
      */
     public void add(Task t) {
+        assert t != null : "Cannot add null task";
         this.listOfTasks.add(t);
     }
 }

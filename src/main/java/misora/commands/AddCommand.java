@@ -28,6 +28,7 @@ public class AddCommand extends Command {
      * @param taskMsg The description of the task
      */
     public AddCommand(String taskMsg) {
+        assert taskMsg != null : "Task description reference should not be null";
         this.task = new ToDo(taskMsg);
     }
 
@@ -38,6 +39,8 @@ public class AddCommand extends Command {
      * @param byWhen The deadline of the task
      */
     public AddCommand(String taskMsg, String byWhen) {
+        assert taskMsg != null : "Task description reference should not be null";
+        assert byWhen != null : "Deadline reference should not be null";
         this.task = new Deadline(taskMsg, byWhen);
     }
 
@@ -49,6 +52,9 @@ public class AddCommand extends Command {
      * @param toWhen The end date/time of the event
      */
     public AddCommand(String taskMsg, String fromWhen, String toWhen) {
+        assert taskMsg != null : "Task description reference should not be null";
+        assert fromWhen != null : "Event start time reference should not be null";
+        assert toWhen != null : "Event end time reference should not be null";
         this.task = new Event(taskMsg, fromWhen, toWhen);
     }
 
@@ -66,6 +72,11 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
+            assert taskList != null : "TaskList must exist";
+            assert ui != null : "Ui must exist";
+            assert storage != null : "Storage must exist";
+            assert task != null : "Task must be initialized before execution";
+
             task.isValidFormat();
             taskList.add(task);
             storage.addTaskToFile(task, ui);
