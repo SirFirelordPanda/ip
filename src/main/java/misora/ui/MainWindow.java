@@ -109,6 +109,7 @@ public class MainWindow {
      * @return the root node for the scene
      */
     public Parent getRoot() {
+        assert root != null : "root should not be null";
         return root;
     }
 
@@ -119,6 +120,7 @@ public class MainWindow {
      * displays it, and exits the application if the user types "bye".
      */
     private void handleInput() {
+        assert input != null : "input should not be null when handling input";
         String text = input.getText().trim();
         if (text.isEmpty()) {
             return;
@@ -127,6 +129,7 @@ public class MainWindow {
         addMessage(text, false);
 
         String response = misora.getResponse(text);
+        assert response != null : "response from Misora should not be null";
         addMessage(response, true);
 
         if (text.equalsIgnoreCase("bye")) {
@@ -156,6 +159,7 @@ public class MainWindow {
         box.setAlignment(isBot ? Pos.CENTER_LEFT : Pos.CENTER_RIGHT);
         if (!isBot) box.setPadding(new Insets(0, 10, 0, 0));
 
+        assert chatBox != null : "chatBox should not be null when adding user message";
         chatBox.getChildren().add(box);
     }
 
@@ -173,6 +177,7 @@ public class MainWindow {
         box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(0, 6, 0, 0));
 
+        assert chatBox != null : "chatBox should not be null when adding banner";
         chatBox.getChildren().add(box);
     }
 }

@@ -40,8 +40,14 @@ public class Event extends Task {
      */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw) {
         super(taskMsg);
+        assert fromWhenRaw != null : "fromWhenRaw cannot be null";
+        assert toWhenRaw != null : "toWhenRaw cannot be null";
+
         this.fromWhen = parseDateTime(fromWhenRaw);
         this.toWhen = parseDateTime(toWhenRaw);
+
+        assert fromWhen != null : "fromWhen must not be null after parsing";
+        assert toWhen != null : "toWhen must not be null after parsing";
     }
 
     /**
@@ -55,8 +61,14 @@ public class Event extends Task {
      */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
+        assert fromWhenRaw != null : "fromWhenRaw cannot be null";
+        assert toWhenRaw != null : "toWhenRaw cannot be null";
+
         this.fromWhen = parseDateTime(fromWhenRaw);
         this.toWhen = parseDateTime(toWhenRaw);
+
+        assert fromWhen != null : "fromWhen must not be null after parsing";
+        assert toWhen != null : "toWhen must not be null after parsing";
     }
 
     /**
@@ -67,6 +79,7 @@ public class Event extends Task {
      * @return A {@link LocalDateTime}, {@link LocalDate}, or raw string if parsing fails
      */
     private Object parseDateTime(String input) {
+        assert input != null : "input cannot be null in parseDateTime";
         try {
             return LocalDateTime.parse(input);
         } catch (DateTimeParseException e1) {
@@ -109,6 +122,8 @@ public class Event extends Task {
      */
     @Override
     public Task isTaskOnDate(LocalDate date) {
+        assert date != null : "date cannot be null in isTaskOnDate";
+
         if (fromWhen instanceof LocalDate d) {
             if (date.equals(d)) {
                 return this;
@@ -152,6 +167,8 @@ public class Event extends Task {
      */
     @Override
     public Task doesTaskContainString(String searchString) {
+        assert searchString != null : "searchString cannot be null in doesTaskContainString";
+
         Task itDoes = super.doesTaskContainString(searchString);
         if (itDoes != null) {
             return this;

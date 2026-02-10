@@ -37,6 +37,8 @@ public abstract class Task {
      */
     public Task(String taskMsg) {
         this.taskMsg = taskMsg;
+        assert taskMsg != null : "taskMsg cannot be null";
+
     }
 
     /**
@@ -48,6 +50,7 @@ public abstract class Task {
     public Task(String taskMsg, boolean isTaskDone) {
         this.taskMsg = taskMsg;
         this.isTaskDone = isTaskDone;
+        assert taskMsg != null : "taskMsg cannot be null";
     }
 
     /**
@@ -101,6 +104,7 @@ public abstract class Task {
      * @return This task if it occurs on the given date, otherwise {@code null}
      */
     public Task isTaskOnDate(LocalDate date) {
+        assert date != null : "date cannot be null in isTaskOnDate";
         return null;
     }
 
@@ -115,6 +119,7 @@ public abstract class Task {
      *         {@code null} otherwise.
      */
     public Task doesTaskContainString(String searchString) {
+        assert searchString != null : "searchString cannot be null in doesTaskContainString";
         if (this.taskMsg.contains(searchString)) {
             return this;
         }

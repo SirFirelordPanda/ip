@@ -23,6 +23,7 @@ public class FindCommand extends Command {
      * @param searchString The keyword used to search for tasks
      */
     public FindCommand(String searchString) {
+        assert searchString != null : "searchString reference should not be null";
         this.searchString = searchString;
     }
 
@@ -34,7 +35,14 @@ public class FindCommand extends Command {
      * @param ui The {@link Ui} used to display matching tasks
      * @param storage The {@link Storage} (not used by this command)
      */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.showTasksContainingString(taskList.getTasksContainingString(searchString), searchString);
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+
+        return ui.showTasksContainingString(
+                taskList.getTasksContainingString(searchString),
+                searchString
+        );
     }
 }

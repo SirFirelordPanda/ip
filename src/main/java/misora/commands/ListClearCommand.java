@@ -21,7 +21,12 @@ public class ListClearCommand extends Command {
      * @param ui The {@link Ui} used to display feedback to the user
      * @param storage The {@link Storage} used to clear persisted data
      */
+    @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+
         taskList.clearTaskList();
         storage.clearSavedFile();
         return ui.showListClear();

@@ -41,6 +41,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        assert super.toString() != null : "super.toString() cannot be null";
         return "[T]" + super.toString();
     }
 
@@ -51,6 +52,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toSavedString() {
+        assert super.toSavedString() != null : "super.toSavedString() cannot be null";
         return String.format("T | %s", super.toSavedString());
     }
 

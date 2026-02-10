@@ -31,7 +31,9 @@ public class Deadline extends Task {
      */
     public Deadline(String taskMsg, String byWhenRaw) {
         super(taskMsg);
+        assert byWhenRaw != null : "byWhenRaw cannot be null";
         this.byWhen = parseDateTime(byWhenRaw);
+        assert byWhen != null : "byWhen must not be null after parsing";
     }
 
     /**
@@ -44,7 +46,9 @@ public class Deadline extends Task {
      */
     public Deadline(String taskMsg, String byWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
+        assert byWhenRaw != null : "byWhenRaw cannot be null";
         this.byWhen = parseDateTime(byWhenRaw);
+        assert byWhen != null : "byWhen must not be null after parsing";
     }
 
     /**
@@ -55,6 +59,8 @@ public class Deadline extends Task {
      * @return A {@link LocalDateTime}, {@link LocalDate}, or the raw string if parsing fails
      */
     private Object parseDateTime(String input) {
+        assert input != null : "input string for parseDateTime cannot be null";
+
         try {
             return LocalDateTime.parse(input);
         } catch (DateTimeParseException e1) {
@@ -66,8 +72,6 @@ public class Deadline extends Task {
         }
     }
 
-
-
     /**
      * Returns a string representation of the deadline task for display purposes.
      *
@@ -75,6 +79,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert super.toString() != null : "super.toString() cannot be null";
         String deadline = String.format(" (by: %s)", this.formatDateForDisplay(byWhen));
         return "[D]" + super.toString() + deadline;
     }
@@ -86,6 +91,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSavedString() {
+        assert super.toSavedString() != null : "super.toSavedString() cannot be null";
         return String.format("D | %s | %s", super.toSavedString(), this.formatDateForSave(byWhen));
     }
 
@@ -97,6 +103,8 @@ public class Deadline extends Task {
      */
     @Override
     public Task isTaskOnDate(LocalDate date) {
+        assert date != null : "date argument in isTaskOnDate cannot be null";
+
         if (byWhen instanceof LocalDate) {
             if (date.equals(byWhen)) {
                 return this;
@@ -124,6 +132,8 @@ public class Deadline extends Task {
      */
     @Override
     public Task doesTaskContainString(String searchString) {
+        assert searchString != null : "searchString cannot be null";
+
         Task itDoes = super.doesTaskContainString(searchString);
         if (itDoes != null) {
             return this;
