@@ -3,6 +3,7 @@ package misora.components;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import misora.tasks.Task;
 
@@ -83,17 +84,10 @@ public class TaskList {
      */
     public List<Task> getTasksOnDate(LocalDate date) {
 
-        List<Task> tasksOnDate = new ArrayList<>();
-
-        for (Task task : listOfTasks) {
-            Task taskOnDateReturn = task.isTaskOnDate(date);
-
-            if (taskOnDateReturn != null) {
-                tasksOnDate.add(taskOnDateReturn);
-            }
-        }
-
-        return tasksOnDate;
+        return listOfTasks.stream()
+                .map(task -> task.isTaskOnDate(date))
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     /**
@@ -104,18 +98,10 @@ public class TaskList {
      */
     public List<Task> getTasksContainingString(String searchString) {
 
-        List<Task> tasksContainingString = new ArrayList<>();
-
-        for (Task task : listOfTasks) {
-
-            Task taskContainString = task.doesTaskContainString(searchString);
-            if (taskContainString != null) {
-
-                tasksContainingString.add(taskContainString);
-            }
-        }
-
-        return tasksContainingString;
+        return listOfTasks.stream()
+                .map(task -> task.doesTaskContainString(searchString))
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     /**
