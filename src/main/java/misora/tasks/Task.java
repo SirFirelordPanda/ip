@@ -1,6 +1,8 @@
 package misora.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import misora.exceptions.MissingArgument1Exception;
 import misora.exceptions.MissingArgument2Exception;
@@ -134,5 +136,34 @@ public abstract class Task {
         if (taskMsg.isEmpty()) {
             throw new MissingTaskMsgException();
         }
+    }
+
+    /**
+     * Formats the deadline for display to the user.
+     *
+     * @param date The deadline object to format
+     * @return A human-readable string representation of the deadline
+     */
+    public String formatDateForDisplay(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
+        }
+        if (date instanceof LocalDate d) {
+            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+        return date.toString();
+    }
+
+    /**
+     * Formats the deadline for saving to the storage file.
+     *
+     * @param date The deadline object to format
+     * @return A string suitable for file storage
+     */
+    public String formatDateForSave(Object date) {
+        if (date instanceof LocalDateTime dt) {
+            return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        }
+        return date.toString();
     }
 }

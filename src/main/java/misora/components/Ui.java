@@ -55,17 +55,15 @@ public class Ui {
      * @return a string containing the numbered list of tasks, or a message if empty
      */
     public String showList(List<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
+        return formatTaskList("Tasks:", tasks);
+    }
 
-        if (tasks.isEmpty()) {
-            sb.append("No tasks found\n");
-        } else {
-            sb.append("Tasks:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append(String.format("%d. ", i + 1)).append(tasks.get(i)).append("\n");
-            }
+    private String formatTaskList(String header, List<Task> tasks) {
+        if (tasks.isEmpty()) return "No tasks found\n";
+        StringBuilder sb = new StringBuilder(header + "\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(String.format("%d. %s%n", i + 1, tasks.get(i)));
         }
-
         return sb.toString();
     }
 
@@ -144,18 +142,8 @@ public class Ui {
      * @return a string listing tasks on the date, or a message if none exist
      */
     public String showTasksOnDate(List<Task> tasks, LocalDate date) {
-        StringBuilder sb = new StringBuilder();
-
-        if (tasks.isEmpty()) {
-            sb.append("No tasks found on ").append(date).append("\n");
-        } else {
-            sb.append("Tasks on ").append(date).append(":\n");
-            for (Task t : tasks) {
-                sb.append("  ").append(t).append("\n");
-            }
-        }
-
-        return sb.toString();
+        String header = "Tasks on " + date.toString() + ":";
+        return formatTaskList(header, tasks);
     }
 
     /**
@@ -166,17 +154,7 @@ public class Ui {
      * @return a string listing tasks that contain the search string, or a message if none exist
      */
     public String showTasksContainingString(List<Task> tasks, String string) {
-        StringBuilder sb = new StringBuilder();
-
-        if (tasks.isEmpty()) {
-            sb.append("No tasks found containing: ").append(string).append("\n");
-        } else {
-            sb.append("Tasks containing \"").append(string).append("\":\n");
-            for (Task t : tasks) {
-                sb.append("  ").append(t).append("\n");
-            }
-        }
-
-        return sb.toString();
+        String header = "Tasks containing " + string + ":";
+        return formatTaskList(header, tasks);
     }
 }

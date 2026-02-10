@@ -2,7 +2,6 @@ package misora.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import misora.exceptions.MissingArgument1Exception;
@@ -67,34 +66,7 @@ public class Deadline extends Task {
         }
     }
 
-    /**
-     * Formats the deadline for display to the user.
-     *
-     * @param date The deadline object to format
-     * @return A human-readable string representation of the deadline
-     */
-    private String formatForDisplay(Object date) {
-        if (date instanceof LocalDateTime dt) {
-            return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
-        }
-        if (date instanceof LocalDate d) {
-            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        }
-        return date.toString();
-    }
 
-    /**
-     * Formats the deadline for saving to the storage file.
-     *
-     * @param date The deadline object to format
-     * @return A string suitable for file storage
-     */
-    private String formatForSave(Object date) {
-        if (date instanceof LocalDateTime dt) {
-            return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-        }
-        return date.toString();
-    }
 
     /**
      * Returns a string representation of the deadline task for display purposes.
@@ -103,7 +75,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String deadline = String.format(" (by: %s)", this.formatForDisplay(byWhen));
+        String deadline = String.format(" (by: %s)", this.formatDateForDisplay(byWhen));
         return "[D]" + super.toString() + deadline;
     }
 
@@ -114,7 +86,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toSavedString() {
-        return String.format("D | %s | %s", super.toSavedString(), this.formatForSave(byWhen));
+        return String.format("D | %s | %s", super.toSavedString(), this.formatDateForSave(byWhen));
     }
 
     /**
@@ -156,8 +128,8 @@ public class Deadline extends Task {
         if (itDoes != null) {
             return this;
         } else if (byWhen.toString().contains(searchString)
-                || formatForDisplay(byWhen).contains(searchString)
-                || formatForSave(byWhen).contains(searchString)) {
+                || formatDateForDisplay(byWhen).contains(searchString)
+                || formatDateForSave(byWhen).contains(searchString)) {
             return this;
         }
         return null;
