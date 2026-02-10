@@ -24,6 +24,7 @@ public class MarkCommand extends Command {
      * @param numberPart The task number provided by the user
      */
     public MarkCommand(String numberPart) {
+        assert numberPart != null : "numberPart reference should not be null";
         this.numberPart = numberPart;
     }
 
@@ -40,9 +41,16 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+
         try {
             int numberToMark = Integer.parseInt(numberPart);
             Task taskToMark = taskList.get(numberToMark - 1);
+
+            assert taskToMark != null : "taskToMark should not be null";
+
             taskToMark.setTaskDone(true);
             return ui.showMarkTask(taskToMark);
         } catch (NumberFormatException e) {

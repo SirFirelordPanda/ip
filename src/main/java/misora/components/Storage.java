@@ -55,6 +55,8 @@ public class Storage {
      * @param filePath The file path to store the task data
      */
     public Storage(String filePath) {
+        assert filePath != null : "filePath reference should not be null";
+
         taskFile = new File(filePath);
         if (!taskFile.exists()) {
             try {
@@ -97,6 +99,8 @@ public class Storage {
      * @throws CorruptedSavedTaskFileException If the file contains invalid or corrupted task data
      */
     public List<Task> load() throws CorruptedSavedTaskFileException {
+        assert taskFile != null : "taskFile must exist before loading";
+
         List<Task> listOfTasks = new ArrayList<>();
 
         if (taskScanner != null) {
@@ -148,6 +152,8 @@ public class Storage {
      * @throws IOException If an error occurs while writing to the file
      */
     public void updateSavedFileFromTaskList(TaskList taskList) throws IOException {
+        assert taskList != null : "TaskList must not be null";
+
         FileWriter writer = new FileWriter(taskFile); // overwrite
         for (int i = 0; i < taskList.size(); i++) {
             writer.write(taskList.get(i).toSavedString() + "\n");
@@ -163,6 +169,9 @@ public class Storage {
      * @throws UnableToWriteToFileException If an I/O error occurs while writing
      */
     public void addTaskToFile(Task task, Ui ui) throws UnableToWriteToFileException {
+        assert task != null : "Task must not be null";
+        assert ui != null : "Ui must not be null";
+
         try {
             taskWriter.write(task.toSavedString() + "\n");
             taskWriter.flush();
@@ -177,6 +186,9 @@ public class Storage {
      * @throws UnableToCloseStorageException If an I/O error occurs while closing resources
      */
     public void exit() throws UnableToCloseStorageException {
+        assert taskScanner != null : "Scanner should be initialized";
+        assert taskWriter != null : "Writer should be initialized";
+
         try {
             taskScanner.close();
             taskWriter.close();

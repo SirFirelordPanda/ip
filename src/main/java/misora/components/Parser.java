@@ -43,6 +43,8 @@ public class Parser {
      *         any recognized command
      */
     public static Command parse(String fullCommand) throws MisoraException {
+        assert fullCommand != null : "fullCommand reference should not be null";
+
         if (fullCommand.equalsIgnoreCase("bye")) {
 
             return new ExitCommand();

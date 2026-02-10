@@ -55,6 +55,8 @@ public class Ui {
      * @return a string containing the numbered list of tasks, or a message if empty
      */
     public String showList(List<Task> tasks) {
+        assert tasks != null : "tasks list cannot be null";;
+
         StringBuilder sb = new StringBuilder();
 
         if (tasks.isEmpty()) {
@@ -95,6 +97,8 @@ public class Ui {
      * @return the formatted message confirming the task is done
      */
     public String showMarkTask(Task task) {
+        assert task != null : "task cannot be null";;
+
         return "Nice! I've marked this task as done:\n"
                 + "  " + task + "\n";
     }
@@ -106,6 +110,8 @@ public class Ui {
      * @return the formatted message confirming the task is not done
      */
     public String showUnmarkTask(Task task) {
+        assert task != null : "task cannot be null";;
+
         return "OK, I've marked this task as not done yet:\n"
                 + "  " + task + "\n";
     }
@@ -118,6 +124,8 @@ public class Ui {
      * @return the formatted message confirming the deletion and task count
      */
     public String showDeleteTask(Task task, TaskList tasks) {
+        assert task != null : "task cannot be null";;
+
         return "Noted. I have removed this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
@@ -131,6 +139,9 @@ public class Ui {
      * @return the formatted message confirming the addition and task count
      */
     public String showAddTask(Task task, TaskList tasks) {
+        assert task != null : "task cannot be null";;
+        assert tasks != null : "tasks list cannot be null";;
+
         return "Got it. I've added this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
@@ -144,6 +155,9 @@ public class Ui {
      * @return a string listing tasks on the date, or a message if none exist
      */
     public String showTasksOnDate(List<Task> tasks, LocalDate date) {
+        assert tasks != null : "tasks list cannot be null";
+        assert date != null : "date cannot be null";
+
         StringBuilder sb = new StringBuilder();
 
         if (tasks.isEmpty()) {
@@ -166,6 +180,9 @@ public class Ui {
      * @return a string listing tasks that contain the search string, or a message if none exist
      */
     public String showTasksContainingString(List<Task> tasks, String string) {
+        assert tasks != null : "tasks list cannot be null";
+        assert string != null : "search string cannot be null";
+
         StringBuilder sb = new StringBuilder();
 
         if (tasks.isEmpty()) {
