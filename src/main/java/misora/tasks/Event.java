@@ -2,7 +2,6 @@ package misora.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import misora.exceptions.MissingArgument1Exception;
@@ -93,37 +92,6 @@ public class Event extends Task {
     }
 
     /**
-     * Formats a date/time object for display to the user.
-     *
-     * @param date The object to format
-     * @return A human-readable string representation
-     */
-    private String formatForDisplay(Object date) {
-        assert date != null : "date cannot be null in formatForDisplay";
-        if (date instanceof LocalDateTime dt) {
-            return dt.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss"));
-        }
-        if (date instanceof LocalDate d) {
-            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        }
-        return date.toString();
-    }
-
-    /**
-     * Formats a date/time object for saving to a file.
-     *
-     * @param date The object to format
-     * @return A string suitable for storage
-     */
-    private String formatForSave(Object date) {
-        assert date != null : "date cannot be null in formatForSave";
-        if (date instanceof LocalDateTime dt) {
-            return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-        }
-        return date.toString();
-    }
-
-    /**
      * Returns a string representation of the event task for display.
      *
      * @return The formatted string representing this event
@@ -131,7 +99,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String eventTime = String.format(" (from: %s to: %s)",
-                this.formatForDisplay(fromWhen), this.formatForDisplay(toWhen));
+                this.formatDateForDisplay(fromWhen), this.formatDateForDisplay(toWhen));
         return "[E]" + super.toString() + eventTime;
     }
 
@@ -143,7 +111,7 @@ public class Event extends Task {
     @Override
     public String toSavedString() {
         return String.format("E | %s | %s | %s", super.toSavedString(),
-                this.formatForSave(fromWhen), this.formatForSave(toWhen));
+                this.formatDateForSave(fromWhen), this.formatDateForSave(toWhen));
     }
 
     /**
@@ -205,12 +173,12 @@ public class Event extends Task {
         if (itDoes != null) {
             return this;
         } else if (toWhen.toString().contains(searchString)
-                || formatForDisplay(toWhen).contains(searchString)
-                || formatForSave(toWhen).contains(searchString)) {
+                || formatDateForDisplay(toWhen).contains(searchString)
+                || formatDateForSave(toWhen).contains(searchString)) {
             return this;
         } else if (fromWhen.toString().contains(searchString)
-                || formatForDisplay(fromWhen).contains(searchString)
-                || formatForSave(fromWhen).contains(searchString)) {
+                || formatDateForDisplay(fromWhen).contains(searchString)
+                || formatDateForSave(fromWhen).contains(searchString)) {
             return this;
         }
         return null;
