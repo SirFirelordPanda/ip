@@ -93,8 +93,7 @@ public class Parser {
             return new FindCommand(searchString);
 
         } else if (fullCommand.toLowerCase().startsWith("task priority ")) {
-            Priority p = Priority.valueOf(fullCommand.substring(14).toUpperCase());
-            return new FindTaskOfPriorityCommand(p);
+            return new FindTaskOfPriorityCommand(fullCommand.substring(14).toUpperCase());
         }
         throw new UnhandledCommandException();
     }

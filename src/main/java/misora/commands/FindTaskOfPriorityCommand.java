@@ -9,16 +9,16 @@ import java.time.LocalDate;
 
 public class FindTaskOfPriorityCommand extends Command{
 
-    private final Priority priority;
+    private final String priority;
 
     /**
      * Creates a {@code FindTaskOfPriorityCommand} with the specified date.
      *
-     * @param priority The {@link LocalDate} to search tasks for
+     * @param priorityRaw The {@link LocalDate} to search tasks for
      */
-    public FindTaskOfPriorityCommand(Priority priority) {
-        assert priority != null : "priority reference should not be null";
-        this.priority = priority;
+    public FindTaskOfPriorityCommand(String priorityRaw) {
+        assert priorityRaw != null : "priority reference should not be null";
+        this.priority = priorityRaw;
     }
 
     /**
@@ -33,9 +33,14 @@ public class FindTaskOfPriorityCommand extends Command{
         assert taskList != null : "TaskList must not be null";
         assert ui != null : "Ui must not be null";
 
-        return ui.showTasksOfPriority(
-                taskList.getTasksOfPriority(priority),
-                priority
-        );
+        try {
+            Priority p = Priority.valueOf(priority);
+            return ui.showTasksOfPriority(
+                    taskList.getTasksOfPriority(p),
+                    p
+            );
+        } catch (Exception e) {
+            return ui.showError("Give a valid Priority please");
+        }
     }
 }
