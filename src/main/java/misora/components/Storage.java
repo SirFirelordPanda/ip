@@ -11,10 +11,7 @@ import misora.exceptions.CorruptedSavedTaskFileException;
 import misora.exceptions.MisoraException;
 import misora.exceptions.UnableToCloseStorageException;
 import misora.exceptions.UnableToWriteToFileException;
-import misora.tasks.Deadline;
-import misora.tasks.Event;
-import misora.tasks.Task;
-import misora.tasks.ToDo;
+import misora.tasks.*;
 
 /**
  * Represents a storage block that handles reading from and writing to
@@ -108,15 +105,31 @@ public class Storage {
                 String task = taskScanner.nextLine();
                 String[] parts = task.split("\\s*\\|\\s*");
                 try {
+                    Priority p;
+                    switch (parts[2]) {
+                    case "L":
+                        p = Priority.LOW;
+                        break;
+                    case "M":
+                        p = Priority.MEDIUM;
+                        break;
+                    case "H":
+                        p = Priority.HIGH;
+                        break;
+                    default:
+                        //set default priority
+                        p = Priority.MEDIUM;
+                    }
+
                     switch (parts[0]) {
                     case "T":
-                        listOfTasks.add(new ToDo(parts[2], parts[1].equalsIgnoreCase("X")));
+                        listOfTasks.add(new ToDo(parts[3], parts[1].equalsIgnoreCase("X"), p));
                         break;
                     case "D":
-                        listOfTasks.add(new Deadline(parts[2], parts[3], parts[1].equalsIgnoreCase("X")));
+                        listOfTasks.add(new Deadline(parts[3], parts[4], parts[1].equalsIgnoreCase("X"), p));
                         break;
                     case "E":
-                        listOfTasks.add(new Event(parts[2], parts[3], parts[4], parts[1].equalsIgnoreCase("X")));
+                        listOfTasks.add(new Event(parts[3], parts[4], parts[5], parts[1].equalsIgnoreCase("X"), p));
                         break;
                     default:
                         throw new CorruptedSavedTaskFileException();

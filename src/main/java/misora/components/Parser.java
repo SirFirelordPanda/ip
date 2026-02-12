@@ -2,19 +2,12 @@ package misora.components;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
-import misora.commands.AddCommand;
-import misora.commands.Command;
-import misora.commands.DeleteCommand;
-import misora.commands.ExitCommand;
-import misora.commands.FindCommand;
-import misora.commands.FindTaskOnDateCommand;
-import misora.commands.ListClearCommand;
-import misora.commands.ListCommand;
-import misora.commands.MarkCommand;
-import misora.commands.UnmarkCommand;
+import misora.commands.*;
 import misora.exceptions.MisoraException;
 import misora.exceptions.UnhandledCommandException;
+import misora.tasks.Priority;
 
 /**
  * Represents a parser that parses user input into executable {@link Command} objects
@@ -69,43 +62,15 @@ public class Parser {
 
         } else if (fullCommand.toLowerCase().startsWith("todo ")) {
 
-            String taskMsg = fullCommand.substring(5).trim();
-            return new AddCommand(taskMsg);
+            return AddCommandFactory.createTodo(fullCommand);
 
         } else if (fullCommand.toLowerCase().startsWith("deadline ")) {
 
-            String byWhen = "";
-            String taskMsg = "";
-            int byIndex = fullCommand.indexOf("/by");
-            if (byIndex != -1) {
-                byWhen = fullCommand.substring(byIndex + 3).trim();
-                taskMsg = fullCommand.substring(9, byIndex).trim();
-            } else {
-                taskMsg = fullCommand.substring(9).trim();
-            }
-            return new AddCommand(taskMsg, byWhen);
+            return AddCommandFactory.createDeadline(fullCommand);
 
         } else if (fullCommand.toLowerCase().startsWith("event ")) {
 
-            String fromWhen = "";
-            String toWhen = "";
-            String taskMsg = "";
-            int fromIndex = fullCommand.indexOf("/from");
-            int toIndex = fullCommand.indexOf("/to");
-            if (fromIndex != -1 && toIndex != -1) {
-                fromWhen = fullCommand.substring(fromIndex + 5, toIndex).trim();
-                toWhen = fullCommand.substring(toIndex + 3).trim();
-                taskMsg = fullCommand.substring(6, fromIndex).trim();
-            } else if (fromIndex != -1) {
-                fromWhen = fullCommand.substring(fromIndex + 5).trim();
-                taskMsg = fullCommand.substring(6, fromIndex).trim();
-            } else if (toIndex != -1) {
-                toWhen = fullCommand.substring(toIndex + 5).trim();
-                taskMsg = fullCommand.substring(6, toIndex).trim();
-            } else {
-                taskMsg = fullCommand.substring(9).trim();
-            }
-            return new AddCommand(taskMsg, fromWhen, toWhen);
+            return AddCommandFactory.createEvent(fullCommand);
 
         } else if (fullCommand.toLowerCase().startsWith("delete ")) {
 
@@ -127,6 +92,9 @@ public class Parser {
             String searchString = fullCommand.substring(5).trim();
             return new FindCommand(searchString);
 
+        } else if (fullCommand.toLowerCase().startsWith("task priority ")) {
+            Priority p = Priority.valueOf(fullCommand.substring(14).toUpperCase());
+            return new FindTaskOfPriorityCommand(p);
         }
         throw new UnhandledCommandException();
     }

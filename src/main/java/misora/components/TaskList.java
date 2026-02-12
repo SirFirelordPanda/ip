@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import misora.tasks.Priority;
 import misora.tasks.Task;
 
 /**
@@ -133,5 +134,14 @@ public class TaskList {
     public void add(Task t) {
         assert t != null : "Cannot add null task";
         this.listOfTasks.add(t);
+    }
+
+    public List<Task> getTasksOfPriority(Priority priority) {
+        assert priority != null : "Search string must not be null";
+
+        return listOfTasks.stream()
+                .map(task -> task.getPriority() == priority ? task : null)
+                .filter(Objects::nonNull)
+                .toList();
     }
 }

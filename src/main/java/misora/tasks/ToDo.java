@@ -24,6 +24,10 @@ public class ToDo extends Task {
         super(taskMsg);
     }
 
+    public ToDo(String taskMsg, Priority priority) {
+        super(taskMsg, priority);
+    }
+
     /**
      * Creates a new {@code ToDo} task with the given description and completion status.
      *
@@ -32,6 +36,10 @@ public class ToDo extends Task {
      */
     public ToDo(String taskMsg, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
+    }
+
+    public ToDo(String taskMsg, boolean isTaskDone, Priority priority) {
+        super(taskMsg, isTaskDone, priority);
     }
 
     /**

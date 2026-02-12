@@ -2,6 +2,8 @@ package misora.components;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import misora.tasks.Priority;
 import misora.tasks.Task;
 
 /**
@@ -63,7 +65,11 @@ public class Ui {
         if (tasks.isEmpty()) return "No tasks found\n";
         StringBuilder sb = new StringBuilder(header + "\n");
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(String.format("%d. %s%n", i + 1, tasks.get(i)));
+            if (i + 1 < tasks.size()) {
+                sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+            } else {
+                sb.append(String.format("%d. %s", i + 1, tasks.get(i)));
+            }
         }
         return sb.toString();
     }
@@ -171,6 +177,14 @@ public class Ui {
         assert string != null : "search string cannot be null";
 
         String header = "Tasks containing " + string + ":";
+        return formatTaskList(header, tasks);
+    }
+
+    public String showTasksOfPriority(List<Task> tasks, Priority priority) {
+        assert tasks != null : "tasks list cannot be null";
+        assert priority != null : "date cannot be null";
+
+        String header = "Tasks with priority " + priority.toString() + ":";
         return formatTaskList(header, tasks);
     }
 }

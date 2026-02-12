@@ -50,6 +50,18 @@ public class Event extends Task {
         assert toWhen != null : "toWhen must not be null after parsing";
     }
 
+    public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, Priority priority) {
+        super(taskMsg, priority);
+        assert fromWhenRaw != null : "fromWhenRaw cannot be null";
+        assert toWhenRaw != null : "toWhenRaw cannot be null";
+
+        this.fromWhen = parseDateTime(fromWhenRaw);
+        this.toWhen = parseDateTime(toWhenRaw);
+
+        assert fromWhen != null : "fromWhen must not be null after parsing";
+        assert toWhen != null : "toWhen must not be null after parsing";
+    }
+
     /**
      * Creates a new {@code Event} task with a description, start time, end time,
      * and completion status.
@@ -61,6 +73,18 @@ public class Event extends Task {
      */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
+        assert fromWhenRaw != null : "fromWhenRaw cannot be null";
+        assert toWhenRaw != null : "toWhenRaw cannot be null";
+
+        this.fromWhen = parseDateTime(fromWhenRaw);
+        this.toWhen = parseDateTime(toWhenRaw);
+
+        assert fromWhen != null : "fromWhen must not be null after parsing";
+        assert toWhen != null : "toWhen must not be null after parsing";
+    }
+
+    public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone, Priority priority) {
+        super(taskMsg, isTaskDone, priority);
         assert fromWhenRaw != null : "fromWhenRaw cannot be null";
         assert toWhenRaw != null : "toWhenRaw cannot be null";
 
