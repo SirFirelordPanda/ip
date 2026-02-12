@@ -28,6 +28,8 @@ public abstract class Task {
      */
     private boolean isTaskDone;
 
+    private Priority priority = Priority.MEDIUM;
+
     /**
      * Creates a new {@code Task} with the given description.
      * <p>
@@ -38,7 +40,12 @@ public abstract class Task {
     public Task(String taskMsg) {
         this.taskMsg = taskMsg;
         assert taskMsg != null : "taskMsg cannot be null";
+    }
 
+    public Task(String taskMsg, Priority priority) {
+        this.taskMsg = taskMsg;
+        assert taskMsg != null : "taskMsg cannot be null";
+        this.priority = priority;
     }
 
     /**
@@ -51,6 +58,13 @@ public abstract class Task {
         this.taskMsg = taskMsg;
         this.isTaskDone = isTaskDone;
         assert taskMsg != null : "taskMsg cannot be null";
+    }
+
+    public Task(String taskMsg, boolean isTaskDone, Priority priority) {
+        this.taskMsg = taskMsg;
+        this.isTaskDone = isTaskDone;
+        assert taskMsg != null : "taskMsg cannot be null";
+        this.priority = priority;
     }
 
     /**
@@ -79,7 +93,7 @@ public abstract class Task {
      * @return The formatted string representing this task
      */
     public String toString() {
-        return String.format("[%c] %s", isTaskDoneMark(), taskMsg);
+        return String.format("[%c][%s] %s", isTaskDoneMark(), priority.toString(), taskMsg);
     }
 
     /**
@@ -90,7 +104,7 @@ public abstract class Task {
      * @return The formatted string for storage
      */
     public String toSavedString() {
-        return String.format("%c | %s", isTaskDoneMark(), taskMsg);
+        return String.format("%c | %s | %s", isTaskDoneMark(), priority.toString(), taskMsg);
     }
 
     /**
@@ -170,5 +184,9 @@ public abstract class Task {
             return dt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         }
         return date.toString();
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 }

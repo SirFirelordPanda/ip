@@ -36,6 +36,13 @@ public class Deadline extends Task {
         assert byWhen != null : "byWhen must not be null after parsing";
     }
 
+    public Deadline(String taskMsg, String byWhenRaw, Priority priority) {
+        super(taskMsg, priority);
+        assert byWhenRaw != null : "byWhenRaw cannot be null";
+        this.byWhen = parseDateTime(byWhenRaw);
+        assert byWhen != null : "byWhen must not be null after parsing";
+    }
+
     /**
      * Creates a new {@code Deadline} task with a description, a raw deadline string,
      * and a flag indicating whether the task is already marked as done.
@@ -46,6 +53,13 @@ public class Deadline extends Task {
      */
     public Deadline(String taskMsg, String byWhenRaw, boolean isTaskDone) {
         super(taskMsg, isTaskDone);
+        assert byWhenRaw != null : "byWhenRaw cannot be null";
+        this.byWhen = parseDateTime(byWhenRaw);
+        assert byWhen != null : "byWhen must not be null after parsing";
+    }
+
+    public Deadline(String taskMsg, String byWhenRaw, boolean isTaskDone, Priority priority) {
+        super(taskMsg, isTaskDone, priority);
         assert byWhenRaw != null : "byWhenRaw cannot be null";
         this.byWhen = parseDateTime(byWhenRaw);
         assert byWhen != null : "byWhen must not be null after parsing";

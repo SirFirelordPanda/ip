@@ -4,10 +4,7 @@ import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
 import misora.exceptions.MisoraException;
-import misora.tasks.Deadline;
-import misora.tasks.Event;
-import misora.tasks.Task;
-import misora.tasks.ToDo;
+import misora.tasks.*;
 
 /**
  * Represents an {@code AddCommand} in the Misora application.
@@ -27,9 +24,9 @@ public class AddCommand extends Command {
      *
      * @param taskMsg The description of the task
      */
-    public AddCommand(String taskMsg) {
+    public AddCommand(String taskMsg, Priority priority) {
         assert taskMsg != null : "Task description reference should not be null";
-        this.task = new ToDo(taskMsg);
+        this.task = new ToDo(taskMsg, priority);
     }
 
     /**
@@ -38,10 +35,10 @@ public class AddCommand extends Command {
      * @param taskMsg The description of the task
      * @param byWhen The deadline of the task
      */
-    public AddCommand(String taskMsg, String byWhen) {
+    public AddCommand(String taskMsg, String byWhen, Priority priority) {
         assert taskMsg != null : "Task description reference should not be null";
         assert byWhen != null : "Deadline reference should not be null";
-        this.task = new Deadline(taskMsg, byWhen);
+        this.task = new Deadline(taskMsg, byWhen, priority);
     }
 
     /**
@@ -51,11 +48,11 @@ public class AddCommand extends Command {
      * @param fromWhen The start date/time of the event
      * @param toWhen The end date/time of the event
      */
-    public AddCommand(String taskMsg, String fromWhen, String toWhen) {
+    public AddCommand(String taskMsg, String fromWhen, String toWhen, Priority priority) {
         assert taskMsg != null : "Task description reference should not be null";
         assert fromWhen != null : "Event start time reference should not be null";
         assert toWhen != null : "Event end time reference should not be null";
-        this.task = new Event(taskMsg, fromWhen, toWhen);
+        this.task = new Event(taskMsg, fromWhen, toWhen, priority);
     }
 
     /**

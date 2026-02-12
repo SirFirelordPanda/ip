@@ -1,6 +1,5 @@
-T |   | crow
-T |   | eat shit
-T |   | cat
-E |   | kys | 2024-05-26 | 2025-07-31T12:00:00
-T |   | meow
-T |   | meow
+T |   | M | meow 3
+T |   | M | dog
+T |   | H | crow
+E |   | L | die | tmr | ytd
+T |   | M | meow
