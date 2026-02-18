@@ -4,6 +4,7 @@ import misora.components.Parser;
 import misora.commands.*;
 import misora.exceptions.MisoraException;
 import misora.exceptions.UnhandledCommandException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,37 +37,55 @@ class ParserTest {
     }
 
     @Test
+    void parse_delete_returnsDeleteCommand() throws MisoraException {
+        assertInstanceOf(DeleteCommand.class, Parser.parse("delete 3"));
+    }
+
+    @Test
     void parse_todo_returnsAddCommand() throws MisoraException {
         assertInstanceOf(AddCommand.class, Parser.parse("todo read book"));
     }
 
     @Test
     void parse_deadline_returnsAddCommand() throws MisoraException {
-        assertInstanceOf(AddCommand.class, Parser.parse("deadline submit report /by 2026-02-01"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("deadline submit report /by 2026-02-01"));
     }
 
     @Test
     void parse_event_returnsAddCommand() throws MisoraException {
-        assertInstanceOf(AddCommand.class, Parser.parse("event meeting /from 2026-02-01 /to 2026-02-02"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("event meeting /from 2026-02-01 /to 2026-02-02"));
+    }
+
+    // 🔁 UPDATED: now uses "date"
+    @Test
+    void parse_date_returnsFindTaskOnDateCommand() throws MisoraException {
+        assertInstanceOf(FindTaskOnDateCommand.class,
+                Parser.parse("date 2026-02-01"));
     }
 
     @Test
-    void parse_delete_returnsDeleteCommand() throws MisoraException {
-        assertInstanceOf(DeleteCommand.class, Parser.parse("delete 3"));
-    }
-
-    @Test
-    void parse_tasksOn_returnsFindTaskOnDateCommand() throws MisoraException {
-        assertInstanceOf(FindTaskOnDateCommand.class, Parser.parse("tasks on 2026-02-01"));
+    void parse_date_invalidFormat_throwsMisoraException() {
+        assertThrows(MisoraException.class,
+                () -> Parser.parse("date invalid-date"));
     }
 
     @Test
     void parse_find_returnsFindCommand() throws MisoraException {
-        assertInstanceOf(FindCommand.class, Parser.parse("find read book"));
+        assertInstanceOf(FindCommand.class,
+                Parser.parse("find read book"));
+    }
+
+    @Test
+    void parse_priority_returnsFindTaskOfPriorityCommand() throws MisoraException {
+        assertInstanceOf(FindTaskOfPriorityCommand.class,
+                Parser.parse("priority high"));
     }
 
     @Test
     void parse_invalidCommand_throwsUnhandledCommandException() {
-        assertThrows(UnhandledCommandException.class, () -> Parser.parse("meow"));
+        assertThrows(UnhandledCommandException.class,
+                () -> Parser.parse("meow"));
     }
 }

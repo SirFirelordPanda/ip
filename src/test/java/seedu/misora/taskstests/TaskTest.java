@@ -1,14 +1,16 @@
 package seedu.misora.taskstests;
 
 import misora.exceptions.MissingTaskMsgException;
-import misora.tasks.Deadline;
 import misora.tasks.Task;
+import misora.tasks.Priority;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//ChatGPT was used to update the test classes from what it was previously
 class TaskTest {
 
+    // Helper subclass for testing abstract Task
     public class TestTask extends Task {
 
         public TestTask(String taskMsg) {
@@ -18,19 +20,22 @@ class TaskTest {
         public TestTask(String taskMsg, boolean isDone) {
             super(taskMsg, isDone);
         }
+
+        public TestTask(String taskMsg, Priority priority) {
+            super(taskMsg, priority);
+        }
+
+        public TestTask(String taskMsg, boolean isDone, Priority priority) {
+            super(taskMsg, isDone, priority);
+        }
     }
 
-    //Constructor tests
+    // =========================
+    // Constructor tests
+    // =========================
 
     @Test
     void constructor_default_correctMark() {
-        Task task = new TestTask("read book");
-
-        assertEquals(' ', task.isTaskDoneMark());
-    }
-
-    @Test
-    void constructor_notDoneTask_correctMark() {
         Task task = new TestTask("read book");
 
         assertEquals(' ', task.isTaskDoneMark());
@@ -43,7 +48,24 @@ class TaskTest {
         assertEquals('X', task.isTaskDoneMark());
     }
 
-    //setTaskDone tests
+    @Test
+    void constructor_withPriority_correctPriority() {
+        Task task = new TestTask("read book", Priority.HIGH);
+
+        assertEquals(Priority.HIGH, task.getPriority());
+    }
+
+    @Test
+    void constructor_doneWithPriority_correctPriorityAndMark() {
+        Task task = new TestTask("read book", true, Priority.LOW);
+
+        assertEquals(Priority.LOW, task.getPriority());
+        assertEquals('X', task.isTaskDoneMark());
+    }
+
+    // =========================
+    // setTaskDone tests
+    // =========================
 
     @Test
     void setTaskDone_done_markUpdated() {
@@ -63,39 +85,45 @@ class TaskTest {
         assertEquals(' ', task.isTaskDoneMark());
     }
 
-    //toString tests
+    // =========================
+    // toString() tests
+    // =========================
 
     @Test
     void toString_notDone_correctFormat() {
-        Task task = new TestTask("read book");
+        Task task = new TestTask("read book", Priority.MEDIUM);
 
-        assertEquals("[ ] read book", task.toString());
+        assertEquals("[ ][M] read book", task.toString());
     }
 
     @Test
     void toString_done_correctFormat() {
-        Task task = new TestTask("read book", true);
+        Task task = new TestTask("read book", true, Priority.HIGH);
 
-        assertEquals("[X] read book", task.toString());
+        assertEquals("[X][H] read book", task.toString());
     }
 
-    //toSavedString tests
+    // =========================
+    // toSavedString() tests
+    // =========================
 
     @Test
     void toSavedString_notDone_correctFormat() {
-        Task task = new TestTask("read book");
+        Task task = new TestTask("read book", Priority.MEDIUM);
 
-        assertEquals("  | read book", task.toSavedString());
+        assertEquals("  | M | read book", task.toSavedString());
     }
 
     @Test
     void toSavedString_done_correctFormat() {
-        Task task = new TestTask("read book", true);
+        Task task = new TestTask("read book", true, Priority.LOW);
 
-        assertEquals("X | read book", task.toSavedString());
+        assertEquals("X | L | read book", task.toSavedString());
     }
 
-    //isValidFormat tests
+    // =========================
+    // isValidFormat tests
+    // =========================
 
     @Test
     void isValidFormat_validTask_noExceptionThrown() {
@@ -108,13 +136,12 @@ class TaskTest {
     void isValidFormat_emptyTaskMsg_throwsMissingTaskMsgException() {
         Task task = new TestTask("");
 
-        assertThrows(
-                MissingTaskMsgException.class,
-                task::isValidFormat
-        );
+        assertThrows(MissingTaskMsgException.class, task::isValidFormat);
     }
 
-    //doesTaskContainString tests
+    // =========================
+    // doesTaskContainString tests
+    // =========================
 
     @Test
     void doesTaskContainString_descriptionMatch_returnsTask() {
@@ -126,11 +153,11 @@ class TaskTest {
     }
 
     @Test
-    void doesTaskContainString_descriptionDoesNotMatch_returnsTask() {
+    void doesTaskContainString_descriptionDoesNotMatch_returnsNull() {
         Task task = new TestTask("read book");
 
         Task result = task.doesTaskContainString("submit");
 
-        assertSame(null, result);
+        assertNull(result);
     }
 }

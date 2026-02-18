@@ -46,8 +46,8 @@ class UiTest {
         taskList.add(task2);
 
         String result = ui.showList(taskList.listTasks());
-        assertTrue(result.contains("1. [T][ ] task 1"));
-        assertTrue(result.contains("2. [T][ ] task 2"));
+        assertTrue(result.contains("1. [T][ ][M] task 1"));
+        assertTrue(result.contains("2. [T][ ][M] task 2"));
     }
 
     @Test

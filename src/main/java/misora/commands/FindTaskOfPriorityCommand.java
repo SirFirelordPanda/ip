@@ -40,7 +40,7 @@ public class FindTaskOfPriorityCommand extends Command{
                     p
             );
         } catch (Exception e) {
-            return ui.showError("Give a valid Priority please");
+            return ui.showError("Invalid priority, valid priorities are: HIGH, MEDIUM, LOW");
         }
     }
 }
