@@ -189,4 +189,8 @@ public abstract class Task {
     public Priority getPriority() {
         return priority;
     }
+
+    public String getDescription() {
+        return taskMsg;
+    }
 }

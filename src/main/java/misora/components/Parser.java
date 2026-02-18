@@ -103,7 +103,7 @@ public class Parser {
 
     private static Command parseFind(String input) {
         String searchString = input.substring(5).trim();
-        return new DeleteCommand(searchString);
+        return new FindCommand(searchString);
     }
 
 

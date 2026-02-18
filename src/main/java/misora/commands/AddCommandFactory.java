@@ -1,10 +1,11 @@
 package misora.commands;
 
+import misora.exceptions.InvalidPriorityException;
 import misora.tasks.Priority;
 
 public class AddCommandFactory {
 
-    private static Priority extractPriority(StringBuilder input) {
+    private static Priority extractPriority(StringBuilder input) throws InvalidPriorityException {
         Priority priority = Priority.MEDIUM;
 
         int priorityIndex = input.indexOf("/priority");
@@ -15,15 +16,19 @@ public class AddCommandFactory {
             try {
                 priority = Priority.valueOf(priorityPart.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid priority, using MEDIUM by default.");
+                throw new InvalidPriorityException(
+                        "Invalid priority: " + priorityPart +
+                                ". Valid priorities are LOW, MEDIUM, HIGH."
+                );
             }
+
         }
 
         return priority;
     }
 
 
-    public static AddCommand createTodo(String fullCommand) {
+    public static AddCommand createTodo(String fullCommand) throws InvalidPriorityException {
         StringBuilder remaining = new StringBuilder(fullCommand.substring(5).trim());
 
         Priority priority = extractPriority(remaining);
@@ -33,7 +38,7 @@ public class AddCommandFactory {
         return new AddCommand(taskMsg, priority);
     }
 
-    public static AddCommand createDeadline(String fullCommand) {
+    public static AddCommand createDeadline(String fullCommand) throws InvalidPriorityException {
         StringBuilder remaining = new StringBuilder(fullCommand.substring(9).trim());
 
         Priority priority = extractPriority(remaining);
@@ -54,7 +59,7 @@ public class AddCommandFactory {
     }
 
 
-    public static AddCommand createEvent(String fullCommand) {
+    public static AddCommand createEvent(String fullCommand) throws InvalidPriorityException {
         StringBuilder remaining = new StringBuilder(fullCommand.substring(6).trim());
 
         Priority priority = extractPriority(remaining);

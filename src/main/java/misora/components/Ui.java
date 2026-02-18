@@ -62,13 +62,17 @@ public class Ui {
     }
 
     private String formatTaskList(String header, List<Task> tasks) {
-        if (tasks.isEmpty()) return "No tasks found\n";
         StringBuilder sb = new StringBuilder(header + "\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (i + 1 < tasks.size()) {
-                sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
-            } else {
-                sb.append(String.format("%d. %s", i + 1, tasks.get(i)));
+
+        if (tasks.isEmpty()){
+            sb.append("No tasks found\n");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                if (i + 1 < tasks.size()) {
+                    sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+                } else {
+                    sb.append(String.format("%d. %s", i + 1, tasks.get(i)));
+                }
             }
         }
         return sb.toString();

@@ -1,130 +1,85 @@
-package seedu.misora.commandstests;
+package misora.commands;
 
-import misora.commands.AddCommand;
 import misora.components.Storage;
 import misora.components.TaskList;
 import misora.components.Ui;
-import misora.tasks.Task;
+import misora.tasks.Priority;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddCommandTest {
 
-    //Stub classes
-
-    private static class StubTaskList extends TaskList {
-        boolean addCalled = false;
-
-        @Override
-        public void add(Task task) {
-            addCalled = true;
-        }
-    }
-
-    private static class StubUi extends Ui {
-        boolean showAddCalled = false;
-        boolean showErrorCalled = false;
-        String errorMessage = "";
-
-        @Override
-        public String showAddTask(Task task, TaskList taskList) {
-            showAddCalled = true;
-            return "";
-        }
-
-        @Override
-        public String showError(String message) {
-            showErrorCalled = true;
-            errorMessage = message;
-            return "";
-        }
-    }
-
-    private static class StubStorage extends Storage {
-        boolean saveCalled = false;
-
-        StubStorage() {
+    /**
+     * Dummy storage that does nothing (prevents file I/O in tests).
+     */
+    static class DummyStorage extends Storage {
+        public DummyStorage() {
             super("dummy.txt");
         }
 
         @Override
-        public void addTaskToFile(Task task, Ui ui) {
-            saveCalled = true;
+        public void addTaskToFile(misora.tasks.Task task, Ui ui) {
+            // Do nothing (avoid writing to file during test)
         }
     }
 
-    //Success cases
-
     @Test
-    void execute_validTodo_taskAddedAndSaved() {
-        AddCommand command = new AddCommand("read book");
+    void execute_addTodoTask_success() {
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new DummyStorage();
 
-        StubTaskList taskList = new StubTaskList();
-        StubUi ui = new StubUi();
-        StubStorage storage = new StubStorage();
+        AddCommand command = new AddCommand("Read book", Priority.MEDIUM);
 
-        command.execute(taskList, ui, storage);
+        String result = command.execute(taskList, ui, storage);
 
-        assertTrue(taskList.addCalled);
-        assertTrue(storage.saveCalled);
-        assertTrue(ui.showAddCalled);
-        assertFalse(ui.showErrorCalled);
+        assertEquals(1, taskList.size());
+        assertTrue(result.contains("[T][ ][M] Read book"));
     }
 
     @Test
-    void execute_validDeadline_taskAddedAndSaved() {
-        AddCommand command = new AddCommand(
-                "submit report",
-                "2026-02-01"
-        );
+    void execute_addDeadlineTask_success() {
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new DummyStorage();
 
-        StubTaskList taskList = new StubTaskList();
-        StubUi ui = new StubUi();
-        StubStorage storage = new StubStorage();
+        AddCommand command =
+                new AddCommand("Submit assignment", "2026-02-20", Priority.HIGH);
 
-        command.execute(taskList, ui, storage);
+        String result = command.execute(taskList, ui, storage);
 
-        assertTrue(taskList.addCalled);
-        assertTrue(storage.saveCalled);
-        assertTrue(ui.showAddCalled);
+        assertEquals(1, taskList.size());
+        assertTrue(result.contains("[D][ ][H] Submit assignment (by: Feb 20 2026)"));
     }
 
     @Test
-    void execute_validEvent_taskAddedAndSaved() {
-        AddCommand command = new AddCommand(
-                "project meeting",
-                "2026-02-01",
-                "2026-02-02"
-        );
+    void execute_addEventTask_success() {
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new DummyStorage();
 
-        StubTaskList taskList = new StubTaskList();
-        StubUi ui = new StubUi();
-        StubStorage storage = new StubStorage();
+        AddCommand command =
+                new AddCommand("Team meeting", "2pm", "4pm", Priority.LOW);
 
-        command.execute(taskList, ui, storage);
+        String result = command.execute(taskList, ui, storage);
 
-        assertTrue(taskList.addCalled);
-        assertTrue(storage.saveCalled);
-        assertTrue(ui.showAddCalled);
+        assertEquals(1, taskList.size());
+        assertTrue(result.contains("[E][ ][L] Team meeting (from: 2pm to: 4pm)"));
     }
 
-    //Failure cases
-
     @Test
-    void execute_invalidTodo_errorShown_taskNotAdded() {
-        AddCommand command = new AddCommand("");
+    void execute_invalidTaskFormat_returnsErrorMessage() {
+        TaskList taskList = new TaskList();
+        Ui ui = new Ui();
+        Storage storage = new DummyStorage();
 
-        StubTaskList taskList = new StubTaskList();
-        StubUi ui = new StubUi();
-        StubStorage storage = new StubStorage();
+        AddCommand command = new AddCommand("", Priority.MEDIUM);
 
-        command.execute(taskList, ui, storage);
+        String result = command.execute(taskList, ui, storage);
 
-        assertFalse(taskList.addCalled);
-        assertFalse(storage.saveCalled);
-        assertFalse(ui.showAddCalled);
-        assertTrue(ui.showErrorCalled);
-        assertFalse(ui.errorMessage.isEmpty());
+        assertEquals(0, taskList.size());
+        assertTrue(result.toLowerCase().contains("whoopsie!!"));
     }
 }
