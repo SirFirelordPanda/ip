@@ -1,8 +1,2 @@
-T |   | M | meow 3
-T |   | M | dog
-E |   | L | die | tmr | ytd
-T |   | M | Read Book
-E |   | L | Team meeting | 2pm | 4pm
-T |   | M | Read book
-T |   | M | readbook /prority meow
-T |   | M | readbook
+T |   | H | meow
+E |   | M | woof | 2026-02-18T18:41:00 | 2026-03-18
