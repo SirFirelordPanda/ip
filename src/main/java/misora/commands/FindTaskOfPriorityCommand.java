@@ -5,16 +5,20 @@ import misora.components.TaskList;
 import misora.components.Ui;
 import misora.tasks.Priority;
 
-import java.time.LocalDate;
-
-public class FindTaskOfPriorityCommand extends Command{
+/**
+ * Represents a {@code FindTaskOnPriorityCommand} in the Misora application.
+ * <p>
+ * A {@code FindTaskOnPriorityCommand} displays all tasks in the {@link TaskList}
+ * that have the specified {@link Priority}.
+ */
+public class FindTaskOfPriorityCommand extends Command {
 
     private final String priority;
 
     /**
-     * Creates a {@code FindTaskOfPriorityCommand} with the specified date.
+     * Creates a {@code FindTaskOfPriorityCommand} with the specified priority.
      *
-     * @param priorityRaw The {@link LocalDate} to search tasks for
+     * @param priorityRaw The {@link Priority} to search tasks for
      */
     public FindTaskOfPriorityCommand(String priorityRaw) {
         assert priorityRaw != null : "priority reference should not be null";

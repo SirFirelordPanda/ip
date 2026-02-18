@@ -28,7 +28,7 @@ public class Ui {
      * @return the welcome message string
      */
     public String showWelcome() {
-        return GREETING ;
+        return GREETING;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Ui {
     private String formatTaskList(String header, List<Task> tasks) {
         StringBuilder sb = new StringBuilder(header + "\n");
 
-        if (tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             sb.append("No tasks found\n");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
@@ -184,6 +184,13 @@ public class Ui {
         return formatTaskList(header, tasks);
     }
 
+    /**
+     * Returns a formatted list of tasks that contain a specific search string.
+     *
+     * @param tasks the list of tasks with the priority
+     * @param priority the priority to search for
+     * @return a string listing tasks that hae the specified priority, or a message if none exist
+     */
     public String showTasksOfPriority(List<Task> tasks, Priority priority) {
         assert tasks != null : "tasks list cannot be null";
         assert priority != null : "date cannot be null";

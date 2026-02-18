@@ -11,7 +11,7 @@ import misora.exceptions.MissingTaskMsgException;
 /**
  * Represents a generic task in the Misora application.
  * <p>
- * A {@code Task} contains a description, a completion status, and
+ * A {@code Task} contains a description, a completion status, a priority level and
  * provides methods for formatting its representation for display
  * and storage. Subclasses may extend {@code Task} to include additional
  * attributes such as deadlines or event dates.
@@ -42,6 +42,14 @@ public abstract class Task {
         assert taskMsg != null : "taskMsg cannot be null";
     }
 
+    /**
+     * Creates a new {@code Task} with the given description.
+     * <p>
+     * The task is initially not done.
+     *
+     * @param taskMsg The description of the task
+     * @param priority The priority of the task
+     */
     public Task(String taskMsg, Priority priority) {
         this.taskMsg = taskMsg;
         assert taskMsg != null : "taskMsg cannot be null";
@@ -60,6 +68,13 @@ public abstract class Task {
         assert taskMsg != null : "taskMsg cannot be null";
     }
 
+    /**
+     * Creates a new {@code Task} with the given description and completion status.
+     *
+     * @param taskMsg The description of the task
+     * @param isTaskDone {@code true} if the task is completed, {@code false} otherwise
+     * @param priority The priority of the task
+     */
     public Task(String taskMsg, boolean isTaskDone, Priority priority) {
         this.taskMsg = taskMsg;
         this.isTaskDone = isTaskDone;
@@ -186,10 +201,26 @@ public abstract class Task {
         return date.toString();
     }
 
+    /**
+     * Returns the priority level of this task.
+     *
+     * <p>If no priority was explicitly specified during construction,
+     * {@link Priority#MEDIUM} is used as the default.
+     *
+     * @return The {@link Priority} assigned to this task.
+     */
     public Priority getPriority() {
         return priority;
     }
 
+    /**
+     * Returns the description of this task.
+     *
+     * <p>The description represents the main content provided by the user
+     * when creating the task.
+     *
+     * @return The task description.
+     */
     public String getDescription() {
         return taskMsg;
     }

@@ -50,6 +50,14 @@ public class Event extends Task {
         assert toWhen != null : "toWhen must not be null after parsing";
     }
 
+    /**
+     * Creates a new {@code Event} task with a description, start time, and end time.
+     *
+     * @param taskMsg The description of the event
+     * @param fromWhenRaw The start time of the event (can be parsed as {@link LocalDateTime} or {@link LocalDate})
+     * @param toWhenRaw The end time of the event (can be parsed as {@link LocalDateTime} or {@link LocalDate})
+     * @param priority The priority of the event
+     */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, Priority priority) {
         super(taskMsg, priority);
         assert fromWhenRaw != null : "fromWhenRaw cannot be null";
@@ -83,6 +91,16 @@ public class Event extends Task {
         assert toWhen != null : "toWhen must not be null after parsing";
     }
 
+    /**
+     * Creates a new {@code Event} task with a description, start time, end time,
+     * and completion status.
+     *
+     * @param taskMsg The description of the event
+     * @param fromWhenRaw The start time of the event
+     * @param toWhenRaw The end time of the event
+     * @param isTaskDone {@code true} if the task is completed, {@code false} otherwise
+     * @param priority The priority of the event
+     */
     public Event(String taskMsg, String fromWhenRaw, String toWhenRaw, boolean isTaskDone, Priority priority) {
         super(taskMsg, isTaskDone, priority);
         assert fromWhenRaw != null : "fromWhenRaw cannot be null";

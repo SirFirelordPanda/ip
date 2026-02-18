@@ -4,9 +4,14 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import misora.Misora;
 
 /**
@@ -20,16 +25,16 @@ import misora.Misora;
 public class MainWindow {
 
     private static final String USER_STYLE =
-            "-fx-background-color: #3A3A3A; " +
-                    "-fx-text-fill: white; " +
-                    "-fx-padding: 8; " +
-                    "-fx-background-radius: 8;";
+            "-fx-background-color: #3A3A3A; "
+                    + "-fx-text-fill: white; "
+                    + "-fx-padding: 8; "
+                    + "-fx-background-radius: 8;";
 
     private static final String BOT_STYLE =
-            "-fx-background-color: #2D2D2D; " +
-                    "-fx-text-fill: #E0E0E0; " +
-                    "-fx-padding: 8; " +
-                    "-fx-background-radius: 8;";
+            "-fx-background-color: #2D2D2D; "
+                    + "-fx-text-fill: #E0E0E0; "
+                    + "-fx-padding: 8; "
+                    + "-fx-background-radius: 8;";
 
     /**
      * Scrollable container that holds the chat messages.
@@ -69,10 +74,10 @@ public class MainWindow {
 
         scrollPane = new ScrollPane(chatBox);
         scrollPane.setStyle(
-                "-fx-background: #1E1E1E;" +
-                        "-fx-background-color: #1E1E1E;" +
-                        " -fx-padding: 0;" +
-                        " -fx-control-inner-background: #1E1E1E;"
+                "-fx-background: #1E1E1E;"
+                        + "-fx-background-color: #1E1E1E;"
+                        + " -fx-padding: 0;"
+                        + " -fx-control-inner-background: #1E1E1E;"
         );
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -157,7 +162,9 @@ public class MainWindow {
 
         HBox box = isBot ? new HBox(10, icon, label) : new HBox(10, label, icon);
         box.setAlignment(isBot ? Pos.CENTER_LEFT : Pos.CENTER_RIGHT);
-        if (!isBot) box.setPadding(new Insets(0, 10, 0, 0));
+        if (!isBot) {
+            box.setPadding(new Insets(0, 10, 0, 0));
+        }
 
         assert chatBox != null : "chatBox should not be null when adding user message";
         chatBox.getChildren().add(box);
